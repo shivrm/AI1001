@@ -1,0 +1,362 @@
+\documentclass{article}
+\usepackage[preprint]{neurips_2024}
+\usepackage{amsmath}
+
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\softmax}{softmax}
+\DeclareMathOperator*{\softplus}{softplus}
+\DeclareMathOperator*{\ReLU}{ReLU}
+
+\renewcommand{\vec}[1]{\textbf{#1}}
+\newcommand{\pdv}[2]{\frac{\partial{#1}}{\partial{#2}}}
+
+\author{Shivram S \\ \texttt{ai24btech11031@iith.ac.in}}
+\title{AI1001 - Assignment 14}
+
+\begin{document}
+\maketitle
+
+\section{Recurrent Neural Networks}
+
+\textbf{Recurrent neural networks} (RNNs) allow cycles in computation graphs. Units 
+may take as input values computed from their own output at an earlier step. This allows
+the RNN to have internal state or \textbf{memory}.
+
+RNNs can be used as tools for analyzing sequential data, similar to hidden Markov models,
+dynamic Bayesian networks, and Kalman filters. RNNs make a \textbf{Markov assumption}:
+that the hidden state $\vec{z}_t$ of the network captures information from all previous
+inputs. Additionally, the function $f_{\vec{w}}$ in the RNN's update process
+$\vec{z}_t = f_{\vec{w}}(\vec{z}_{t-1}, \vec{x}_t)$ must represent a
+\textbf{time-homogeneous} process.
+
+If we used a feedforward network to analyze sequential data, the network could examine
+only a finite-length window of the data, and the network would fail to detect
+long-distance dependencies. RNNs address this by keeping track of previous inputs
+in the hidden state.
+ 
+\subsection{Training an RNN}
+
+We will consider a model with an input later $\vec{x}$ a hidden layer $\vec{z}$ with
+recurrent connections, and an output layer $\vec{y}$. We can define the model using the
+equations:
+
+\begin{align*}
+\vec{z}_t  &= f_{\vec{w}}(\vec{z}_{t-1}, \vec{z}_t) = \vec{g}_z(\vec{W}_{z,z}\vec{z}_{t-1} + \vec{W}_{x,z}\vec{x}_y) \equiv \vec{g}_z(\vec{in}_{z,t})\\
+\mathbf{\hat y}_t &= \vec{g}_y(\vec{W}_{z,y}\vec{z}_t) \equiv \vec{g}_y(\vec{in}_{y,t})
+\end{align*}
+
+Given a sequence of input vectors $\vec{x}_1, \dots, \vec{x}_T$ and the observed
+outputs $\vec{y}_1, \dots, \vec{y}_T$, We can ``unroll'' the RNN into a feedforward
+network. The weight matrices are shared across all time steps. We can calculate gradients
+to train the weights using gradient descent, but the sharing of weights makes the
+computation a little more complicated. For example, to calculate the gradient for the
+hidden layer weight $w_{z,z}$
+
+\begin{align*}
+    \pdv{L}{w_{z,z}} &= \sum_{t=1}^T -2(y_t - \hat y_t) \pdv{\hat y_t}{w_{z,z}} \\
+    &= \sum_{t=1}^T -2(y_t - \hat y_t) \pdv{}{w_{z,z}} g_y(in_{y,t}) \\
+    &= \sum_{t=1}^T -2(y_t - \hat y_t)g_y'(in_{y,t}) w_{z,y} \pdv{z_t}{w_{z,z}}
+\end{align*}
+
+We can now calculate the gradient for the hidden unit $z_t$ as
+
+\[
+\pdv{z_t}{w_{z,z}} = \pdv{}{w_{z,z}} g_z(in_{z,t}) = g_z'(in_{z,t}) \left(z_{t-1} + w_{z,z} \pdv{z_{t-1}}{w_{z,z}} \right)
+\]
+
+Since the contribution to the gradient from time step $t$ is calculated using the
+contribution from time step $t - 1$, the algorithm runs in linear time and is called 
+\textbf{back-propagation through time}.
+
+If $w_{z,z} > 1$, we may experience the \textbf{exploding gradient problem}. This can
+be mitigated using more elaborate RNN design.
+
+\subsection{Long short-term memory RNNs}
+
+\textbf{Long short-term memory} (LSTM) RNNs are architectures designed to preserve
+information over many time steps. The long term memory has a \textbf{memory cell},
+$\vec{c}$, which is copied from time step to time step. New information enters the
+memory by adding updates. LSTMs also include \textbf{gating units} that control
+the flow of information.
+
+\begin{itemize}
+    \item The \textbf{forget gate} $\vec{f}$ determines if each element of the memory
+    cell is remembered or forgotten.
+    \item The \textbf{input gate} $\vec{i}$ determines if each element of the memory
+    cell is updated additively by new information from the input vector.
+    \item The \textbf{output gate} $\vec{o}$ determines if each element of the memory
+    cell is transferred to the short-term memory $z$.
+\end{itemize}
+
+Unlike Boolean functions, gates in LSTM are soft. For example, elements of the memory
+cell will be partially forgotten if the elements of $\vec{f}$ are small, but not zero.
+Values of gating units are always in the range $[0, 1]$ as they are obtained as outputs
+of a sigmoid function. We can write the update equations for the gating units as:
+
+\begin{align*}
+\vec{f}_t &= \sigma(\vec{W}_{x,f}\vec{x}_t + \vec{W}_{z,f}\vec{z}_{t-1}) \\
+\vec{i}_t &= \sigma(\vec{W}_{x,i}\vec{x}_t + \vec{W}_{z,i}\vec{z}_{t-1}) \\
+\vec{o}_t &= \sigma(\vec{W}_{x,o}\vec{x}_t + \vec{W}_{z,o}\vec{z}_{t-1})
+\end{align*}
+
+The update rules for the memory are given by
+
+\begin{align*}
+\vec{c}_t &= \vec{f}_t \odot \vec{c}_{t-1} + \vec{i}_t \odot \tanh(\vec{W}_{x,c} \vec{x}_t + \vec{W}_{z,c} \vec{z}_{t-1})  \\
+\vec{z}_t &= \vec{o}_t \odot \tanh(\vec{c}_t)
+\end{align*}
+
+where $\odot$ denotes elementwise multiplication.
+
+\section{Unsupervised Learning}
+
+Supervised learning algorithms are given a training set of inputs and corresponding
+outputs. Unsupervised learning algorithms, on the other hand, take a training set
+of unlabeled examples $\vec{x}$. The algorithm might try to learn new representations,
+or it might learn a generative model from which new samples can be generated.
+
+Suppose we learn a joint model $P_W(\vec{x}, \vec{z})$ where $\vec{z}$ is a set of
+latent, unobserved variables that represent the content of $\vec{x}$ in some way.
+The model can associate $\vec{z}$ with $\vec{x}$ however it chooses. The model
+can achieve both \textbf{representation learning} (constructing meaningful $\vec{z}$ from
+$\vec{x}$) and \textbf{generative modelling} (determining $P_W(\vec{x})$)
+
+\subsection{Probabilistic PCA}
+
+In a \textbf{probabilistic principal component analysis} (PPCA), $\vec{z}$ is chosen
+from a zero-mean, spherical Gaussian. $\vec{x}$ is generated from $\vec{z}$ by applying
+a weight matrix $\vec{W}$ and adding spherical Gaussian noise (with noise parameter
+$\sigma^2$). The weights can be learnt by maximizing the likelihood of the data.
+
+\[
+P_W(\vec{x}) = \int P_W(\vec{x}, \vec{z}) = \mathcal{N}(\vec{x}; \vec{0}, \vec{W}\vec{W}^\top + \sigma^2\vec{I})
+\]
+
+This can be done by gradient methods, or by an efficient EM algorithm. Once $\vec{W}$
+has been learned, new data samples can be generated directly from $P_W(\vec{x})$.
+Additionally, new observations that have very low probability can be flagged as 
+potential anomalies.
+
+The dimensionality of $\vec{z}$ is much less than the dimensionality of $\vec{x}$,
+so the model learns to explain the data in terms of a small number of features. These
+features can be extracted for use in classifiers by computing $\mathbf{\hat z}$, the
+expectation of $P_W(\vec{z} | \vec{x})$.
+
+We can generate data from a PPCA model by sampling $\vec{z}$ from the Gaussian prior,
+then sampling $\vec{x}$ from a Gaussian with mean $\vec{Wz}$. 
+
+\subsection{Autoencoders}
+
+An \textbf{autoencoder} is a model containing two parts: an encoder that maps from
+$\vec{x}$ to a representation $\mathbf{\hat z}$, and a decoder that maps from
+$\mathbf{\hat z}$ to observed data $\vec{x}$. The model is trained so that
+$\vec{x} \approx g(f(\vec{x}))$, where $f$ is the encoder function, and $g$ is the
+decoder function. $f$ and $g$ may be simple linear models, or they can be represented
+by a deep neural network.
+
+The linear autoencoder is a simple autoencoder where:
+
+\begin{align*}
+    \mathbf{\hat z} &= f(\vec{x}) = \vec{W} \vec{x} \\
+    \vec{x} &= g(\mathbf{\hat z}) = \vec{W}^\top \mathbf{\hat z}
+\end{align*}
+
+This model can be trained by minimizing the squared error. The idea is to train 
+$\vec{W}$ so that a low-dimensional $\mathbf{\hat z}$ will retain as much information
+as possible to reconstruct $\vec{x}$.
+
+When $\vec{z}$ is $m$-dimensional, $\vec{W}$ must learn to span the $m$ principal
+components of the data, which are the $m$ eigenvectors that have the largest
+eigenvalues. Thus, the linear autoencoder turns out to be closely connected to
+classical PCA.
+
+The correspondence between classical PCA models and linear autoencoders suggest that
+there might be a way to capture more complex kinds of generative models using more
+complex autoencoders. The \textbf{variational autoencoder} (VAE) provides one way
+to do it.The idea is to use a \textbf{variational posterior} $Q(\vec{z})$ drawn from
+a computationally tractable family of distributions as an approximation to
+the true posterior.
+
+$Q$ is optimized to be ``as close as possible'' to the true distribution $P(\vec{z} | \vec{x})$.
+This is done by minimizing KL divergence:
+
+\[
+D_{KL}(Q(\vec{z}) \Vert P(\vec{z} | \vec{x})) = \int Q(\vec{z}) \log \frac{Q(\vec{z})}{P(\vec{z} | \vec{x})} d\vec{z}
+\]
+
+KL divergence is zero when $Q$ and $P$ conincide, and positive otherwise. We can define
+the \textbf{variational lower bound} or \textbf{evidence lower bound} (ELBO), $\mathcal L$ as
+
+\[
+\mathcal L(\vec{x}, Q) = \log P(\vec{x}) - D_{KL}(Q(\vec{x}) \Vert P(\vec{z} | \vec{x}))
+\]
+
+Variational learning maximizes $\mathcal L$ in the hope that the solution will be
+close to maximizing $\log P(\vec{x})$. We may rewrite the expression for $\mathcal L$
+as 
+
+\[
+\mathcal L = H(Q) + \vec{E}_{\vec{z} \sim Q} \log P(\vec{z}, \vec{x})
+\]
+
+For some $Q$ (such as Gaussian distributions), $H(Q)$ can be evaluated analytically.
+$\vec{E}_{\vec{z} \sim Q} \log P(\vec{z}, \vec{x})$ can be estimated using samples of
+$\vec{z}$ from $Q$. $P(\vec{z}, \vec{x})$ can usually be evaluated efficiently: for example
+if $P$ is a Bayes net, then $P(\vec{z}, \vec{x})$ is just a product of conditional
+probabilities.
+
+\subsection{Deep autoregressive models}
+
+An \textbf{autoregressive model} is one in which each element of the data vector is
+predicted based on other elements of the vector. If $\vec{x}$ is of fixed size,
+an AR model can be thought of as a fully observable and possibly fully connected Bayes
+net. This makes it easy to calculate the likelihood of a given data vector, and to
+predict the value of a simple missing variable, given all others.
+
+AR models are commonly used in the analysis of time series data, where an AR model
+of order $k$ predicts $x_t$ given $x_{t-k}, \dots, x_{t-1}$. Hence, an $n$-gram
+model is an AR model of order $n-1$.
+
+In classical AR models, the conditional distribution $P(x_t | x_{t-k}, \dots, x_{t-1})$
+is a linear Gaussian model with a fixed variance whose mean is a weighted
+linear combination of $x_{t-k}, \dots, x_{t-1}$, i.e., a standard
+linear regression model. The maximum likelihood is given by the
+\textbf{Yule-Walker} equations.
+
+A \textbf{deep autoregressive model} is one in which the linear Gaussian
+model is replaced by an arbitrary deep network with a suitable output
+layer. Recent applications of deep autoregressive models include DeepMind'S
+WaveNet speech generation model, which implements a nonlinear AR model 
+of order 4800 with a convolutional structure.
+
+\subsection{Generative adversarial networks}
+
+A \textbf{generative adversarial network} (GAN) is a pair of networks: a
+\textbf{generator} which maps values from $\vec{z}$ to $\vec{x}$ to produce samples
+from $P_W(\vec{x})$, and a \textbf{discriminator}, which is a classifier trained to
+classify $\vec{x}$ as real (from the training set), or fake (created by the generator).
+GANs are \textbf{implicit models}, in that samples can be generated, but probabilities
+are not available. 
+
+The generator of a GAN is closely related to the decoder of a VAE. Both the generator
+and the discriminator are trained simultaneously. The competition between generator
+and discriminator can be described using game theory. The idea is that in the 
+equilibrium state, the generator should reproduce the training distribution perfectly,
+so that the discriminator can't perform better than random guessing.
+
+GANs have worked particularly well for image-generation tasks.
+
+\subsection{Unsupervised translation}
+
+Translation tasks involves multidimensional data such as images and natural language 
+which have statistical dependence between the various dimensions. Such data is said
+to have ``rich structure.'' Translation tasks consist of transforming an input
+$\vec{x}$ that has rich structure to an output $\vec{y}$ that also has rich structure.
+
+In supervised translation, the data consists of many $(\vec{x}, \vec{y})$ pairs,
+and the model maps each $\vec{x}$ to the corresponding $\vec{y}$. Unsupervised
+translation trains on many $\vec{x}$ and separate $\vec{y}$, but no corresponding
+$(\vec{x}, \vec{y})$ pairs. 
+
+Most unsupervised translation approaches are based on GANs. The GAN training framework
+makes it possible to train a generator that generates any of the possible samples that the
+the discriminator accepts as a realistic example of $\vec{y}$ given $\vec{x}$, without
+any need for a specific paired $\vec{y}$.
+
+\subsection{Transfer learning and multitask learning}
+
+In \textbf{transfer learning}, experience with one learned task helps an agent learn
+better on another task. We may take a network trained for a task A, and update its 
+weights using gradient descent for task B. We may use a smaller learning rate 
+in task B, depending on the similarity of the tasks, and how much data was used
+in task A.
+
+There are many high-quality pre-trained models available, which has contributed to 
+the popularity of transfer learning. For example, using a pre-trained visual object
+TODO: AR models
+recognition model such as ResNet-50 can help with identification of relevant features,
+thus saving weeks of training time.
+
+If the tasks are very similar, we might also freeze the first few layers of the model
+as they serve as feature
+detectors that will be useful for the new model. The later layers are the ones that
+identify problem-specific features.
+
+In natural language processing, models such as RoBERTa are pre-trained on the
+vocabulary and syntax of everyday language. Such models can be fine-tuned with
+domain-specific vocabulary, and trained on task-specific data. For example,
+a model for answering questions might be trained on question/answer pairs.
+
+The controller for a self-driving car might be trained on a simulator, but in the real
+world, the environment can vary greatly. The model can be fine-tuned with real-time
+data from an actual vehicle, and thus it can adapt quickly to the new environment.
+
+\textbf{Multitask learning} is a form of transfer learning in which we simultaneously
+train a model on multiple objectives. This allows the model to create a ``common 
+representation'' that reflects similarities between the tasks. For example, a natural
+language model might be trained simultaneously on part-of-speech tagging, document
+classification, language detection, word prediction, etc.
+
+\section{Applications}
+
+\subsection{Vision}
+
+Computer vision is the application area which had the biggest impact on deep learning.
+Deep convolutional networks have been used in handwriting recognition, speech 
+generation, etc.
+
+Deep learning was popularized by the AlexNet image classification system, which
+managed to achieve an error rate of 15.3\% on the ImageNet competition. The model 
+had five convolutional layers, interspersed with max-pooling layers, followed by three 
+fully connected layers. It took advantage of GPUs to speed up the training process.
+
+Since 2012, the top-5 error rate on ImageNet has been reduced to less than 2\%.
+CNNs have been applied in a wide range on visual tasks. Self driving is among the
+most demanding of visual tasks.
+
+\subsection{Natural language processing}
+
+Deep learning has had a huge impact on tasks such as translation and speech recognition.
+There is the possibility of end-to-end learning and automatic generation of representations
+for the meanings of words.
+
+In translation tasks, the classical pipeline approach, which corresponds to how a 
+human translator works, is outperfoemd by end-to-end methods. Machine translation
+systems are approaching human performance for languages pairs such as French
+and English, which have large paired data sets available.
+
+There is some evidence that networks trained on multiple languages lean an internal
+meaning representations. For example, learning Portuguese/English and English/Spanish
+translations have allowed models to perform Portuguese/Spanish translations without
+any Portuguese/Spanish training pairs.
+
+The representation of words as vectors in a high-dimensional space, known as
+\textbf{word embeddings}, has shown promise. Because words with similar meanings
+are used in similar contexts, they end up near each other in the vector space. 
+This allows the network to generalize across categories of words.
+
+\subsection{Reinforcement learning}
+
+In reinforcement learning (RL), an agent learns from a series of
+reward signals that provide some indication to the quality of its 
+behavior. The goal is to optimize the sum of future rewards. The
+agent can learn a value function, a $Q$-function, a policy, and so on.
+
+While the methods of training in RL differ from those of supervised
+learning, the ability of multilayer computation graphs to represent
+complex functions over large input spaces has lead to the development
+of the field of \textbf{deep reinforcement learning}.
+
+The first major demonstration of deep RL was DeepMind's Atari playing
+agent, DQN. The agent learnt a Q-function from raw image data, with the
+reward signal begin the game score. DeepMind's AlphaGo system also
+used deep RL to defeat the best human players at the game of Go.
+
+Despite its successes, deep RL still faces significant obstacles. It is
+often difficult to get good performance, and trained systems may
+behave very unpredictably if the environment differs even a little
+from training data.
+
+
+
+\end{document}

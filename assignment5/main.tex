@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage[preprint]{neurips_2024}
+
+\author{Shivram S \\ \texttt{ai24btech11031@iith.ac.in}}
+\title{AI1001 - Assignment 5}
+
+\begin{document}
+\maketitle
+
+The sharp rise in computing power over the years has given
+us several new tools for scientific computation. Systems such
+as Magma and Mathematica are used for symbolic computation.
+SAT (satisfiability) and SMT (satisfiability modulo theory)
+solvers are used for making logical deductions from hypotheses.
+
+Many promising uses of computers are also emerging, such as
+machine learning, proof assistants, and large language models (LLMs).
+
+\section{Proof Assistants in Mathematics}
+
+The first machine-generated proof was a proof of the
+\textbf{four-color theorem}. This proof involved reducing
+a graph to one of a few thousand cases, and showing that
+each of these cases was four-colorable. Showing the
+colourability of each of these cases was tedious, and
+a computer greatly simplified the process.
+
+Proof assistants are programs that verify the correctness
+of a proof using logical deduction based on predefined rules.
+\textbf{Lean} and \textbf{Coq} are two widely used proof assistants.
+They include a library of pre-proved lemmas which simplify
+the creation of new proofs
+
+Proof assistants can be used to explore proofs that are beyond
+human intuition, existing literature, and connections to
+other ways of thinking. They can be used in tandem with AI to 
+find new proof strategies and to automatically generate simple proofs.
+
+
+\section{Machine Learning in Mathematics}
+
+Machine learning has been used to discover unintuitive mathematical
+relations. For example, it was used in knot theory to discover the
+relation between the hyperbolic invariants and the signature of a knot.
+
+The authors trained a neural network on a database of two million knots
+to predict the signature of a knot based on its hyperbolic invariants.
+Then, based on a \textbf{saliency analysis}
+(checking the sensitivity of the network to perturbations of a parameter),
+they determined that the signature depends mostly on three out of the
+three dozen parameters. This allowed them to propose a conjecture that
+explained the relation.
+
+\section{LLMs in Mathematics}
+
+LLMs show promise in suggesting proof strategies and generating simple
+proofs. An LLM can be connected to traditional tools like WolframAlpha to boost
+its power to do mathematics. By making an LLM produce output in a proof
+assistant language, we can ensure some level of correctness. Conversing
+with the model can also stimulate mathematical thought indirectly
+by suggesting proof approaches.
+
+Tools such as GitHub Copilot have shown moderate productivity increase
+when writing code. More advanced tools such as Lean Copilot are in development
+to suggest proofs for short mathematical statements, using proof assistants
+to filter out hallucinations and provide feedback to the AI.
+
+\end{document}
