@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>AI1001 - Assignment 6</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (https://tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (https://tug.org/tex4ht/)"> 
+<!-- html --> 
+<meta name="src" content="assignment6.tex"> 
+<link rel="stylesheet" type="text/css" href="style.css"> 
+</head><body 
+>
+<div class="maketitle">_______________________________________________________________________________________________________________________________________________________________
+
+<h2 class="titleHead">AI1001 - Assignment 6</h2>_____________________________________________________
+          <div class="author" ><span 
+class="ptmb7t-">Shivram S</span><br /><span 
+class="cmtt-10">ai24btech11031@iith.ac.in</span></div>
+<br />
+
+       <hr class="float"><div class="float" 
+>
+
+       <span 
+class="ptmr7t-x-x-90">Preprint. Under review.</span>
+
+       </div><hr class="endfloat" />
+       </div>
+       <h3 class="sectionHead"><span class="titlemark">1    </span> <a 
+ id="x1-10001"></a>Agents and Environments</h3>
+       <!--l. 12--><p class="noindent" >An <span 
+class="ptmb7t-">agent</span>s a system that perceives its environment through sensors and acts upon the environment using
+       actuators. What is perceived by the sensors is called <span 
+class="ptmb7t-">percept</span>and the complete history of percepts is called
+       the agent&#8217;s <span 
+class="ptmb7t-">percept sequence</span>An agent&#8217;s behaviour is described by an <span 
+class="ptmb7t-">agent function </span>that maps percepts to
+       actions. This is implemented by an <span 
+class="ptmb7t-">agent program</span>
+       <!--l. 18--><p class="noindent" >A rational agent is one that does the <span 
+class="ptmb7t-">right thing</span>There are different notions of what the &#8220;right thing&#8221;, but AI
+       generally uses the notion of <span 
+class="ptmb7t-">consequentialism </span>each action sequence of the agent is assigned some
+       <span 
+class="ptmb7t-">desirability</span>which is used as a performance measure.
+       <!--l. 23--><p class="noindent" >It can be quite hard to formulate a performance measure correctly. For a vacuum cleaner, we might measure
+       performance by the amount of dirt cleaned, but an agent might exploit it by creating more dust to maximize
+       its performance metric.
+       <!--l. 27--><p class="noindent" >Rationality depends on four factors - the performance measure, the agent&#8217;s prior knowledge, the allowed
+       actions, and the agent&#8217;s percept sequence. Rationality maximizes an agent&#8217;s expected performance, but the
+       actual outcome of actions can not be predicted, i.e., rationality is not omniscience. In order to reduce risk of
+       accident, an agent should gather information through exploration, and learn as much as possible from what
+       it perceives.
+       <!--l. 33--><p class="noindent" >If an agent relies on the designer&#8217;s prior knowledge rather than its own percepts and learning processes, we
+       say that the agent lacks autonomy. A rational agent should be autonomous, but does not require complete
+       autonomy from the start. It may be provided with some initial knowledge as well as an ability to learn. After
+       sufficient experience of its environment, the behaviour of a rational agent can become effectively
+       independent of its prior knowledge.
+       <!--l. 40--><p class="noindent" >
+       <h3 class="sectionHead"><span class="titlemark">2    </span> <a 
+ id="x1-20002"></a>Nature of Environments</h3>
+       <!--l. 42--><p class="noindent" >When designing an agent, we must consider four attributes - the performance measure, the environment,
+       the actuators and the sensors. For example, a self-driving car might be expected to get to the
+       correct destination, minimize traffic violations, minimize trip time and cost, and maximise
+       safety and passenger comfort. Some of these goals conflict, and the agent will have to make
+       tradeoffs.
+       <!--l. 48--><p class="noindent" >The environment for a self-driving car may vary from small lanes to freeways, and the roads may contain
+       obstacles. The actuators might be an accelerator, a steering, breaking, and a screen to communicate
+       with passengers. The sensors for the car might include video cameras, lidar and ultrasound
+       sensors.
+       <!--l. 53--><p class="noindent" >Environments may be classified into several categories:
+              <ul class="itemize1">
+              <li class="itemize">
+              <!--l. 56--><p class="noindent" >In  a  <span 
+class="ptmb7t-">fully  observable</span>nvironment,  the  agent  has  access  to  the  complete  state  of  the
+              environment, but not in a <span 
+class="ptmb7t-">partially observable</span>nvironment. If an agent has no sensor, then
+              the environment is unobservable.
+              </li>
+              <li class="itemize">
+              <!--l. 59--><p class="noindent" >If  one  agent  maximizing  its  performance  measure  leads  to  another  agent  minimizing
+              its   performance   measure,   then   the   environment   is   said   to   be   <span 
+class="ptmb7t-">competitive</span>If   some
+
+              action  collectively  maximizes  the  performance  measure  then  the  environment  may  be
+              <span 
+class="ptmb7t-">co-operative</span>
+              </li>
+              <li class="itemize">
+              <!--l. 63--><p class="noindent" >If  the  agent  can  determine  the  next  state  of  the  environment  from  the  current  state
+              and  its  action,  then  the  environment  is  said  to  be  <span 
+class="ptmb7t-">deterministic  </span>otherwise  it  is  said
+              to  be  <span 
+class="ptmb7t-">non-deterministic</span>A  non-deterministic  environment  is  said  to  be  <span 
+class="ptmb7t-">stochastic</span>f  the
+              probabilities for each outcome can be quantified.
+              </li>
+              <li class="itemize">
+              <!--l. 68--><p class="noindent" >Environments with one agent are called <span 
+class="ptmb7t-">single-agent</span>nd those with more than one agent are
+              said called <span 
+class="ptmb7t-">multi-agent</span>nvironments.
+              </li>
+              <li class="itemize">
+              <!--l. 70--><p class="noindent" >An environment which has a finite number of discrete states is <span 
+class="ptmb7t-">discrete </span>and an environment
+              whose state sweeps over values smoothly over time is said to be <span 
+class="ptmb7t-">continuous</span>
+              </li>
+              <li class="itemize">
+              <!--l. 73--><p class="noindent" >If the &#8220;laws of physics&#8221; of the environment are known, then it is said to be <span 
+class="ptmb7t-">known</span>otherwise
+              it is said to be <span 
+class="ptmb7t-">unknown</span>
+              </li>
+              <li class="itemize">
+              <!--l. 75--><p class="noindent" >If  the  environment  can  change  while  the  agent  decides  on  an  action,  then  it  said  to  be
+              <span 
+class="ptmb7t-">dynamic</span>otherwise it is said to be <span 
+class="ptmb7t-">static</span></li></ul>
+        
+</body></html> 
+
+
+

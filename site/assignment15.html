@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>AI1001 - Assignment 15</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (https://tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (https://tug.org/tex4ht/)"> 
+<!-- html --> 
+<meta name="src" content="assignment15.tex"> 
+<link rel="stylesheet" type="text/css" href="style.css"> 
+</head><body 
+>
+<div class="maketitle">_______________________________________________________________________________________________________________________________________________________________
+
+<h2 class="titleHead">AI1001 - Assignment 15</h2>___________________________________________________
+          <div class="author" ><span 
+class="ptmb7t-">Shivram S</span><br /><span 
+class="cmtt-10">ai24btech11031@iith.ac.in</span></div>
+<br />
+
+       <hr class="float"><div class="float" 
+>
+
+       <span 
+class="ptmr7t-x-x-90">Preprint. Under review.</span>
+
+       </div><hr class="endfloat" />
+       </div>
+       <h3 class="sectionHead"><span class="titlemark">1    </span> <a 
+ id="x1-10001"></a>Reinforcement Learning</h3>
+       <!--l. 15--><p class="noindent" >In <span 
+class="ptmb7t-">reinforcement learning</span>, the learner is not told what actions to take, and must discover which actions
+       yield the most reward. The problem is formalized using concepts from dynamical systems and optimal
+       control of Markov decision processes.
+       <!--l. 20--><p class="noindent" >In reinforcement learning there is a tradeoff between exploration and exploitation. The agent can take
+       actions that it has tried in the past and found to be effective, but this prevents it from trying new actions and
+       discovering potentially better selections. The agent must try a variety of actions and progressively favour
+       those that appear to be best.
+       <!--l. 27--><p class="noindent" >Unlike other fields of ML which focus on isolated subproblems, reinforcement learning focuses on the
+       interactions of a decision-making agent which seeks to achieve a goal despite uncertainty about its
+       environment. RL operates on simple general principles, and is close to the kind of learning that humans and
+       other animals do.
+       <!--l. 34--><p class="noindent" >There are four major subelements of a reinforcement learning system:
+              <ul class="itemize1">
+              <li class="itemize">
+              <!--l. 36--><p class="noindent" >The <span 
+class="ptmb7t-">policy </span>defines the agent&#8217;s behaviour at a given time. Given the state of the element, it
+              determines the action to be taken. It may be a simple lookup table or an extensive search
+              process.
+              </li>
+              <li class="itemize">
+              <!--l. 40--><p class="noindent" >The <span 
+class="ptmb7t-">reward signal </span>is a number that determines if the agent&#8217;s course of action was &#8220;good&#8221;
+              or &#8220;bad&#8221;. It is the primary basis for altering the agent&#8217;s policy.
+              </li>
+              <li class="itemize">
+              <!--l. 43--><p class="noindent" >The <span 
+class="ptmb7t-">value function </span>is a way to specify the long-term value of a state. It is the total amount
+              of reward the agent can expect to accumulate over the future, starting from that state. It is
+              much harder to determine values, and value estimation is the most important component of
+              almost all RL algorithms.
+              </li>
+              <li class="itemize">
+              <!--l. 49--><p class="noindent" >An  RL  system  might  include  a  <span 
+class="ptmb7t-">model  </span>of  the  environment,  which  mimics  how  the
+              environment  might  behave.  Models  are  used  for  <span 
+class="ptmb7t-">planning  </span>-  deciding  an  action  by
+              considering possible future situations. There are also <span 
+class="ptmb7t-">model-free </span>agents that only learn by
+              trial-and-error.</li></ul>
+       <!--l. 56--><p class="noindent" >In an RL system, state is a crucial part of the policy and value functions. Most RL systems are structured
+       around estimating the value functions, but other methods such as solution methods, genetic algorithms,
+       simulated annealing, etc. can also be used.
+       <!--l. 61--><p class="noindent" ><span 
+class="ptmb7t-">Evolutionary methods </span>apply multiple randomized policies and use the policy which obtains the most
+       reward as the starting point for the next generation. However, these methods ignore much of the useful
+       structure of the reinforcement learning problem: they don&#8217;t use the the fact that the policy is a function from
+       states to actions, and they don&#8217;t notice which states a system passes through during its lifetime, or which
+       actions it takes.
+
+       <!--l. 71--><p class="noindent" >
+       <h3 class="sectionHead"><span class="titlemark">2    </span> <a 
+ id="x1-20002"></a>Tic-Tac-Toe</h3>
+       <!--l. 73--><p class="noindent" >Consider the game of tic-tac-toe against an imperfect opponent. We want to construct a player that will find
+       the imperfections. The player must learn from experience rather than rely solely on predefined
+       strategies such as minimax. One approach involves learning a model of the opponent&#8217;s behavior
+       through repeated play, then using dynamic programming to compute optimal moves based on the
+       model.
+       <!--l. 81--><p class="noindent" >Evolutionary methods can explore various policies through simulated games and choose one with a high
+       probability of winning. A typical evolutionary method would <span 
+class="ptmb7t-">hill-climb </span>through policy-space.
+       Alternatively, a genetic algorithm could be used, which would maintain and evaluate a population of
+       policies.
+       <!--l. 87--><p class="noindent" >For a method making use of a value function, we might set up a table of numbers, one for each possible
+       state of the game. Each number would be the latest estimate of the state&#8217;s value. The initial values could be
+       assigned as 1 for states where we have won, 0 for states where we have lost, and 0.5 for every other
+       state.
+       <!--l. 93--><p class="noindent" >We can play many games against the opponent, mostly moving <span 
+class="ptmb7t-">greedily </span>by selecting the move that leads to
+       the state with greatest value. Occasionally, we can play <span 
+class="ptmb7t-">exploratively </span>by selecting randomly from the other
+       moves.
+       <!--l. 98--><p class="noindent" >At the end of the game, we can &#8221;back up&#8221; through our tree of moves, and update the value <span 
+class="cmmi-10">V </span><span 
+class="cmr-10">(</span><span 
+class="cmmi-10">S</span><sub><span 
+class="cmmi-7">t</span></sub><span 
+class="cmr-10">) </span>of the
+       state <span 
+class="cmmi-10">S</span><sub><span 
+class="cmmi-7">t</span></sub> to bring it closer to the value <span 
+class="cmmi-10">V </span><span 
+class="cmr-10">(</span><span 
+class="cmmi-10">S</span><sub><span 
+class="cmmi-7">t</span><span 
+class="cmr-7">+1</span></sub><span 
+class="cmr-10">) </span>of the next state <span 
+class="cmmi-10">S</span><sub><span 
+class="cmmi-7">t</span><span 
+class="cmr-7">+1</span></sub>
+       <!--l. 102--><p class="noindent" >
+       <div class="math-display" >
+       <img 
+src="assignment150x.png" alt="V(St) &#x2190; V (St)+ &#x03B1;[V(St+1)- V(St)]
+       " class="math-display" ></div>
+       <!--l. 106--><p class="noindent" ><span 
+class="cmmi-10">&#x03B1; </span>is a very small positive fraction called the <span 
+class="ptmb7t-">step-size </span>parameter, which influences the rate of learning. This
+       update rule is an example of a <span 
+class="ptmb7t-">temporal-difference </span>learning method.
+       <!--l. 110--><p class="noindent" >If the step-size parameter is reduced over time, then the model converges to any fixed opponent. If
+       the parameter is not reduced at all, the player can also play well again opponents that slowly
+       change their way of playing. Systems can also learn to set up multi-move traps for a shortsighted
+       opponent.
+       <!--l. 116--><p class="noindent" >This example shows how value function methods can use the structure of the reinforcement learning: value
+       functions can give credit to independent moves, whereas evolutionary methods rewards the entire policy,
+       including moves that never occurred.
+       <!--l. 121--><p class="noindent" >Reinforcement learning is applicable even in scenarios without an explicit adversary and is not confined to
+       problems with discrete time steps or distinct episodes. It can effectively handle situations where part of the
+       state is hidden.
+       <!--l. 126--><p class="noindent" >Reinforcement learning methods can be applied without a need for a model, but models can be easily used
+       if they are available. Model-free approaches do not predict how the environment will react to an action, yet
+       they can offer advantages over more complex models, particularly due to the challenges involved in creating
+       an accurate model.
+
+       <!--l. 134--><p class="noindent" >Reinforcement learning can also be used at higher levels. Although the tic-tac-toe player only learned the
+       basic moves of the game, reinforcement learning can also work at higher levels where each &#8220;action&#8221; may
+       itself be the application of a problem-solving method.
+        
+</body></html> 
+
+
+

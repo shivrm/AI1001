@@ -1,0 +1,887 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>AI1001 - Assignment 14</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (https://tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (https://tug.org/tex4ht/)"> 
+<!-- html --> 
+<meta name="src" content="assignment14.tex"> 
+<link rel="stylesheet" type="text/css" href="style.css"> 
+</head><body 
+>
+<div class="maketitle">_______________________________________________________________________________________________________________________________________________________________
+
+<h2 class="titleHead">AI1001 - Assignment 14</h2>___________________________________________________
+          <div class="author" ><span 
+class="ptmb7t-">Shivram S</span><br /><span 
+class="cmtt-10">ai24btech11031@iith.ac.in</span></div>
+<br />
+
+       <hr class="float"><div class="float" 
+>
+
+       <span 
+class="ptmr7t-x-x-90">Preprint. Under review.</span>
+
+       </div><hr class="endfloat" />
+       </div>
+       <h3 class="sectionHead"><span class="titlemark">1    </span> <a 
+ id="x1-10001"></a>Recurrent Neural Networks</h3>
+       <!--l. 21--><p class="noindent" ><span 
+class="ptmb7t-">Recurrent neural networks </span>(RNNs) allow cycles in computation graphs. Units may take as input values
+       computed from their own output at an earlier step. This allows the RNN to have internal state or
+       <span 
+class="ptmb7t-">memory</span>.
+       <!--l. 25--><p class="noindent" >RNNs can be used as tools for analyzing sequential data, similar to hidden Markov models,
+       dynamic Bayesian networks, and Kalman filters. RNNs make a <span 
+class="ptmb7t-">Markov assumption</span>: that the
+       hidden state <img 
+src="assignment140x.png" alt="z"  class="vec" ><sub><span 
+class="cmmi-7">t</span></sub> of the network captures information from all previous inputs. Additionally, the
+       function <span 
+class="cmmi-10">f</span><sub><img 
+src="assignment141x.png" alt="w"  class="vec" ></sub> in the RNN&#8217;s update process <img 
+src="assignment142x.png" alt="z"  class="vec" ><sub><span 
+class="cmmi-7">t</span></sub> <span 
+class="cmr-10">= </span><span 
+class="cmmi-10">f</span><sub><img 
+src="assignment143x.png" alt="w"  class="vec" ></sub><span 
+class="cmr-10">(</span><img 
+src="assignment144x.png" alt="z"  class="vec" ><sub><span 
+class="cmmi-7">t</span><span 
+class="cmsy-7">-</span><span 
+class="cmr-7">1</span></sub><span 
+class="cmmi-10">,</span><img 
+src="assignment145x.png" alt="x"  class="vec" ><sub><span 
+class="cmmi-7">t</span></sub><span 
+class="cmr-10">) </span>must represent a <span 
+class="ptmb7t-">time-homogeneous</span>
+       process.
+       <!--l. 32--><p class="noindent" >If we used a feedforward network to analyze sequential data, the network could examine only a finite-length
+       window of the data, and the network would fail to detect long-distance dependencies. RNNs address this by
+       keeping track of previous inputs in the hidden state.
+       <!--l. 37--><p class="noindent" >
+       <h4 class="subsectionHead"><span class="titlemark">1.1    </span> <a 
+ id="x1-20001.1"></a>Training an RNN</h4>
+       <!--l. 39--><p class="noindent" >We will consider a model with an input later <img 
+src="assignment146x.png" alt="x"  class="vec" > a hidden layer <img 
+src="assignment147x.png" alt="z"  class="vec" > with recurrent connections, and an output
+       layer <img 
+src="assignment148x.png" alt="y"  class="vec" >. We can define the model using the equations:
+       <!--l. 43--><p class="noindent" >
+       <table 
+class="align-star">
+                                 <tr><td 
+class="align-odd"><img 
+src="assignment149x.png" alt="z"  class="vec" ><sub><span 
+class="cmmi-7">t</span></sub></td>                         <td 
+class="align-even"> <span 
+class="cmr-10">= </span><span 
+class="cmmi-10">f</span><sub><img 
+src="assignment1410x.png" alt="w"  class="vec" ></sub><span 
+class="cmr-10">(</span><img 
+src="assignment1411x.png" alt=" z"  class="vec" ><sub><span 
+class="cmmi-7">t</span><span 
+class="cmsy-7">-</span><span 
+class="cmr-7">1</span></sub><span 
+class="cmmi-10">,</span><img 
+src="assignment1412x.png" alt="z"  class="vec" ><sub><span 
+class="cmmi-7">t</span></sub><span 
+class="cmr-10">) =</span> <img 
+src="assignment1413x.png" alt="g"  class="vec" ><sub><span 
+class="cmmi-7">z</span></sub><span 
+class="cmr-10">(</span><img 
+src="assignment1414x.png" alt="W"  class="vec" ><sub><span 
+class="cmmi-7">z,z</span></sub><img 
+src="assignment1415x.png" alt="z"  class="vec" ><sub><span 
+class="cmmi-7">t</span><span 
+class="cmsy-7">-</span><span 
+class="cmr-7">1</span></sub> <span 
+class="cmr-10">+</span> <img 
+src="assignment1416x.png" alt="W"  class="vec" ><sub><span 
+class="cmmi-7">x,z</span></sub><img 
+src="assignment1417x.png" alt="x"  class="vec" ><sub><span 
+class="cmmi-7">y</span></sub><span 
+class="cmr-10">) </span><span 
+class="cmsy-10">&#x2261;</span><img 
+src="assignment1418x.png" alt="g"  class="vec" ><sub><span 
+class="cmmi-7">z</span></sub><span 
+class="cmr-10">(</span><img 
+src="assignment1419x.png" alt="in"  class="vec" ><sub><span 
+class="cmmi-7">z,t</span></sub><span 
+class="cmr-10">)</span></td>                        <td 
+class="align-label"></td>                        <td 
+class="align-label">
+                        </td></tr><tr><td 
+class="align-odd"><span 
+class="cmbx-10">&#x0177;</span><sub><span 
+class="cmmi-7">t</span></sub></td>                         <td 
+class="align-even"> <span 
+class="cmr-10">=</span> <img 
+src="assignment1420x.png" alt="g"  class="vec" ><sub><span 
+class="cmmi-7">y</span></sub><span 
+class="cmr-10">(</span><img 
+src="assignment1421x.png" alt="W"  class="vec" ><sub><span 
+class="cmmi-7">z,y</span></sub><img 
+src="assignment1422x.png" alt="z"  class="vec" ><sub><span 
+class="cmmi-7">t</span></sub><span 
+class="cmr-10">) </span><span 
+class="cmsy-10">&#x2261;</span><img 
+src="assignment1423x.png" alt="g"  class="vec" ><sub><span 
+class="cmmi-7">y</span></sub><span 
+class="cmr-10">(</span><img 
+src="assignment1424x.png" alt="in"  class="vec" ><sub><span 
+class="cmmi-7">y,t</span></sub><span 
+class="cmr-10">)</span></td>                                                           <td 
+class="align-label"></td>                        <td 
+class="align-label"></td></tr></table>
+       <!--l. 48--><p class="noindent" >Given a sequence of input vectors <img 
+src="assignment1425x.png" alt="x"  class="vec" ><sub><span 
+class="cmr-7">1</span></sub><span 
+class="cmmi-10">,</span><span 
+class="cmmi-10">&#x2026;</span><span 
+class="cmmi-10">,</span><img 
+src="assignment1426x.png" alt="x"  class="vec" ><sub><span 
+class="cmmi-7">T</span></sub> and the observed outputs <img 
+src="assignment1427x.png" alt="y"  class="vec" ><sub><span 
+class="cmr-7">1</span></sub><span 
+class="cmmi-10">,</span><span 
+class="cmmi-10">&#x2026;</span><span 
+class="cmmi-10">,</span><img 
+src="assignment1428x.png" alt="y"  class="vec" ><sub><span 
+class="cmmi-7">T</span></sub>, We can &#8220;unroll&#8221; the RNN
+       into a feedforward network. The weight matrices are shared across all time steps. We can calculate
+       gradients to train the weights using gradient descent, but the sharing of weights makes the computation
+       a little more complicated. For example, to calculate the gradient for the hidden layer weight
+       <span 
+class="cmmi-10">w</span><sub><span 
+class="cmmi-7">z,z</span></sub>
+       <!--l. 55--><p class="noindent" >
+
+       <table 
+class="align-star">
+                                <tr><td 
+class="align-odd"><img 
+src="assignment1429x.png" alt="-&#x2202;L--
+&#x2202;wz,z"  class="frac" align="middle"></td>                                <td 
+class="align-even"> <span 
+class="cmr-10">=</span> <span 
+class="cmex-10">&#x2211;</span>
+  <sub><span 
+class="cmmi-7">t</span><span 
+class="cmr-7">=1</span></sub><sup><span 
+class="cmmi-7">T</span></sup> <span 
+class="cmsy-10">- </span><span 
+class="cmr-10">2(</span><span 
+class="cmmi-10">y</span><sub>
+<span 
+class="cmmi-7">t</span></sub> <span 
+class="cmsy-10">-</span><span 
+class="cmmi-10">&#x0177;</span><sub><span 
+class="cmmi-7">t</span></sub><span 
+class="cmr-10">)</span><img 
+src="assignment1430x.png" alt="-&#x2202;y&#x02C6;t-
+&#x2202;wz,z"  class="frac" align="middle"></td>                                                  <td 
+class="align-label"></td>                                <td 
+class="align-label">
+                                </td></tr><tr><td 
+class="align-odd"></td>                                        <td 
+class="align-even"> <span 
+class="cmr-10">=</span> <span 
+class="cmex-10">&#x2211;</span>
+  <sub><span 
+class="cmmi-7">t</span><span 
+class="cmr-7">=1</span></sub><sup><span 
+class="cmmi-7">T</span></sup> <span 
+class="cmsy-10">- </span><span 
+class="cmr-10">2(</span><span 
+class="cmmi-10">y</span><sub>
+<span 
+class="cmmi-7">t</span></sub> <span 
+class="cmsy-10">-</span><span 
+class="cmmi-10">&#x0177;</span><sub><span 
+class="cmmi-7">t</span></sub><span 
+class="cmr-10">)</span><img 
+src="assignment1431x.png" alt="  &#x2202;
+&#x2202;w---
+   z,z"  class="frac" align="middle"><span 
+class="cmmi-10">g</span><sub><span 
+class="cmmi-7">y</span></sub><span 
+class="cmr-10">(</span><span 
+class="cmmi-10">in</span><sub><span 
+class="cmmi-7">y,t</span></sub><span 
+class="cmr-10">)</span></td>                                      <td 
+class="align-label"></td>                               <td 
+class="align-label">
+                               </td></tr><tr><td 
+class="align-odd"></td>                                       <td 
+class="align-even"> <span 
+class="cmr-10">=</span> <span 
+class="cmex-10">&#x2211;</span>
+  <sub><span 
+class="cmmi-7">t</span><span 
+class="cmr-7">=1</span></sub><sup><span 
+class="cmmi-7">T</span></sup> <span 
+class="cmsy-10">- </span><span 
+class="cmr-10">2(</span><span 
+class="cmmi-10">y</span><sub>
+<span 
+class="cmmi-7">t</span></sub> <span 
+class="cmsy-10">-</span><span 
+class="cmmi-10">&#x0177;</span><sub><span 
+class="cmmi-7">t</span></sub><span 
+class="cmr-10">)</span><span 
+class="cmmi-10">g</span><sub><span 
+class="cmmi-7">y</span></sub><span 
+class="cmsy-10">&#x2032;</span><span 
+class="cmr-10">(</span><span 
+class="cmmi-10">in</span><sub><span 
+class="cmmi-7">y,t</span></sub><span 
+class="cmr-10">)</span><span 
+class="cmmi-10">w</span><sub><span 
+class="cmmi-7">z,y</span></sub><img 
+src="assignment1432x.png" alt="&#x2202;zt--
+&#x2202;wz,z"  class="frac" align="middle"></td>                                <td 
+class="align-label"></td>                                <td 
+class="align-label"></td></tr></table>
+       <!--l. 61--><p class="noindent" >We can now calculate the gradient for the hidden unit <span 
+class="cmmi-10">z</span><sub><span 
+class="cmmi-7">t</span></sub> as
+       <!--l. 63--><p class="noindent" >
+       <div class="math-display" >
+       <img 
+src="assignment1433x.png" alt="                              (              )
+-&#x2202;zt- = --&#x2202;--gz(inz,t) = g&#x2032;z(inz,t) zt- 1 + wz,z &#x2202;zt-1
+&#x2202;wz,z   &#x2202;wz,z                            &#x2202;wz,z
+       " class="math-display" ></div>
+       <!--l. 67--><p class="noindent" >Since the contribution to the gradient from time step <span 
+class="cmmi-10">t </span>is calculated using the contribution from
+       time step <span 
+class="cmmi-10">t </span><span 
+class="cmsy-10">- </span><span 
+class="cmr-10">1</span>, the algorithm runs in linear time and is called <span 
+class="ptmb7t-">back-propagation through</span>
+       <span 
+class="ptmb7t-">time</span>.
+       <!--l. 71--><p class="noindent" >If <span 
+class="cmmi-10">w</span><sub><span 
+class="cmmi-7">z,z</span></sub> <span 
+class="cmmi-10">&#x003E; </span><span 
+class="cmr-10">1</span>, we may experience the <span 
+class="ptmb7t-">exploding gradient problem</span>. This can be mitigated using more
+       elaborate RNN design.
+       <!--l. 74--><p class="noindent" >
+       <h4 class="subsectionHead"><span class="titlemark">1.2    </span> <a 
+ id="x1-30001.2"></a>Long short-term memory RNNs</h4>
+       <!--l. 76--><p class="noindent" ><span 
+class="ptmb7t-">Long short-term memory </span>(LSTM) RNNs are architectures designed to preserve information over many
+       time steps. The long term memory has a <span 
+class="ptmb7t-">memory cell</span>, <img 
+src="assignment1434x.png" alt="c"  class="vec" >, which is copied from time step to time step. New
+       information enters the memory by adding updates. LSTMs also include <span 
+class="ptmb7t-">gating units </span>that control the flow of
+       information.
+
+              <ul class="itemize1">
+              <li class="itemize">
+              <!--l. 83--><p class="noindent" >The  <span 
+class="ptmb7t-">forget  gate</span>  <img 
+src="assignment1435x.png" alt="f"  class="vec" >  determines  if  each  element  of  the  memory  cell  is  remembered  or
+              forgotten.
+              </li>
+              <li class="itemize">
+              <!--l. 85--><p class="noindent" >The <span 
+class="ptmb7t-">input gate</span> <img 
+src="assignment1436x.png" alt="i"  class="vec" > determines if each element of the memory cell is updated additively by
+              new information from the input vector.
+              </li>
+              <li class="itemize">
+              <!--l. 87--><p class="noindent" >The  <span 
+class="ptmb7t-">output  gate</span>  <img 
+src="assignment1437x.png" alt="o"  class="vec" >  determines  if  each  element  of  the  memory  cell  is  transferred  to  the
+              short-term memory <span 
+class="cmmi-10">z</span>.</li></ul>
+       <!--l. 91--><p class="noindent" >Unlike Boolean functions, gates in LSTM are soft. For example, elements of the memory cell will be
+       partially forgotten if the elements of <img 
+src="assignment1438x.png" alt="f"  class="vec" > are small, but not zero. Values of gating units are always in the range
+       <span 
+class="cmr-10">[0</span><span 
+class="cmmi-10">,</span><span 
+class="cmr-10">1] </span>as they are obtained as outputs of a sigmoid function. We can write the update equations for the gating
+       units as:
+       <!--l. 96--><p class="noindent" >
+       <table 
+class="align-star">
+                                                        <tr><td 
+class="align-odd"><img 
+src="assignment1439x.png" alt="f"  class="vec" ><sub><span 
+class="cmmi-7">t</span></sub></td>                                           <td 
+class="align-even"> <span 
+class="cmr-10">= </span><span 
+class="cmmi-10">&#x03C3;</span><span 
+class="cmr-10">(</span><img 
+src="assignment1440x.png" alt="W"  class="vec" ><sub><span 
+class="cmmi-7">x,f</span></sub><img 
+src="assignment1441x.png" alt="x"  class="vec" ><sub><span 
+class="cmmi-7">t</span></sub> <span 
+class="cmr-10">+</span> <img 
+src="assignment1442x.png" alt="W"  class="vec" ><sub><span 
+class="cmmi-7">z,f</span></sub><img 
+src="assignment1443x.png" alt="z"  class="vec" ><sub><span 
+class="cmmi-7">t</span><span 
+class="cmsy-7">-</span><span 
+class="cmr-7">1</span></sub><span 
+class="cmr-10">)</span></td>                                          <td 
+class="align-label"></td>                                          <td 
+class="align-label">
+                                          </td></tr><tr><td 
+class="align-odd"><img 
+src="assignment1444x.png" alt="i"  class="vec" ><sub><span 
+class="cmmi-7">t</span></sub></td>                                           <td 
+class="align-even"> <span 
+class="cmr-10">= </span><span 
+class="cmmi-10">&#x03C3;</span><span 
+class="cmr-10">(</span><img 
+src="assignment1445x.png" alt="W"  class="vec" ><sub><span 
+class="cmmi-7">x,i</span></sub><img 
+src="assignment1446x.png" alt="x"  class="vec" ><sub><span 
+class="cmmi-7">t</span></sub> <span 
+class="cmr-10">+</span> <img 
+src="assignment1447x.png" alt="W"  class="vec" ><sub><span 
+class="cmmi-7">z,i</span></sub><img 
+src="assignment1448x.png" alt="z"  class="vec" ><sub><span 
+class="cmmi-7">t</span><span 
+class="cmsy-7">-</span><span 
+class="cmr-7">1</span></sub><span 
+class="cmr-10">)</span></td>                                           <td 
+class="align-label"></td>                                          <td 
+class="align-label">
+                                          </td></tr><tr><td 
+class="align-odd"><img 
+src="assignment1449x.png" alt="o"  class="vec" ><sub><span 
+class="cmmi-7">t</span></sub></td>                                           <td 
+class="align-even"> <span 
+class="cmr-10">= </span><span 
+class="cmmi-10">&#x03C3;</span><span 
+class="cmr-10">(</span><img 
+src="assignment1450x.png" alt="W"  class="vec" ><sub><span 
+class="cmmi-7">x,o</span></sub><img 
+src="assignment1451x.png" alt="x"  class="vec" ><sub><span 
+class="cmmi-7">t</span></sub> <span 
+class="cmr-10">+</span> <img 
+src="assignment1452x.png" alt="W"  class="vec" ><sub><span 
+class="cmmi-7">z,o</span></sub><img 
+src="assignment1453x.png" alt="z"  class="vec" ><sub><span 
+class="cmmi-7">t</span><span 
+class="cmsy-7">-</span><span 
+class="cmr-7">1</span></sub><span 
+class="cmr-10">)</span></td>                                          <td 
+class="align-label"></td>                                          <td 
+class="align-label"></td></tr></table>
+       <!--l. 102--><p class="noindent" >The update rules for the memory are given by
+       <!--l. 104--><p class="noindent" >
+
+       <table 
+class="align-star">
+                                        <tr><td 
+class="align-odd"><img 
+src="assignment1454x.png" alt="c"  class="vec" ><sub><span 
+class="cmmi-7">t</span></sub></td>                               <td 
+class="align-even"> <span 
+class="cmr-10">=</span> <img 
+src="assignment1455x.png" alt="f"  class="vec" ><sub><span 
+class="cmmi-7">t</span></sub> <span 
+class="cmsy-10">&#x2299;</span><img 
+src="assignment1456x.png" alt="c"  class="vec" ><sub><span 
+class="cmmi-7">t</span><span 
+class="cmsy-7">-</span><span 
+class="cmr-7">1</span></sub> <span 
+class="cmr-10">+</span> <img 
+src="assignment1457x.png" alt="i"  class="vec" ><sub><span 
+class="cmmi-7">t</span></sub> <span 
+class="cmsy-10">&#x2299;</span> <span 
+class="cmr-10">tanh</span><span 
+class="cmr-10">(</span><img 
+src="assignment1458x.png" alt="W"  class="vec" ><sub><span 
+class="cmmi-7">x,c</span></sub><img 
+src="assignment1459x.png" alt="x"  class="vec" ><sub><span 
+class="cmmi-7">t</span></sub> <span 
+class="cmr-10">+</span> <img 
+src="assignment1460x.png" alt="W"  class="vec" ><sub><span 
+class="cmmi-7">z,c</span></sub><img 
+src="assignment1461x.png" alt="z"  class="vec" ><sub><span 
+class="cmmi-7">t</span><span 
+class="cmsy-7">-</span><span 
+class="cmr-7">1</span></sub><span 
+class="cmr-10">)</span></td>                              <td 
+class="align-label"></td>                              <td 
+class="align-label">
+                              </td></tr><tr><td 
+class="align-odd"><img 
+src="assignment1462x.png" alt="z"  class="vec" ><sub><span 
+class="cmmi-7">t</span></sub></td>                               <td 
+class="align-even"> <span 
+class="cmr-10">=</span> <img 
+src="assignment1463x.png" alt="o"  class="vec" ><sub><span 
+class="cmmi-7">t</span></sub> <span 
+class="cmsy-10">&#x2299;</span> <span 
+class="cmr-10">tanh</span><span 
+class="cmr-10">(</span><img 
+src="assignment1464x.png" alt="c"  class="vec" ><sub><span 
+class="cmmi-7">t</span></sub><span 
+class="cmr-10">)</span></td>                                                                  <td 
+class="align-label"></td>                              <td 
+class="align-label"></td></tr></table>
+       <!--l. 109--><p class="noindent" >where <span 
+class="cmsy-10">&#x2299; </span>denotes elementwise multiplication.
+       <!--l. 111--><p class="noindent" >
+       <h3 class="sectionHead"><span class="titlemark">2    </span> <a 
+ id="x1-40002"></a>Unsupervised Learning</h3>
+       <!--l. 113--><p class="noindent" >Supervised learning algorithms are given a training set of inputs and corresponding outputs. Unsupervised
+       learning algorithms, on the other hand, take a training set of unlabeled examples <img 
+src="assignment1465x.png" alt="x"  class="vec" >. The algorithm might try
+       to learn new representations, or it might learn a generative model from which new samples can be
+       generated.
+       <!--l. 118--><p class="noindent" >Suppose we learn a joint model <span 
+class="cmmi-10">P</span><sub><span 
+class="cmmi-7">W</span></sub><span 
+class="cmr-10">(</span><img 
+src="assignment1466x.png" alt="x"  class="vec" ><span 
+class="cmmi-10">,</span><img 
+src="assignment1467x.png" alt="z"  class="vec" ><span 
+class="cmr-10">) </span>where <img 
+src="assignment1468x.png" alt="z"  class="vec" > is a set of latent, unobserved variables that represent the
+       content of <img 
+src="assignment1469x.png" alt="x"  class="vec" > in some way. The model can associate <img 
+src="assignment1470x.png" alt="z"  class="vec" > with <img 
+src="assignment1471x.png" alt="x"  class="vec" > however it chooses. The model can achieve both
+       <span 
+class="ptmb7t-">representation learning </span>(constructing meaningful <img 
+src="assignment1472x.png" alt="z"  class="vec" > from <img 
+src="assignment1473x.png" alt="x"  class="vec" >) and <span 
+class="ptmb7t-">generative modelling </span>(determining
+       <span 
+class="cmmi-10">P</span><sub><span 
+class="cmmi-7">W</span></sub><span 
+class="cmr-10">(</span><img 
+src="assignment1474x.png" alt="x"  class="vec" ><span 
+class="cmr-10">)</span>)
+       <!--l. 124--><p class="noindent" >
+       <h4 class="subsectionHead"><span class="titlemark">2.1    </span> <a 
+ id="x1-50002.1"></a>Probabilistic PCA</h4>
+       <!--l. 126--><p class="noindent" >In a <span 
+class="ptmb7t-">probabilistic principal component analysis </span>(PPCA), <img 
+src="assignment1475x.png" alt="z"  class="vec" > is chosen from a zero-mean, spherical
+       Gaussian. <img 
+src="assignment1476x.png" alt="x"  class="vec" > is generated from <img 
+src="assignment1477x.png" alt="z"  class="vec" > by applying a weight matrix <img 
+src="assignment1478x.png" alt="W"  class="vec" > and adding spherical Gaussian
+       noise (with noise parameter <span 
+class="cmmi-10">&#x03C3;</span><sup><span 
+class="cmr-7">2</span></sup>). The weights can be learnt by maximizing the likelihood of the
+       data.
+       <!--l. 131--><p class="noindent" >
+       <div class="math-display" >
+       <img 
+src="assignment1479x.png" alt="        &#x222B;
+PW (x) =  PW (x,z) = N (x;0,W W &#x22A4; +&#x03C3;2I)
+       " class="math-display" ></div>
+       <!--l. 135--><p class="noindent" >This can be done by gradient methods, or by an efficient EM algorithm. Once <img 
+src="assignment1480x.png" alt="W"  class="vec" > has been learned, new data
+       samples can be generated directly from <span 
+class="cmmi-10">P</span><sub><span 
+class="cmmi-7">W</span></sub><span 
+class="cmr-10">(</span><img 
+src="assignment1481x.png" alt="x"  class="vec" ><span 
+class="cmr-10">)</span>. Additionally, new observations that have very low
+       probability can be flagged as potential anomalies.
+
+       <!--l. 140--><p class="noindent" >The dimensionality of <img 
+src="assignment1482x.png" alt="z"  class="vec" > is much less than the dimensionality of <img 
+src="assignment1483x.png" alt="x"  class="vec" >, so the model learns to explain the data in
+       terms of a small number of features. These features can be extracted for use in classifiers by computing <span 
+class="cmbx-10">&#x1E91;</span>,
+       the expectation of <span 
+class="cmmi-10">P</span><sub><span 
+class="cmmi-7">W</span></sub><span 
+class="cmr-10">(</span><img 
+src="assignment1484x.png" alt="z"  class="vec" ><span 
+class="cmsy-10">|</span><img 
+src="assignment1485x.png" alt="x"  class="vec" ><span 
+class="cmr-10">)</span>.
+       <!--l. 145--><p class="noindent" >We can generate data from a PPCA model by sampling <img 
+src="assignment1486x.png" alt="z"  class="vec" > from the Gaussian prior, then sampling <img 
+src="assignment1487x.png" alt="x"  class="vec" > from a
+       Gaussian with mean <img 
+src="assignment1488x.png" alt="W z"  class="vec" >.
+       <!--l. 148--><p class="noindent" >
+       <h4 class="subsectionHead"><span class="titlemark">2.2    </span> <a 
+ id="x1-60002.2"></a>Autoencoders</h4>
+       <!--l. 150--><p class="noindent" >An <span 
+class="ptmb7t-">autoencoder </span>is a model containing two parts: an encoder that maps from <img 
+src="assignment1489x.png" alt="x"  class="vec" > to a representation <span 
+class="cmbx-10">&#x1E91;</span>, and a
+       decoder that maps from <span 
+class="cmbx-10">&#x1E91;</span> to observed data <img 
+src="assignment1490x.png" alt="x"  class="vec" >. The model is trained so that <img 
+src="assignment1491x.png" alt="x"  class="vec" > <span 
+class="cmsy-10">&#x2248; </span><span 
+class="cmmi-10">g</span><span 
+class="cmr-10">(</span><span 
+class="cmmi-10">f</span><span 
+class="cmr-10">(</span><img 
+src="assignment1492x.png" alt="x"  class="vec" ><span 
+class="cmr-10">))</span>, where <span 
+class="cmmi-10">f </span>is the
+       encoder function, and <span 
+class="cmmi-10">g </span>is the decoder function. <span 
+class="cmmi-10">f </span>and <span 
+class="cmmi-10">g </span>may be simple linear models, or they can be
+       represented by a deep neural network.
+       <!--l. 157--><p class="noindent" >The linear autoencoder is a simple autoencoder where:
+       <!--l. 159--><p class="noindent" >
+       <table 
+class="align-star">
+                                                                 <tr><td 
+class="align-odd"><span 
+class="cmbx-10">&#x1E91;</span></td>                                          <td 
+class="align-even"> <span 
+class="cmr-10">= </span><span 
+class="cmmi-10">f</span><span 
+class="cmr-10">(</span><img 
+src="assignment1493x.png" alt="x"  class="vec" ><span 
+class="cmr-10">) =</span> <img 
+src="assignment1494x.png" alt="W"  class="vec" ><img 
+src="assignment1495x.png" alt="x"  class="vec" ></td>                                                                    <td 
+class="align-label"></td>                                                                 <td 
+class="align-label">
+                                                                 </td></tr><tr><td 
+class="align-odd"><img 
+src="assignment1496x.png" alt="x"  class="vec" ></td>                                                                  <td 
+class="align-even"> <span 
+class="cmr-10">= </span><span 
+class="cmmi-10">g</span><span 
+class="cmr-10">(</span><span 
+class="cmbx-10">&#x1E91;</span><span 
+class="cmr-10">) =</span> <img 
+src="assignment1497x.png" alt="W"  class="vec" ><sup><span 
+class="cmsy-7">&#x22A4;</span></sup><span 
+class="cmbx-10">&#x1E91;</span></td>                                          <td 
+class="align-label"></td>                                          <td 
+class="align-label"></td></tr></table>
+       <!--l. 164--><p class="noindent" >This model can be trained by minimizing the squared error. The idea is to train <img 
+src="assignment1498x.png" alt="W"  class="vec" > so that a low-dimensional
+       <span 
+class="cmbx-10">&#x1E91;</span> will retain as much information as possible to reconstruct <img 
+src="assignment1499x.png" alt="x"  class="vec" >.
+       <!--l. 168--><p class="noindent" >When <img 
+src="assignment14100x.png" alt="z"  class="vec" > is <span 
+class="cmmi-10">m</span>-dimensional, <img 
+src="assignment14101x.png" alt="W"  class="vec" > must learn to span the <span 
+class="cmmi-10">m </span>principal components of the data, which are the <span 
+class="cmmi-10">m</span>
+       eigenvectors that have the largest eigenvalues. Thus, the linear autoencoder turns out to be closely
+       connected to classical PCA.
+       <!--l. 173--><p class="noindent" >The correspondence between classical PCA models and linear autoencoders suggest that there might be a
+       way to capture more complex kinds of generative models using more complex autoencoders. The
+       <span 
+class="ptmb7t-">variational autoencoder </span>(VAE) provides one way to do it.The idea is to use a <span 
+class="ptmb7t-">variational posterior </span><span 
+class="cmmi-10">Q</span><span 
+class="cmr-10">(</span><img 
+src="assignment14102x.png" alt="z"  class="vec" ><span 
+class="cmr-10">)</span>
+       drawn from a computationally tractable family of distributions as an approximation to the true
+       posterior.
+       <!--l. 180--><p class="noindent" ><span 
+class="cmmi-10">Q </span>is optimized to be &#8220;as close as possible&#8221; to the true distribution <span 
+class="cmmi-10">P</span><span 
+class="cmr-10">(</span><img 
+src="assignment14103x.png" alt="z"  class="vec" ><span 
+class="cmsy-10">|</span><img 
+src="assignment14104x.png" alt=" x"  class="vec" ><span 
+class="cmr-10">)</span>. This is done by minimizing KL
+       divergence:
+       <!--l. 183--><p class="noindent" >
+
+       <div class="math-display" >
+       <img 
+src="assignment14105x.png" alt="                  &#x222B;         Q (z)
+DKL (Q(z)&#x2225;P(z|x)) =  Q (z)log -----dz
+                            P(z|x)
+       " class="math-display" ></div>
+       <!--l. 187--><p class="noindent" >KL divergence is zero when <span 
+class="cmmi-10">Q </span>and <span 
+class="cmmi-10">P </span>conincide, and positive otherwise. We can define the <span 
+class="ptmb7t-">variational</span>
+       <span 
+class="ptmb7t-">lower bound </span>or <span 
+class="ptmb7t-">evidence lower bound </span>(ELBO), <span 
+class="cmsy-10"><img 
+src="cmsy10-4c.png" alt="L" class="10x-x-4c" /> </span>as
+       <!--l. 190--><p class="noindent" >
+       <div class="math-display" >
+       <img 
+src="assignment14106x.png" alt="L(x,Q) = logP (x) - D  (Q (x)&#x2225;P (z|x))
+                   KL
+       " class="math-display" ></div>
+       <!--l. 194--><p class="noindent" >Variational learning maximizes <span 
+class="cmsy-10"><img 
+src="cmsy10-4c.png" alt="L" class="10x-x-4c" /> </span>in the hope that the solution will be close to maximizing <span 
+class="cmr-10">log</span> <span 
+class="cmmi-10">P</span><span 
+class="cmr-10">(</span><img 
+src="assignment14107x.png" alt="x"  class="vec" ><span 
+class="cmr-10">)</span>. We
+       may rewrite the expression for <span 
+class="cmsy-10"><img 
+src="cmsy10-4c.png" alt="L" class="10x-x-4c" /> </span>as
+       <!--l. 198--><p class="noindent" >
+       <div class="math-display" >
+       <img 
+src="assignment14108x.png" alt="L = H (Q)+ E z~Q logP(z,x)
+       " class="math-display" ></div>
+       <!--l. 202--><p class="noindent" >For some <span 
+class="cmmi-10">Q </span>(such as Gaussian distributions), <span 
+class="cmmi-10">H</span><span 
+class="cmr-10">(</span><span 
+class="cmmi-10">Q</span><span 
+class="cmr-10">) </span>can be evaluated analytically. <img 
+src="assignment14109x.png" alt="E"  class="vec" ><sub><img 
+src="assignment14110x.png" alt="z"  class="vec" ><span 
+class="cmsy-7">~</span><span 
+class="cmmi-7">Q</span></sub> <span 
+class="cmr-10">log</span> <span 
+class="cmmi-10">P</span><span 
+class="cmr-10">(</span><img 
+src="assignment14111x.png" alt="z"  class="vec" ><span 
+class="cmmi-10">,</span><img 
+src="assignment14112x.png" alt="x"  class="vec" ><span 
+class="cmr-10">) </span>can be
+       estimated using samples of <img 
+src="assignment14113x.png" alt="z"  class="vec" > from <span 
+class="cmmi-10">Q</span>. <span 
+class="cmmi-10">P</span><span 
+class="cmr-10">(</span><img 
+src="assignment14114x.png" alt="z"  class="vec" ><span 
+class="cmmi-10">,</span><img 
+src="assignment14115x.png" alt="x"  class="vec" ><span 
+class="cmr-10">) </span>can usually be evaluated efficiently: for example if <span 
+class="cmmi-10">P </span>is a
+       Bayes net, then <span 
+class="cmmi-10">P</span><span 
+class="cmr-10">(</span><img 
+src="assignment14116x.png" alt="z"  class="vec" ><span 
+class="cmmi-10">,</span><img 
+src="assignment14117x.png" alt=" x"  class="vec" ><span 
+class="cmr-10">) </span>is just a product of conditional probabilities.
+       <!--l. 208--><p class="noindent" >
+       <h4 class="subsectionHead"><span class="titlemark">2.3    </span> <a 
+ id="x1-70002.3"></a>Deep autoregressive models</h4>
+       <!--l. 210--><p class="noindent" >An <span 
+class="ptmb7t-">autoregressive model </span>is one in which each element of the data vector is predicted based on other
+       elements of the vector. If <img 
+src="assignment14118x.png" alt="x"  class="vec" > is of fixed size, an AR model can be thought of as a fully observable and
+       possibly fully connected Bayes net. This makes it easy to calculate the likelihood of a given data vector, and
+       to predict the value of a simple missing variable, given all others.
+       <!--l. 216--><p class="noindent" >AR models are commonly used in the analysis of time series data, where an AR model of order <span 
+class="cmmi-10">k </span>predicts
+       <span 
+class="cmmi-10">x</span><sub><span 
+class="cmmi-7">t</span></sub> given <span 
+class="cmmi-10">x</span><sub><span 
+class="cmmi-7">t</span><span 
+class="cmsy-7">-</span><span 
+class="cmmi-7">k</span></sub><span 
+class="cmmi-10">,</span><span 
+class="cmmi-10">&#x2026;</span><span 
+class="cmmi-10">,x</span><sub><span 
+class="cmmi-7">t</span><span 
+class="cmsy-7">-</span><span 
+class="cmr-7">1</span></sub>. Hence, an <span 
+class="cmmi-10">n</span>-gram model is an AR model of order <span 
+class="cmmi-10">n </span><span 
+class="cmsy-10">- </span><span 
+class="cmr-10">1</span>.
+
+       <!--l. 220--><p class="noindent" >In classical AR models, the conditional distribution <span 
+class="cmmi-10">P</span><span 
+class="cmr-10">(</span><span 
+class="cmmi-10">x</span><sub><span 
+class="cmmi-7">t</span></sub><span 
+class="cmsy-10">|</span><span 
+class="cmmi-10">x</span><sub><span 
+class="cmmi-7">t</span><span 
+class="cmsy-7">-</span><span 
+class="cmmi-7">k</span></sub><span 
+class="cmmi-10">,</span><span 
+class="cmmi-10">&#x2026;</span><span 
+class="cmmi-10">,x</span><sub><span 
+class="cmmi-7">t</span><span 
+class="cmsy-7">-</span><span 
+class="cmr-7">1</span></sub><span 
+class="cmr-10">) </span>is a linear Gaussian
+       model with a fixed variance whose mean is a weighted linear combination of <span 
+class="cmmi-10">x</span><sub><span 
+class="cmmi-7">t</span><span 
+class="cmsy-7">-</span><span 
+class="cmmi-7">k</span></sub><span 
+class="cmmi-10">,</span><span 
+class="cmmi-10">&#x2026;</span><span 
+class="cmmi-10">,x</span><sub><span 
+class="cmmi-7">t</span><span 
+class="cmsy-7">-</span><span 
+class="cmr-7">1</span></sub>, i.e.,
+       a standard linear regression model. The maximum likelihood is given by the <span 
+class="ptmb7t-">Yule-Walker</span>
+       equations.
+       <!--l. 226--><p class="noindent" >A <span 
+class="ptmb7t-">deep autoregressive model </span>is one in which the linear Gaussian model is replaced by an arbitrary deep
+       network with a suitable output layer. Recent applications of deep autoregressive models include
+       DeepMind&#8217;S WaveNet speech generation model, which implements a nonlinear AR model of order 4800
+       with a convolutional structure.
+       <!--l. 232--><p class="noindent" >
+       <h4 class="subsectionHead"><span class="titlemark">2.4    </span> <a 
+ id="x1-80002.4"></a>Generative adversarial networks</h4>
+       <!--l. 234--><p class="noindent" >A <span 
+class="ptmb7t-">generative adversarial network </span>(GAN) is a pair of networks: a <span 
+class="ptmb7t-">generator </span>which maps values from <img 
+src="assignment14119x.png" alt="z"  class="vec" > to
+       <img 
+src="assignment14120x.png" alt="x"  class="vec" > to produce samples from <span 
+class="cmmi-10">P</span><sub><span 
+class="cmmi-7">W</span></sub><span 
+class="cmr-10">(</span><img 
+src="assignment14121x.png" alt="x"  class="vec" ><span 
+class="cmr-10">)</span>, and a <span 
+class="ptmb7t-">discriminator</span>, which is a classifier trained to classify <img 
+src="assignment14122x.png" alt="x"  class="vec" > as real
+       (from the training set), or fake (created by the generator). GANs are <span 
+class="ptmb7t-">implicit models</span>, in that samples can be
+       generated, but probabilities are not available.
+       <!--l. 241--><p class="noindent" >The generator of a GAN is closely related to the decoder of a VAE. Both the generator and the discriminator
+       are trained simultaneously. The competition between generator and discriminator can be described
+       using game theory. The idea is that in the equilibrium state, the generator should reproduce
+       the training distribution perfectly, so that the discriminator can&#8217;t perform better than random
+       guessing.
+       <!--l. 247--><p class="noindent" >GANs have worked particularly well for image-generation tasks.
+       <!--l. 249--><p class="noindent" >
+       <h4 class="subsectionHead"><span class="titlemark">2.5    </span> <a 
+ id="x1-90002.5"></a>Unsupervised translation</h4>
+       <!--l. 251--><p class="noindent" >Translation tasks involves multidimensional data such as images and natural language which have statistical
+       dependence between the various dimensions. Such data is said to have &#8220;rich structure.&#8221; Translation
+       tasks consist of transforming an input <img 
+src="assignment14123x.png" alt="x"  class="vec" > that has rich structure to an output <img 
+src="assignment14124x.png" alt="y"  class="vec" > that also has rich
+       structure.
+       <!--l. 256--><p class="noindent" >In supervised translation, the data consists of many <span 
+class="cmr-10">(</span><img 
+src="assignment14125x.png" alt="x"  class="vec" ><span 
+class="cmmi-10">,</span><img 
+src="assignment14126x.png" alt="y"  class="vec" ><span 
+class="cmr-10">) </span>pairs, and the model maps each <img 
+src="assignment14127x.png" alt="x"  class="vec" > to the
+       corresponding <img 
+src="assignment14128x.png" alt="y"  class="vec" >. Unsupervised translation trains on many <img 
+src="assignment14129x.png" alt="x"  class="vec" > and separate <img 
+src="assignment14130x.png" alt="y"  class="vec" >, but no corresponding <span 
+class="cmr-10">(</span><img 
+src="assignment14131x.png" alt="x"  class="vec" ><span 
+class="cmmi-10">,</span><img 
+src="assignment14132x.png" alt="y"  class="vec" ><span 
+class="cmr-10">)</span>
+       pairs.
+       <!--l. 261--><p class="noindent" >Most unsupervised translation approaches are based on GANs. The GAN training framework
+       makes it possible to train a generator that generates any of the possible samples that the the
+       discriminator accepts as a realistic example of <img 
+src="assignment14133x.png" alt="y"  class="vec" > given <img 
+src="assignment14134x.png" alt="x"  class="vec" >, without any need for a specific paired
+       <img 
+src="assignment14135x.png" alt="y"  class="vec" >.
+       <!--l. 266--><p class="noindent" >
+       <h4 class="subsectionHead"><span class="titlemark">2.6    </span> <a 
+ id="x1-100002.6"></a>Transfer learning and multitask learning</h4>
+       <!--l. 268--><p class="noindent" >In <span 
+class="ptmb7t-">transfer learning</span>, experience with one learned task helps an agent learn better on another task. We may
+       take a network trained for a task A, and update its weights using gradient descent for task B. We may use a
+       smaller learning rate in task B, depending on the similarity of the tasks, and how much data was used in task
+       A.
+       <!--l. 274--><p class="noindent" >There are many high-quality pre-trained models available, which has contributed to the popularity of
+       transfer learning. For example, using a pre-trained visual object TODO: AR models recognition model such
+       as ResNet-50 can help with identification of relevant features, thus saving weeks of training
+
+       time.
+       <!--l. 280--><p class="noindent" >If the tasks are very similar, we might also freeze the first few layers of the model as they serve as feature
+       detectors that will be useful for the new model. The later layers are the ones that identify problem-specific
+       features.
+       <!--l. 285--><p class="noindent" >In natural language processing, models such as RoBERTa are pre-trained on the vocabulary and syntax of
+       everyday language. Such models can be fine-tuned with domain-specific vocabulary, and trained on
+       task-specific data. For example, a model for answering questions might be trained on question/answer
+       pairs.
+       <!--l. 290--><p class="noindent" >The controller for a self-driving car might be trained on a simulator, but in the real world, the environment
+       can vary greatly. The model can be fine-tuned with real-time data from an actual vehicle, and thus it can
+       adapt quickly to the new environment.
+       <!--l. 294--><p class="noindent" ><span 
+class="ptmb7t-">Multitask learning </span>is a form of transfer learning in which we simultaneously train a model on multiple
+       objectives. This allows the model to create a &#8220;common representation&#8221; that reflects similarities between the
+       tasks. For example, a natural language model might be trained simultaneously on part-of-speech tagging,
+       document classification, language detection, word prediction, etc.
+       <!--l. 300--><p class="noindent" >
+       <h3 class="sectionHead"><span class="titlemark">3    </span> <a 
+ id="x1-110003"></a>Applications</h3>
+       <!--l. 302--><p class="noindent" >
+       <h4 class="subsectionHead"><span class="titlemark">3.1    </span> <a 
+ id="x1-120003.1"></a>Vision</h4>
+       <!--l. 304--><p class="noindent" >Computer vision is the application area which had the biggest impact on deep learning. Deep convolutional
+       networks have been used in handwriting recognition, speech generation, etc.
+       <!--l. 308--><p class="noindent" >Deep learning was popularized by the AlexNet image classification system, which managed to achieve an
+       error rate of 15.3% on the ImageNet competition. The model had five convolutional layers, interspersed
+       with max-pooling layers, followed by three fully connected layers. It took advantage of GPUs to speed up
+       the training process.
+       <!--l. 313--><p class="noindent" >Since 2012, the top-5 error rate on ImageNet has been reduced to less than 2%. CNNs have been
+       applied in a wide range on visual tasks. Self driving is among the most demanding of visual
+       tasks.
+       <!--l. 317--><p class="noindent" >
+       <h4 class="subsectionHead"><span class="titlemark">3.2    </span> <a 
+ id="x1-130003.2"></a>Natural language processing</h4>
+       <!--l. 319--><p class="noindent" >Deep learning has had a huge impact on tasks such as translation and speech recognition. There is the
+       possibility of end-to-end learning and automatic generation of representations for the meanings of
+       words.
+       <!--l. 323--><p class="noindent" >In translation tasks, the classical pipeline approach, which corresponds to how a human translator works, is
+       outperfoemd by end-to-end methods. Machine translation systems are approaching human
+       performance for languages pairs such as French and English, which have large paired data sets
+       available.
+       <!--l. 328--><p class="noindent" >There is some evidence that networks trained on multiple languages lean an internal meaning
+       representations. For example, learning Portuguese/English and English/Spanish translations have allowed
+       models to perform Portuguese/Spanish translations without any Portuguese/Spanish training
+       pairs.
+
+       <!--l. 333--><p class="noindent" >The representation of words as vectors in a high-dimensional space, known as <span 
+class="ptmb7t-">word embeddings</span>, has
+       shown promise. Because words with similar meanings are used in similar contexts, they end up
+       near each other in the vector space. This allows the network to generalize across categories of
+       words.
+       <!--l. 338--><p class="noindent" >
+       <h4 class="subsectionHead"><span class="titlemark">3.3    </span> <a 
+ id="x1-140003.3"></a>Reinforcement learning</h4>
+       <!--l. 340--><p class="noindent" >In reinforcement learning (RL), an agent learns from a series of reward signals that provide some indication
+       to the quality of its behavior. The goal is to optimize the sum of future rewards. The agent can learn a value
+       function, a <span 
+class="cmmi-10">Q</span>-function, a policy, and so on.
+       <!--l. 345--><p class="noindent" >While the methods of training in RL differ from those of supervised learning, the ability of multilayer
+       computation graphs to represent complex functions over large input spaces has lead to the development of
+       the field of <span 
+class="ptmb7t-">deep reinforcement learning</span>.
+       <!--l. 350--><p class="noindent" >The first major demonstration of deep RL was DeepMind&#8217;s Atari playing agent, DQN. The
+       agent learnt a Q-function from raw image data, with the reward signal begin the game score.
+       DeepMind&#8217;s AlphaGo system also used deep RL to defeat the best human players at the game of
+       Go.
+       <!--l. 355--><p class="noindent" >Despite its successes, deep RL still faces significant obstacles. It is often difficult to get good performance,
+       and trained systems may behave very unpredictably if the environment differs even a little from training
+       data.
+        
+</body></html> 
+
+
+

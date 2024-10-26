@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>AI1001 - Assignment 11</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (https://tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (https://tug.org/tex4ht/)"> 
+<!-- html --> 
+<meta name="src" content="assignment11.tex"> 
+<link rel="stylesheet" type="text/css" href="style.css"> 
+</head><body 
+>
+<div class="maketitle">_______________________________________________________________________________________________________________________________________________________________
+
+<h2 class="titleHead">AI1001 - Assignment 11</h2>___________________________________________________
+          <div class="author" ><span 
+class="ptmb7t-">Shivram S</span><br /><span 
+class="cmtt-10">ai24btech11031@iith.ac.in</span></div>
+<br />
+
+       <hr class="float"><div class="float" 
+>
+
+       <span 
+class="ptmr7t-x-x-90">Preprint. Under review.</span>
+
+       </div><hr class="endfloat" />
+       </div>
+       <h3 class="sectionHead"><span class="titlemark">1    </span> <a 
+ id="x1-10001"></a>Regularization in multivariate linear regression</h3>
+       <!--l. 15--><p class="noindent" >With univariate linear regression, we don&#8217;t have to worry about overfitting, but with multivariate linear
+       regression it is possible that some dimension that is irrelevant appears to be useful, leading to
+       overfitting.
+       <!--l. 19--><p class="noindent" >We can specify the complexity as a function of the weights:
+       <!--l. 21--><p class="noindent" >
+       <div class="math-display" >
+       <img 
+src="assignment110x.png" alt="                        &#x2211;
+Complexity(hw) = Lq (w ) =  |wi|q
+                         i
+       " class="math-display" ></div>
+       <!--l. 25--><p class="noindent" >With <span 
+class="cmmi-10">q </span><span 
+class="cmr-10">= 1</span>, we have <span 
+class="cmmi-10">L</span><sub><span 
+class="cmr-7">1</span></sub> regularization; with <span 
+class="cmmi-10">q </span><span 
+class="cmr-10">= 2 </span>we have <span 
+class="cmmi-10">L</span><sub><span 
+class="cmr-7">2</span></sub> regularization, and so on. The choice of
+       regularization function depends on the specific problem, but <span 
+class="cmmi-10">L</span><sub><span 
+class="cmr-7">1</span></sub> regularization has the advantage of
+       producing a <span 
+class="ptmb7t-">sparse model </span>where many weights are set to zero. This makes the model less likely to overfit,
+       and makes it easier for a human to understand.
+       <!--l. 31--><p class="noindent" >The cost function can be equivalent to minimizing <span 
+class="cmmi-10">Loss</span><span 
+class="cmr-10">(</span><span 
+class="ptmb7t-">w</span><span 
+class="cmr-10">) </span>subject to the constraint that <span 
+class="cmmi-10">Complexity</span><span 
+class="cmr-10">(</span><span 
+class="ptmb7t-">w</span><span 
+class="cmr-10">) </span><span 
+class="cmsy-10">&#x2264; </span><span 
+class="cmmi-10">c</span>
+       for some constant <span 
+class="cmmi-10">c</span>. The set of points that have <span 
+class="cmmi-10">L</span><sub><span 
+class="cmr-7">1</span></sub> complexity less than <span 
+class="cmmi-10">c </span>is diamond-shaped, and the
+       corners, where some values are zero, have a tendency to be closer to the minimum. This explains why the
+       <span 
+class="cmmi-10">L</span><sub><span 
+class="cmr-7">1</span></sub> complexity measure produces a spare model.
+       <!--l. 37--><p class="noindent" >The <span 
+class="cmmi-10">L</span><sub><span 
+class="cmr-7">2</span></sub> complexity measure is spherical, which makes it rotationally invariant. This is appropriate when the
+       choice of axes is arbitrary. The <span 
+class="cmmi-10">L</span><sub><span 
+class="cmr-7">1</span></sub> function is not rotationally invariant and is appropriate when the axes are
+       not interchangeable.
+       <!--l. 41--><p class="noindent" >
+       <h3 class="sectionHead"><span class="titlemark">2    </span> <a 
+ id="x1-20002"></a>Linear classifiers with a hard threshold</h3>
+       <!--l. 43--><p class="noindent" >Linear functions can be used to do classification. The task of classification is to learn a hypothesis <span 
+class="cmmi-10">h </span>that
+       takes some input values and returns the class to which the input belongs. A <span 
+class="ptmb7t-">decision boundary </span>is a surface
+       that separate two classes. A linear decision boundary is called a <span 
+class="ptmb7t-">linear separator </span>and data that can be
+       separated by such a boundary are called <span 
+class="ptmb7t-">linearly separable</span>.
+       <!--l. 49--><p class="noindent" >We can define the vector of weights <span 
+class="ptmb7t-">w</span> <span 
+class="cmr-10">= </span><span 
+class="cmsy-10">&#x27E8;</span><span 
+class="cmmi-10">w</span><sub><span 
+class="cmr-7">1</span></sub><span 
+class="cmmi-10">,w</span><sub><span 
+class="cmr-7">2</span></sub><span 
+class="cmsy-10">&#x27E9; </span>and write the classification hypothesis, <span 
+class="cmmi-10">h</span><sub><span 
+class="ptmb7t-">w</span></sub>
+       as;
+       <!--l. 52--><p class="noindent" >
+
+       <div class="math-display" >
+       <img 
+src="assignment111x.png" alt="hw(x) = 1ifw&#x22C5;x &#x2265; 0and 0otherwise
+       " class="math-display" ></div>
+       <!--l. 56--><p class="noindent" >We can also think about it in terms of a threshold function
+       <!--l. 58--><p class="noindent" >
+       <div class="math-display" >
+       <img 
+src="assignment112x.png" alt="hw(x) = T hreshold(w &#x22C5;x)whereThreshold(z) = 1ifz &#x2265; 0 and 0otherw ise
+       " class="math-display" ></div>
+       <!--l. 62--><p class="noindent" >We now need to choose <span 
+class="ptmb7t-">w</span> to minimize the loss. Provided that the data is linearly separable, we can use the
+       <span 
+class="ptmb7t-">perceptron learning rule </span>to converge to a solution.
+       <!--l. 66--><p class="noindent" >
+       <div class="math-display" >
+       <img 
+src="assignment113x.png" alt="wi &#x2190; wi + &#x03B1;(y- hw(x))&#x00D7; xi
+       " class="math-display" ></div>
+       <!--l. 70--><p class="noindent" >The working of this rule can be explained as:
+              <ul class="itemize1">
+              <li class="itemize">
+              <!--l. 72--><p class="noindent" >If the output is correct (<span 
+class="cmmi-10">y </span><span 
+class="cmr-10">= </span><span 
+class="cmmi-10">h</span><sub><span 
+class="ptmb7t-">w</span></sub><span 
+class="cmr-10">(</span><span 
+class="ptmb7t-">x</span><span 
+class="cmr-10">)</span>), then the weights are not changed.
+              </li>
+              <li class="itemize">
+              <!--l. 73--><p class="noindent" >If <span 
+class="cmmi-10">y </span>is 1 but <span 
+class="cmmi-10">h</span><sub><span 
+class="ptmb7t-">w</span></sub><span 
+class="cmr-10">(</span><span 
+class="ptmb7t-">x</span><span 
+class="cmr-10">) </span>is 0, then we want to increase <span 
+class="cmmi-10">w</span><sub><span 
+class="cmmi-7">i</span></sub> so that <span 
+class="ptmb7t-">w</span><span 
+class="cmsy-10">&#x22C5;</span><span 
+class="ptmb7t-">x</span> becomes bigger and <span 
+class="cmmi-10">h</span><sub><span 
+class="ptmb7t-">w</span></sub><span 
+class="cmr-10">(</span><span 
+class="ptmb7t-">x</span><span 
+class="cmr-10">)</span>
+              outputs 1.
+              </li>
+              <li class="itemize">
+              <!--l. 75--><p class="noindent" >If <span 
+class="cmmi-10">y </span>is 0 but <span 
+class="cmmi-10">h</span><sub><span 
+class="ptmb7t-">w</span></sub><span 
+class="cmr-10">(</span><span 
+class="ptmb7t-">x</span><span 
+class="cmr-10">) </span>is 1, then we want to decrease <span 
+class="cmmi-10">w</span><sub><span 
+class="cmmi-7">i</span></sub> so that <span 
+class="ptmb7t-">w</span> <span 
+class="cmsy-10">&#x22C5;</span> <span 
+class="ptmb7t-">x</span> becomes smaller and
+              <span 
+class="cmmi-10">h</span><sub><span 
+class="ptmb7t-">w</span></sub><span 
+class="cmr-10">(</span><span 
+class="ptmb7t-">x</span><span 
+class="cmr-10">) </span>outputs 0.</li></ul>
+       <!--l. 79--><p class="noindent" >We can visualize we learning rule using a <span 
+class="ptmb7t-">learning curve </span>which plots the proportion of correct
+       classifications against the number of weight updates. If the data points are not linearly separable then the
+       perceptron rule fails to converge. We can reach a minimum error solution if the learning rate <span 
+class="cmmi-10">&#x03B1; </span>decays with
+       the iteration number as <span 
+class="cmsy-10"><img 
+src="cmsy10-4f.png" alt="O" class="10x-x-4f" /></span><span 
+class="cmr-10">(1</span><span 
+class="cmmi-10">&#x2215;t</span><span 
+class="cmr-10">)</span>, such as <span 
+class="cmmi-10">&#x03B1;</span><span 
+class="cmr-10">(</span><span 
+class="cmmi-10">t</span><span 
+class="cmr-10">) = 1000</span><span 
+class="cmmi-10">&#x2215;</span><span 
+class="cmr-10">(1000 + </span><span 
+class="cmmi-10">t</span><span 
+class="cmr-10">)</span>.
+
+       <!--l. 85--><p class="noindent" >
+       <h3 class="sectionHead"><span class="titlemark">3    </span> <a 
+ id="x1-30003"></a>Linear classification with logistic regression</h3>
+       <!--l. 87--><p class="noindent" >The hard nature of the threshold makes learning with the perceptron rule very unpredictable. It would be
+       better if we could classify some examples as unclear borderline cases. This can be done by softening the
+       threshold function. The logistic function is commonly used due to its convenient mathematical
+       properties
+       <!--l. 92--><p class="noindent" >
+       <div class="math-display" >
+       <img 
+src="assignment114x.png" alt="Logistic(z) =---1--z
+            1 + e
+       " class="math-display" ></div>
+       <!--l. 96--><p class="noindent" >The derivative <span 
+class="cmmi-10">g</span><sup><span 
+class="cmsy-7">&#x2032;</span></sup><span 
+class="cmr-10">(</span><span 
+class="cmmi-10">x</span><span 
+class="cmr-10">) </span>satisfies <span 
+class="cmmi-10">g</span><span 
+class="cmsy-10">&#x2032;</span><span 
+class="cmr-10">(</span><span 
+class="cmmi-10">z</span><span 
+class="cmr-10">) = </span><span 
+class="cmmi-10">g</span><span 
+class="cmr-10">(</span><span 
+class="cmmi-10">z</span><span 
+class="cmr-10">)(1 </span><span 
+class="cmsy-10">- </span><span 
+class="cmmi-10">g</span><span 
+class="cmr-10">(</span><span 
+class="cmmi-10">z</span><span 
+class="cmr-10">))</span>, so we can write our update rule as
+       <div class="math-display" >
+       <img 
+src="assignment115x.png" alt="wi = wi +&#x03B1; (y - hw(x))&#x00D7; hw (x)(1- hw(x))&#x00D7; xi
+       " class="math-display" ></div>
+       <!--l. 102--><p class="noindent" >Logistic regression is slower to converge, but behaves more predictably. When the data is non-separable,
+       logistic regression converges far more quickly. This has led to logistic regression becoming one of the most
+       popular classification techniques in medicine, marketing, survey analysis, etc.
+        
+</body></html> 
+
+
+

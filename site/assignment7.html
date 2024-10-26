@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>AI1001 - Assignment 7</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (https://tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (https://tug.org/tex4ht/)"> 
+<!-- html --> 
+<meta name="src" content="assignment7.tex"> 
+<link rel="stylesheet" type="text/css" href="style.css"> 
+</head><body 
+>
+<div class="maketitle">_______________________________________________________________________________________________________________________________________________________________
+
+<h2 class="titleHead">AI1001 - Assignment 7</h2>_____________________________________________________
+          <div class="author" ><span 
+class="ptmb7t-">Shivram S</span><br /><span 
+class="cmtt-10">ai24btech11031@iith.ac.in</span></div>
+<br />
+
+       <hr class="float"><div class="float" 
+>
+
+       <span 
+class="ptmr7t-x-x-90">Preprint. Under review.</span>
+
+       </div><hr class="endfloat" />
+       </div>
+       <!--l. 10--><p class="noindent" >An agent consists of an agent program which implements the agent function, and a computing device with
+       sensors and actuators, called the agent architecture. The architecture makes percepts available to the
+       program, and feeds the program&#8217;s action choices to the actuators.
+       <!--l. 15--><p class="noindent" >Agent programs can be classified into several types. Table-driven agents use a table of all possible percent
+       sequences to decide which action to take. However, these tables can be huge - even simple games like chess
+       require a table of at least <span 
+class="cmr-10">10</span><sup><span 
+class="cmr-7">150</span></sup> entries.
+       <h3 class="sectionHead"><span class="titlemark">1    </span> <a 
+ id="x1-10001"></a>Simple Reflex Agents</h3>
+       <!--l. 22--><p class="noindent" >The simplest kinds of agents are <span 
+class="ptmb7t-">simple reflex agents</span>, which select actions based on the current
+       percept, ignoring the rest of the percept history. They are generally used in simpler environments,
+       but can occur even in more complex ones. These agents work only if the environment is fully
+       observable.
+       <!--l. 27--><p class="noindent" >Simple reflex agents first generate an abstracted description of the current state from the percept, then use
+       condition-action rules (<span 
+class="ptmb7t-">if </span><span 
+class="cmsy-10">&#x27E8;</span><span 
+class="cmmi-10">condition</span><span 
+class="cmsy-10">&#x27E9; </span><span 
+class="ptmb7t-">then </span><span 
+class="cmsy-10">&#x27E8;</span><span 
+class="cmmi-10">action</span><span 
+class="cmsy-10">&#x27E9;</span>) to decide which action to take. Sometimes, simple
+       reflex agents fall into infinite loops, especially in partially observable environments. Escape from infinite
+       loops is possible if the agent can randomize its actions.
+       <!--l. 34--><p class="noindent" >
+       <h3 class="sectionHead"><span class="titlemark">2    </span> <a 
+ id="x1-20002"></a>Model-based Reflex Agents</h3>
+       <!--l. 36--><p class="noindent" >Agents can handle partial observability by maintaining some sort of <span 
+class="ptmb7t-">internal state </span>that depends on percept
+       history. This internal state information needs to updated as time goes on, which requires information
+       about how the world evolves independently of the agent, and how the agent&#8217;s actions affect the
+       world.
+       <!--l. 41--><p class="noindent" >The knowledge about &#8220;how the world works&#8221; is called the <span 
+class="ptmb7t-">transition model </span>of the world. The information
+       about how the state of the world is reflected in the agent&#8217;s percepts is called a <span 
+class="ptmb7t-">sensor model</span>. The transition
+       model and the sensor model together allow an agent to keep track of the state of the world. An agent that
+       uses such models is called a <span 
+class="ptmb7t-">model-based agent</span>.
+       <!--l. 47--><p class="noindent" >A model-based reflex agent combines the current percept with the old internal state to generate a description
+       of the current state. The action of the agent is then determined using rules.
+       <!--l. 51--><p class="noindent" >
+       <h3 class="sectionHead"><span class="titlemark">3    </span> <a 
+ id="x1-30003"></a>Goal-based Agents</h3>
+       <!--l. 53--><p class="noindent" >In order to determine which situations are desirable, an agent needs some information about it&#8217;s <span 
+class="ptmb7t-">goal</span>. The
+       agent program can combine this with the model to choose actions that achieve the goal. <span 
+class="ptmb7t-">Search</span>
+       and <span 
+class="ptmb7t-">Planning </span>are subfields of AI devoted to finding action sequences that achieve the agent&#8217;s
+       goals.
+       <!--l. 58--><p class="noindent" >Goal-based decision making is fundamentally different from condition-action rules in that it involves
+       consideration of the future. Goal-based agents are more flexible because the knowledge that supports its
+       decisions is represented explicitly and can be modified.
+
+       <!--l. 62--><p class="noindent" >
+       <h3 class="sectionHead"><span class="titlemark">4    </span> <a 
+ id="x1-40004"></a>Utility-based Agents</h3>
+       <!--l. 64--><p class="noindent" >A goal is just a crude binary-distinction (&#8220;achieved&#8221; vs. &#8220;not achieved&#8221;). <span 
+class="ptmb7t-">Utility </span>is a more general
+       performance measure that allows a comparison of different world states. An agent&#8217;s <span 
+class="ptmb7t-">utility function </span>is
+       essentially an internalization of the performance measure. If an agent&#8217;s performance measure and utility
+       function are aligned, then actions that maximize its utility will be rational.
+       <!--l. 71--><p class="noindent" >When it comes to flexibility and learning, a utility-based agent has more advantages than a
+       goal-based agent. Additionally, goal-based agents can&#8217;t adequately handle cases where there
+       are conflicting goals and tradeoffs have to be made, or where no goals can be achieved with
+       certainty.
+       <!--l. 76--><p class="noindent" >In a partially observable or nondeterministic environment, the agent has to make decisions under
+       uncertainty. A rational agent would maximize the <span 
+class="ptmb7t-">expected utility </span>of the action outcome.
+       <!--l. 80--><p class="noindent" >Building a utility-based agent is not easy. The agent has to model and keep track of its environment.
+       Choosing a utility-maximizing course of action is also difficult and requires ingenious algorithms.
+       Even with these algorithms, perfect rationality is usually unobtainable due to computational
+       complexity.
+       <!--l. 85--><p class="noindent" >
+       <h3 class="sectionHead"><span class="titlemark">5    </span> <a 
+ id="x1-50005"></a>Learning Agents</h3>
+       <!--l. 87--><p class="noindent" >Agent programs can be created by &#8220;teaching&#8221; machines that can learn. Due to the amount of work needed
+       to program agents by hand, learning is now the preferred method for creating state-of-the-art
+       systems.
+       <!--l. 91--><p class="noindent" >Learning allows an agent to operate in unknown environments and become more competent
+       over time. A learning agent consists of a <span 
+class="ptmb7t-">learning element</span>, which is responsible for making
+       improvements and the <span 
+class="ptmb7t-">performance element</span>, which is responsible for selecting external actions. The
+       learning agent uses feedback from a <span 
+class="ptmb7t-">critic </span>to determine how the performance element should be
+       modified. A <span 
+class="ptmb7t-">problem generator </span>is used to suggest actions that could lead to new and informative
+       experiences.
+       <!--l. 98--><p class="noindent" >The agent may learn directly from its percept sequence. For example, successive states of the environment
+       might allow the agent to learn about what its actions do and how the world evolves in response to its
+       actions. An external performance standard is also needed to learn a reflex component or utility
+       function. The performance standard might distinguish part of the percept as a <span 
+class="ptmb7t-">reward </span>or a
+       <span 
+class="ptmb7t-">penalty</span>.
+       <!--l. 104--><p class="noindent" >
+       <h3 class="sectionHead"><span class="titlemark">6    </span> <a 
+ id="x1-60006"></a>How the Components Work</h3>
+       <!--l. 106--><p class="noindent" >The state of the world can be represented in several ways, each with different <span 
+class="ptmb7t-">expressiveness</span>. A more
+       expressive representation is more concise, but more complex to reason about. In an <span 
+class="ptmb7t-">atomic representation</span>,
+       the world is indivisible. Atomic representations are used in search, game-playing, hidden Markov models
+       and Markov decision processes
+       <!--l. 112--><p class="noindent" >In a <span 
+class="ptmb7t-">factored representation </span>, the state can be split into a set of variables or attributes, each of which have a
+       value. Two factored states can share some values, making it much easier to Work with turning one state to
+       another. Factored representations are used in constraint satisfaction, propositional logic, planning, Bayesian
+       networks and machine learning algorithms.
+       <!--l. 119--><p class="noindent" >In a <span 
+class="ptmb7t-">structured representation</span>, objects and their varying relationships can be described explicitly.
+
+       Structured representations are used in relational databases, first-order logic, and much of natural language
+       understanding.
+       <!--l. 123--><p class="noindent" >The mapping of concepts to locations in physical memory can also be divided into two. In a
+       <span 
+class="ptmb7t-">localist representation</span>, there is a one-to-one mapping between concepts and memory-locations.
+       However, in a <span 
+class="ptmb7t-">distributed representation</span>, the representation of a concept is spread over many
+       memory locations. Distributed representations are more robust against noise and information
+       loss.
+        
+</body></html> 
+
+
+

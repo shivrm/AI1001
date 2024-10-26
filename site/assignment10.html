@@ -1,0 +1,302 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>AI1001 - Assignment 10</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (https://tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (https://tug.org/tex4ht/)"> 
+<!-- html --> 
+<meta name="src" content="assignment10.tex"> 
+<link rel="stylesheet" type="text/css" href="style.css"> 
+</head><body 
+>
+<div class="maketitle">_______________________________________________________________________________________________________________________________________________________________
+
+<h2 class="titleHead">AI1001 - Assignment 10</h2>___________________________________________________
+          <div class="author" ><span 
+class="ptmb7t-">Shivram S</span><br /><span 
+class="cmtt-10">ai24btech11031@iith.ac.in</span></div>
+<br />
+
+       <hr class="float"><div class="float" 
+>
+
+       <span 
+class="ptmr7t-x-x-90">Preprint. Under review.</span>
+
+       </div><hr class="endfloat" />
+       </div>
+       <h3 class="sectionHead"><span class="titlemark">1    </span> <a 
+ id="x1-10001"></a>Univariate Linear Regression</h3>
+       <!--l. 15--><p class="noindent" >A univariate linear function with input <span 
+class="cmmi-10">x </span>and output <span 
+class="cmmi-10">y </span>has the form <span 
+class="cmmi-10">y </span><span 
+class="cmr-10">= </span><span 
+class="cmmi-10">w</span><sub><span 
+class="cmr-7">1</span></sub><span 
+class="cmmi-10">x </span><span 
+class="cmr-10">+ </span><span 
+class="cmmi-10">w</span><sub><span 
+class="cmr-7">0</span></sub> where <span 
+class="cmmi-10">w</span><sub><span 
+class="cmr-7">0</span></sub> and <span 
+class="cmmi-10">w</span><sub><span 
+class="cmr-7">1</span></sub> are
+       real-valued coefficients (<span 
+class="ptmb7t-">weights</span>) to be learned. We define <span 
+class="ptmb7t-">w</span> to be the vector <span 
+class="cmsy-10">&#x27E8;</span><span 
+class="cmmi-10">w</span><sub><span 
+class="cmr-7">0</span></sub><span 
+class="cmmi-10">,w</span><sub><span 
+class="cmr-7">1</span></sub><span 
+class="cmsy-10">&#x27E9; </span>and define the linear
+       function as <span 
+class="cmmi-10">h</span><sub><span 
+class="ptmb7t-">w</span></sub> <span 
+class="cmr-10">= </span><span 
+class="cmmi-10">w</span><sub><span 
+class="cmr-7">1</span></sub><span 
+class="cmmi-10">x </span><span 
+class="cmr-10">+ </span><span 
+class="cmmi-10">w</span><sub><span 
+class="cmr-7">0</span></sub>. The task of finding the <span 
+class="cmmi-10">h</span><sub><span 
+class="ptmb7t-">w</span></sub> that best fits the data is called <span 
+class="ptmb7t-">linear</span>
+       <span 
+class="ptmb7t-">regression</span>.
+       <!--l. 21--><p class="noindent" >To fit a line to the data, we find the values of the weights that minimizes the empirical loss. We can calculate
+       the empirical loss, using the <span 
+class="cmmi-10">L</span><sub><span 
+class="cmr-7">2</span></sub> loss function, as
+       <!--l. 24--><p class="noindent" >
+       <div class="math-display" >
+       <img 
+src="assignment100x.png" alt="           N&#x2211;                &#x2211;N
+Loss(hw) =    L2(y1,hw)(xj) =   (yj - h w(xj))2
+           j=i               j=1
+       " class="math-display" ></div>
+       <!--l. 28--><p class="noindent" >We obtain <span 
+class="ptmb7t-">w</span><sup><span 
+class="cmsy-7">*</span></sup> <span 
+class="cmr-10">=</span> <span 
+class="cmr-10">argmin</span><sub><span 
+class="ptmb7t-">w</span></sub><span 
+class="cmmi-10">Loss</span><span 
+class="cmr-10">(</span><span 
+class="cmmi-10">h</span><sub><span 
+class="ptmb7t-">w</span></sub><span 
+class="cmr-10">) </span>when the empirical loss is minimum and its partial derivatives with
+       respect to <span 
+class="cmmi-10">w</span><sub><span 
+class="cmr-7">0</span></sub> and <span 
+class="cmmi-10">w</span><sub><span 
+class="cmr-7">1</span></sub> are zero.
+       <!--l. 31--><p class="noindent" >
+       <div class="math-display" >
+       <img 
+src="assignment101x.png" alt="   &#x2211;N                        &#x2211;N
+-&#x2202;--  (yj - hw(xj))2 = 0and-&#x2202;--  (yj - hw(xj))2 = 0
+&#x2202;w0j=1                    &#x2202;w1j=1
+       " class="math-display" ></div>
+       <!--l. 36--><p class="noindent" >These equations have a unique solution
+       <!--l. 38--><p class="noindent" >
+       <div class="math-display" >
+       <img 
+src="assignment102x.png" alt="       &#x2211;         &#x2211;     &#x2211;             &#x2211;         &#x2211;
+w1 = N-(--xj&#x2211;yj)2- (-&#x2211;xj)(-2yj)and w0 = (--yj --w1(-xj))-
+        N (  xj)- (  xj)                    N
+       " class="math-display" ></div>
+       <!--l. 43--><p class="noindent" >The space defined by all possible settings of the weights is called the <span 
+class="ptmb7t-">weight space</span>. For univariate linear
+       regression the weight space is two-dimensional. The loss function is <span 
+class="ptmb7t-">convex </span>for every linear regression
+       problem with the <span 
+class="cmmi-10">L</span><sub><span 
+class="cmr-7">2</span></sub> loss function. There are no local minima.
+       <!--l. 48--><p class="noindent" >
+       <h3 class="sectionHead"><span class="titlemark">2    </span> <a 
+ id="x1-20002"></a>Gradient Descent</h3>
+       <!--l. 50--><p class="noindent" ><span 
+class="ptmb7t-">Gradient descent </span>is a method that lets us minimize loss without solving for the zeroes of the derivatives. It
+       involves computing an estimate of the gradient at a point, and moving downhill along the steepest path until
+       we reach a local minimum.
+       <!--l. 54--><p class="noindent" >Gradient descent was discovered by Cauchy, who noticed that for any <span 
+class="cmmi-10">u </span><span 
+class="cmr-10">= </span><span 
+class="cmmi-10">f</span><span 
+class="cmr-10">(</span><span 
+class="cmmi-10">x,y,z,</span><span 
+class="cmmi-10">&#x2026;</span><span 
+class="cmr-10">)</span>, we could say
+       that:
+       <div class="math-display" >
+       <img 
+src="assignment103x.png" alt="f(x +&#x03B1;, y+ &#x03B2;,z + &#x03B3;,...) &#x2248; u+ &#x03B1;X + &#x03B2;Y + &#x03B3;Z + ...
+       " class="math-display" ></div>
+       <!--l. 60--><p class="noindent" >Where <span 
+class="cmmi-10">X </span><span 
+class="cmr-10">= </span><span 
+class="cmmi-10">f</span><sub><span 
+class="cmmi-7">x</span></sub><span 
+class="cmsy-10">&#x2032;</span>, <span 
+class="cmmi-10">Y </span><span 
+class="cmr-10">= </span><span 
+class="cmmi-10">f</span><sub><span 
+class="cmmi-7">y</span></sub><span 
+class="cmsy-10">&#x2032;</span>, <span 
+class="cmmi-10">&#x2026;</span> are the partial derivatives of the function. We can take <span 
+class="cmmi-10">&#x03B1; </span><span 
+class="cmr-10">= </span><span 
+class="cmsy-10">-</span><span 
+class="cmmi-10">&#x03B8;X</span>, <span 
+class="cmmi-10">&#x03B2; </span><span 
+class="cmr-10">= </span><span 
+class="cmsy-10">-</span><span 
+class="cmmi-10">&#x03B8;Y </span>,
+       <span 
+class="cmmi-10">&#x2026;</span> to obtain
+       <!--l. 63--><p class="noindent" >
+       <div class="math-display" >
+       <img 
+src="assignment104x.png" alt="f(x - &#x03B1;X, y - &#x03B2;Y, z - &#x03B2;Z,...) &#x2248; u - &#x03B8;(X2 + Y 2 + Z2 + ...)
+       " class="math-display" ></div>
+       <!--l. 67--><p class="noindent" >If <span 
+class="cmmi-10">&#x03B8; </span>is small enough, we get a value <span 
+class="cmr-10">&#x0398; = </span><span 
+class="cmmi-10">f</span><span 
+class="cmr-10">(</span><span 
+class="cmmi-10">x</span><span 
+class="cmsy-10">-</span><span 
+class="cmmi-10">&#x03B8;X,y </span><span 
+class="cmsy-10">-</span><span 
+class="cmmi-10">&#x03B8;Y,z </span><span 
+class="cmsy-10">-</span><span 
+class="cmmi-10">&#x03B8;Z,</span><span 
+class="cmmi-10">&#x2026;</span><span 
+class="cmr-10">) </span>which is less than <span 
+class="cmmi-10">u</span>. We can repeat
+       this until <span 
+class="cmr-10">&#x0398; </span>vanishes or coincides with a minimum value.
+       <!--l. 71--><p class="noindent" >In the case of linear regression, we can iteratively reach convergence by performing the operation
+
+       <div class="math-display" >
+       <img 
+src="assignment105x.png" alt="w1 &#x2190; w1 - &#x03B1;-&#x2202;-Loss(w )
+           &#x2202;w1
+       " class="math-display" ></div>
+       <!--l. 77--><p class="noindent" ><span 
+class="cmmi-10">&#x03B1; </span>is a parameter called the <span 
+class="ptmb7t-">learning rate</span>. It can be a fixed constant or can decay over time. We can
+       substitute the values of the partial derivatives to get
+       <!--l. 80--><p class="noindent" >
+       <div class="math-display" >
+       <img 
+src="assignment106x.png" alt="           &#x2211;                           &#x2211;
+w0 &#x2190; wo + &#x03B1;   (y- hw(xj))andw1 &#x2190; w1 + &#x03B1;   (y- hw(xj))&#x00D7; xj
+            j                           j
+       " class="math-display" ></div>
+       <!--l. 85--><p class="noindent" >These updates are called the <span 
+class="ptmb7t-">batch gradient descent </span>learning rule for univariate linear regression (also
+       called <span 
+class="ptmb7t-">deterministic gradient descent</span>). A step that covers all the training examples is called an
+       <span 
+class="ptmb7t-">epoch</span>.
+       <!--l. 89--><p class="noindent" >A faster variant, called <span 
+class="ptmb7t-">stochastic gradient descent </span>(SGD), randomly selects a small number of training
+       examples at each step. For example, by taking a <span 
+class="ptmb7t-">minibatch </span>size of <span 
+class="cmmi-10">N&#x2215;</span><span 
+class="cmr-10">100</span>, each step becomes 100 times
+       faster. Since the error is proportional to <img 
+src="assignment107x.png" alt="&#x221A; --
+  N"  class="sqrt" >, we need 10 times as many steps. Overall, this method is still
+       10 times faster than deterministic gradient descent.
+       <!--l. 95--><p class="noindent" >Convergence of SGD is not necessarily guaranteed. It can oscillate around the minimum without
+       converging. However, gradual decrement of the learning rate, <span 
+class="cmmi-10">&#x03B1;</span>, can guarantee convergence. SGD is also
+       useful in an online setting, where new data comes in one at a time, and a model needs to adapt to changes
+       represented in the new data.
+       <!--l. 101--><p class="noindent" >
+       <h3 class="sectionHead"><span class="titlemark">3    </span> <a 
+ id="x1-30003"></a>Multivariate Linear Regression</h3>
+       <!--l. 103--><p class="noindent" >We can extend our approach to <span 
+class="ptmb7t-">multivariate linear regression </span>where each example <span 
+class="ptmb7t-">x</span><sub><span 
+class="cmmi-7">j</span></sub> is an <span 
+class="cmmi-10">n</span>-element
+       vector, and out hypotheses are functions of the form
+       <div class="math-display" >
+       <img 
+src="assignment108x.png" alt="                                     &#x2211;
+hw(xj) = w0 + w1xj,1 + &#x22C5;&#x22C5;&#x22C5;+wnxj,n = w0 + wixj,i
+                                      i
+       " class="math-display" ></div>
+       <!--l. 109--><p class="noindent" >If we invent a dummy attribute <span 
+class="cmmi-10">x</span><sub><span 
+class="cmmi-7">j,</span><span 
+class="cmr-7">0</span></sub>, which is always equal to 1, we can write our hypotheses as dot
+       products
+       <div class="math-display" >
+       <img 
+src="assignment109x.png" alt="                &#x22A4;
+hw(xj) = w&#x22C5;xj = w xj
+       " class="math-display" ></div>
+       <!--l. 115--><p class="noindent" >The best vector of weights, <span 
+class="ptmb7t-">w</span><sup><span 
+class="cmsy-7">*</span></sup> minimizes squared-error:
+       <div class="math-display" >
+       <img 
+src="assignment1010x.png" alt=" *         &#x2211;
+w  = argwmin   L2(yj,w&#x22C5;xj)
+            j
+       " class="math-display" ></div>
+       <!--l. 120--><p class="noindent" >It is possible to solve analytically for the <span 
+class="ptmb7t-">w</span> that minimizes loss. If <span 
+class="ptmb7t-">y</span> is the vector of outputs and <span 
+class="ptmb7t-">X</span> be the
+       <span 
+class="ptmb7t-">data matrix</span>, then the vector of predicted outputs is <span 
+class="cmbx-10">&#x0177;</span> <span 
+class="cmr-10">=</span> <span 
+class="ptmb7t-">Xw</span>, and the squared-error loss over the training
+       data is
+       <div class="math-display" >
+       <img 
+src="assignment1011x.png" alt="             2          2
+L(w) = &#x2225;y&#x02C6;- y&#x2225; = &#x2225;X w- y&#x2225;
+       " class="math-display" ></div>
+       <!--l. 128--><p class="noindent" >We can set the gradient to zero
+       <!--l. 130--><p class="noindent" >
+       <div class="math-display" >
+       <img 
+src="assignment1012x.png" alt="            &#x22A4;
+&#x2207; wL(w ) = 2X (X w- y) = 0
+       " class="math-display" ></div>
+       <!--l. 134--><p class="noindent" >Rearranging, we find that the minimum-loss weight vector is
+       <!--l. 136--><p class="noindent" >
+       <div class="math-display" >
+       <img 
+src="assignment1013x.png" alt="w * = (X&#x22A4; X)-1X&#x22A4;y
+       " class="math-display" ></div>
+       <!--l. 140--><p class="noindent" ><span 
+class="cmr-10">(</span><span 
+class="ptmb7t-">X</span><sup><span 
+class="cmsy-7">&#x22A4;</span></sup><span 
+class="ptmb7t-">X</span><span 
+class="cmr-10">)</span><sup><span 
+class="cmsy-7">-</span><span 
+class="cmr-7">1</span></sup><span 
+class="ptmb7t-">X</span><sup><span 
+class="cmsy-7">&#x22A4;</span></sup> is called the <span 
+class="ptmb7t-">pseudoinverse </span>of the matrix, and the above equation is called the <span 
+class="ptmb7t-">normal</span>
+       <span 
+class="ptmb7t-">equation</span>.
+        
+</body></html> 
+
+
+

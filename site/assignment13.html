@@ -1,0 +1,450 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>AI1001 - Assignment 13</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (https://tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (https://tug.org/tex4ht/)"> 
+<!-- html --> 
+<meta name="src" content="assignment13.tex"> 
+<link rel="stylesheet" type="text/css" href="style.css"> 
+</head><body 
+>
+<div class="maketitle">_______________________________________________________________________________________________________________________________________________________________
+
+<h2 class="titleHead">AI1001 - Assignment 13</h2>___________________________________________________
+          <div class="author" ><span 
+class="ptmb7t-">Shivram S</span><br /><span 
+class="cmtt-10">ai24btech11031@iith.ac.in</span></div>
+<br />
+
+       <hr class="float"><div class="float" 
+>
+
+       <span 
+class="ptmr7t-x-x-90">Preprint. Under review.</span>
+
+       </div><hr class="endfloat" />
+       </div>
+       <h3 class="sectionHead"><span class="titlemark">1    </span> <a 
+ id="x1-10001"></a>Convolutional Networks</h3>
+       <!--l. 19--><p class="noindent" >Inputs such as images can&#8217;t be thought of as a simple vector of input pixel values because the adjacency of
+       pixels matters. If we had a network with fully connected layers, the semantics of adjacency would be lost.
+       Furthermore, such a network would have a large number of weights, which would require vast numbers of
+       training images, and a huge computational budget.
+       <!--l. 25--><p class="noindent" >We can construct the first hidden layer so that each unit receives input only from a small, local region of the
+       image. This helps preserve <span 
+class="ptmb7t-">adjacency </span>and cuts down on the number of weights. By using the same weights
+       for each hidden unit, we can achieve <span 
+class="ptmb7t-">spatial invariance</span>. Each hidden unit becomes a <span 
+class="ptmb7t-">feature detector </span>that
+       detects the same feature wherever it appears in the image. We can use multiple hidden units with multiple
+       distinct sets of weights to detect multiple features.
+       <!--l. 32--><p class="noindent" >A <span 
+class="ptmb7t-">convolutional neural network </span>(CNN) is one that contains spatially local connections, and has patterns
+       of weights (<span 
+class="ptmb7t-">kernels</span>) replicated across all units in a later. The process of applying the kernel to the image is
+       called <span 
+class="ptmb7t-">convolution</span>. We can define the convolution, <span 
+class="ptmb7t-">z</span> <span 
+class="cmr-10">=</span> <span 
+class="ptmb7t-">x</span> <span 
+class="cmsy-10">*</span> <span 
+class="ptmb7t-">k</span>, of the input <span 
+class="ptmb7t-">x</span> of size <span 
+class="cmmi-10">n </span>and the kernel <span 
+class="ptmb7t-">k</span> of
+       size <span 
+class="cmmi-10">l</span>, as
+       <!--l. 38--><p class="noindent" >
+       <div class="math-display" >
+       <img 
+src="assignment130x.png" alt="     l
+z = &#x2211;  k x
+ i  j=1 j j+i- (l+1)&#x2215;2
+       " class="math-display" ></div>
+       <!--l. 42--><p class="noindent" >Instead of applying the kernel to adjacent groups of pixels, we might increase the separation between
+       groups, called the <span 
+class="ptmb7t-">stride </span><span 
+class="cmmi-10">s</span>. A larger stride reduces the number of pixels in the output layer. For smaller
+       kernels, we typically use <span 
+class="cmmi-10">s </span><span 
+class="cmr-10">= 1</span>. We might also add some <span 
+class="ptmb7t-">padding </span>to our input, so that the kernel can also
+       be applied to the values at the edges.
+       <!--l. 48--><p class="noindent" >If we try to detect <span 
+class="cmmi-10">d </span>different featues using <span 
+class="cmmi-10">d </span>different kernels with a stride of 1, the output will be <span 
+class="cmmi-10">d </span>times
+       larger than the input. A two-dimensional input array will become a three-dimensional array of hidden units,
+       where the third dimension is of size <span 
+class="cmmi-10">d</span>. This additional &#8220;kernel dimension&#8221; does not have any adjacency
+       properties.
+       <!--l. 53--><p class="noindent" >
+       <h4 class="subsectionHead"><span class="titlemark">1.1    </span> <a 
+ id="x1-20001.1"></a>Pooling</h4>
+       <!--l. 55--><p class="noindent" >A <span 
+class="ptmb7t-">pooling </span>layer in a neural network summarizes a set of adjacent units from the preceding layer with a
+       single value. Pooling works just like a convolution layer, but the operation that is applied is fixed rather than
+       learned. There are two common forms of pooling:
+              <ul class="itemize1">
+              <li class="itemize">
+
+              <!--l. 61--><p class="noindent" ><span 
+class="ptmb7t-">Average-pooling </span>computes the average value of its <span 
+class="cmmi-10">l </span>inputs. This is identical to convolution
+              with a uniform kernel <span 
+class="ptmb7t-">k</span>  <span 
+class="cmr-10">= [1</span><span 
+class="cmmi-10">&#x2215;l,</span><span 
+class="cmmi-10">&#x2026;</span><span 
+class="cmmi-10">,</span><span 
+class="cmr-10">1</span><span 
+class="cmmi-10">&#x2215;l</span><span 
+class="cmr-10">]</span>. If <span 
+class="cmmi-10">l </span><span 
+class="cmr-10">= </span><span 
+class="cmmi-10">s</span>, the layer <span 
+class="ptmb7t-">downsamples </span>the image by a
+              factor of <span 
+class="cmmi-10">s</span>.
+              </li>
+              <li class="itemize">
+              <!--l. 64--><p class="noindent" ><span 
+class="ptmb7t-">Max-pooling   </span>computes   the   maximum   value   of   its   <span 
+class="cmmi-10">l  </span>inputs.   It   can   be   used   for
+              downsampling, but the semantics are different. Generally, max-pooling acts as a kind of
+              logical disjunction, saying that a feature exists somewhere in the unit&#8217;s receptive field.</li></ul>
+       <!--l. 70--><p class="noindent" >
+       <h4 class="subsectionHead"><span class="titlemark">1.2    </span> <a 
+ id="x1-30001.2"></a>Tensor Operations</h4>
+       <!--l. 72--><p class="noindent" ><span 
+class="ptmb7t-">Tensors </span>are multidimensional arrays of any dimension. They are generalizations of vectors and matrices.
+       Tensors help CNNs keep track of the &#8220;shape&#8221; of the data. Tensors are also computationally efficient.
+       Software can generate highly optimized code for tensor operations which are often run on GPUs (graphics
+       processing units) or TPUs (tensor processing units).
+       <!--l. 78--><p class="noindent" >For example, if we train on <span 
+class="cmr-10">256 </span><span 
+class="cmsy-10">&#x00D7; </span><span 
+class="cmr-10">256 </span>RGB images with a minibatch size of 64, we will have an input
+       tensor of size <span 
+class="cmr-10">256 </span><span 
+class="cmsy-10">&#x00D7; </span><span 
+class="cmr-10">256 </span><span 
+class="cmsy-10">&#x00D7; </span><span 
+class="cmr-10">3 </span><span 
+class="cmsy-10">&#x00D7; </span><span 
+class="cmr-10">64</span>. Applying 96 kernels of size <span 
+class="cmr-10">5 </span><span 
+class="cmsy-10">&#x00D7; </span><span 
+class="cmr-10">5 </span><span 
+class="cmsy-10">&#x00D7; </span><span 
+class="cmr-10">3 </span>with a stride <span 
+class="cmmi-10">s</span><sub><span 
+class="cmmi-7">x</span></sub> <span 
+class="cmr-10">= </span><span 
+class="cmmi-10">s</span><sub><span 
+class="cmmi-7">y</span></sub> <span 
+class="cmr-10">= 2 </span>gives us
+       an output tensor of size <span 
+class="cmr-10">128 </span><span 
+class="cmsy-10">&#x00D7; </span><span 
+class="cmr-10">128 </span><span 
+class="cmsy-10">&#x00D7; </span><span 
+class="cmr-10">96 </span><span 
+class="cmsy-10">&#x00D7; </span><span 
+class="cmr-10">64</span>. Such a tensor is often called a <span 
+class="ptmb7t-">feature map</span>. In
+       this case, it is composed of 96 <span 
+class="ptmb7t-">channels</span>, where each channel carries information from one
+       feature.
+       <!--l. 85--><p class="noindent" >
+       <h3 class="sectionHead"><span class="titlemark">2    </span> <a 
+ id="x1-40002"></a>Residual Networks</h3>
+       <!--l. 87--><p class="noindent" ><span 
+class="ptmb7t-">Residual networks </span>are a popular approach to building very deep networks that avoid the problem of
+       vanishing gradients.
+       <!--l. 90--><p class="noindent" >Typically layers in deep models completely replace the representation at the previous layer. Because each
+       layer replaces the representation from the preceding layer, all the layers must learn to do something useful.
+       If we set <span 
+class="ptmb7t-">W</span><sup><span 
+class="cmr-7">(</span><span 
+class="cmmi-7">i</span><span 
+class="cmr-7">)</span></sup> <span 
+class="cmr-10">=</span> <span 
+class="ptmb7t-">0</span> for any layer, the entire network would cease to function. If we also set <span 
+class="ptmb7t-">W</span><sup><span 
+class="cmr-7">(</span><span 
+class="cmmi-7">i</span><span 
+class="cmsy-7">-</span><span 
+class="cmmi-7">i</span><span 
+class="cmr-7">)</span></sup> <span 
+class="cmr-10">=</span> <span 
+class="ptmb7t-">0</span>, the
+       network would be unable to learn.
+       <!--l. 96--><p class="noindent" >
+       <div class="math-display" >
+       <img 
+src="assignment131x.png" alt="z(i) = f(z(i-1)) = g(i)(W (i)z(i-1))
+       " class="math-display" ></div>
+       <!--l. 100--><p class="noindent" >The key idea of residual networks is that a layer should <span 
+class="ptmri7t-">perturb </span>the representation from the previous layer
+       rather than <span 
+class="ptmri7t-">replace </span>it entirely.
+       <!--l. 103--><p class="noindent" >
+
+       <div class="math-display" >
+       <img 
+src="assignment132x.png" alt="z(i) = g(ri)(z(i-1) + W (i)z(i- 1))
+       " class="math-display" ></div>
+       <!--l. 107--><p class="noindent" ><span 
+class="ptmb7t-">g</span> is the activation function for the residual layer, and <span 
+class="cmmi-10">f </span>is the <span 
+class="ptmb7t-">residual</span>, usually defined as a neural network
+       with one nonlinear layer combined with one linear layer:
+       <!--l. 111--><p class="noindent" >
+       <div class="math-display" >
+       <img 
+src="assignment133x.png" alt="f(z) = V g(W z)
+       " class="math-display" ></div>
+       <!--l. 115--><p class="noindent" >where <span 
+class="ptmb7t-">W</span> and <span 
+class="ptmb7t-">V</span> are learned matrices. If <span 
+class="ptmb7t-">V</span> <span 
+class="cmr-10">=</span> <span 
+class="ptmb7t-">0</span>, then the layer passes its inputs through with no change.
+       Whereas traditional networks must learn to propagate information, residual networks propagate information
+       by default.
+       <!--l. 119--><p class="noindent" >
+       <h3 class="sectionHead"><span class="titlemark">3    </span> <a 
+ id="x1-50003"></a>Learning Algorithms</h3>
+       <!--l. 121--><p class="noindent" >To train a neural network, any kind of optimization algorithm could be used, but in practice, modern neural
+       networks are almost always trained with some variant of stochastic gradient descent. A few important
+       considerations when training neural networks are:
+              <ul class="itemize1">
+              <li class="itemize">
+              <!--l. 127--><p class="noindent" >The dimensionality of <span 
+class="ptmb7t-">w</span> and the size of the training set are very large. Using SGD with
+              a  relatively  small  minibatch  size  allows  helps  the  algorithm  escape  small  local  minima
+              through stochasticity. The small minibatch size ensures that the computational cost of each
+              step is a small constant.
+              </li>
+              <li class="itemize">
+              <!--l. 131--><p class="noindent" >Gradient contributions of each example can be computed independently, which lets us take
+              advantage of parallelism in GPUs or TPUs.
+              </li>
+              <li class="itemize">
+              <!--l. 133--><p class="noindent" >To improve convergence, we choose a learning rate that decreases over time.
+              </li>
+              <li class="itemize">
+
+              <!--l. 134--><p class="noindent" >Gradients  from  small  minibatches  may  have  high  variance,  and  the  gradient  may  point
+              in the wrong direction, making convergence difficult. This may be solved by increasing
+              minibatch  size  as  training  proceeds.  Another  approach  is  to  incorporate  the  idea  of
+              <span 
+class="ptmb7t-">momentum</span>, which keeps a running average of the gradients of past minibatches.
+              </li>
+              <li class="itemize">
+              <!--l. 139--><p class="noindent" >Care  must  be  taken  to  mitigate  numerical  instabilities  such  as  overflow,  underflow,  and
+              rounding error.</li></ul>
+       <!--l. 143--><p class="noindent" >Back-propagation can be used for any feedforward computation graph. The back-propagation process
+       passes messages back along each link in the network.
+       <!--l. 146--><p class="noindent" >Suppose we have a computation graph where nodes <span 
+class="cmmi-10">f </span>and <span 
+class="cmmi-10">g </span>are inputs to node <span 
+class="cmmi-10">h</span>, which itself is an input to
+       nodes <span 
+class="cmmi-10">j </span>and <span 
+class="cmmi-10">k</span>. We know that <span 
+class="cmmi-10">h </span>affects the output through <span 
+class="cmmi-10">j </span>and <span 
+class="cmmi-10">k</span>, so we can compute the derivative of <span 
+class="cmmi-10">L</span>
+       with respect to <span 
+class="cmmi-10">h </span>by summing incoming messages from <span 
+class="cmmi-10">j </span>and <span 
+class="cmmi-10">k</span>:
+       <!--l. 151--><p class="noindent" >
+       <div class="math-display" >
+       <img 
+src="assignment134x.png" alt="&#x2202;L-   &#x2202;L-- -&#x2202;L-
+&#x2202;h =  &#x2202;hj + &#x2202;hk
+       " class="math-display" ></div>
+       <!--l. 155--><p class="noindent" >Using this, we can compute the outgoing messages to its input nodes
+       <!--l. 157--><p class="noindent" >
+       <div class="math-display" >
+       <img 
+src="assignment135x.png" alt="-&#x2202;L-=  &#x2202;L-&#x2202;h-and &#x2202;L-=  &#x2202;L-&#x2202;h-
+&#x2202;fh    &#x2202;h&#x2202;fh     &#x2202;gh   &#x2202;h&#x2202;gh
+       " class="math-display" ></div>
+       <!--l. 162--><p class="noindent" >The initial messages for back-propagation are generated by calculating the derivative of the loss function.
+       These are used by nodes to compute the gradients for each weight. The computational complexity scales
+       linearly with the number of nodes. Despite requiring all the intermediate values to be stored and
+       increasing the memory requirement for training a model, this can greatly simplify and speed up
+       training.
+       <!--l. 169--><p class="noindent" >
+       <h4 class="subsectionHead"><span class="titlemark">3.1    </span> <a 
+ id="x1-60003.1"></a>Batch Normalization</h4>
+
+       <!--l. 171--><p class="noindent" >We can improve the rate of convergence of SGD by rescaling the values generated at the internal layers of
+       the network from the example within each minibatch. Though the exact reason is not understood, it seems
+       to have effects similar to the residual network.
+       <!--l. 175--><p class="noindent" >Consider a node <span 
+class="cmmi-10">z </span>in the network. The values of <span 
+class="cmmi-10">z </span>for the <span 
+class="cmmi-10">m </span>examples are <span 
+class="cmmi-10">z</span><sub><span 
+class="cmr-7">1</span></sub><span 
+class="cmmi-10">,</span><span 
+class="cmmi-10">&#x2026;</span><span 
+class="cmmi-10">,z</span><sub><span 
+class="cmmi-7">m</span></sub>. Batch normalization
+       replaces each <span 
+class="cmmi-10">z</span><sub><span 
+class="cmmi-7">i</span></sub> with
+       <!--l. 178--><p class="noindent" >
+       <div class="math-display" >
+       <img 
+src="assignment136x.png" alt="&#x02C6;zi = &#x03B3;&#x221A;zi --&#x03BC;-+ &#x03B2;
+       &#x03F5;+ &#x03C3;2
+       " class="math-display" ></div>
+       <!--l. 182--><p class="noindent" >where <span 
+class="cmmi-10">&#x03BC; </span>is the mean value of <span 
+class="cmmi-10">z</span>, <span 
+class="cmmi-10">&#x03C3; </span>is the standard deviation of <span 
+class="cmmi-10">z</span>, and <span 
+class="cmmi-10">&#x03F5; </span>is a small constant added
+       to prevent division by zero. <span 
+class="cmmi-10">&#x03B2; </span>and <span 
+class="cmmi-10">&#x03B3; </span>are learned parameters which may be node-specific or
+       layer-specific.
+       <!--l. 186--><p class="noindent" >Without batch normalization, information can get lost if a layer&#8217;s weights are too small. Batch
+       normalization prevents this from happening by standardizing the mean and variance of the
+       values. <span 
+class="cmmi-10">&#x03B2; </span>and <span 
+class="cmmi-10">&#x03B3; </span>are included in the training process. After training, they are fixed at the learned
+       values.
+       <!--l. 191--><p class="noindent" >
+       <h3 class="sectionHead"><span class="titlemark">4    </span> <a 
+ id="x1-70004"></a>Generalization</h3>
+       <!--l. 193--><p class="noindent" >
+       <h4 class="subsectionHead"><span class="titlemark">4.1    </span> <a 
+ id="x1-80004.1"></a>Choosing a network architecture</h4>
+       <!--l. 195--><p class="noindent" >A lot of progress in performance has come from exploring different kinds of network architectures, and by
+       varying the number of layers and their connectivity. Some architectures are designed to generalize well:
+       convolutional networks encode the idea that the same feature extractor is useful at all locations, and
+       recurrent networks encode the idea that the same update rule is useful at all points in a stream of sequential
+       data.
+       <!--l. 202--><p class="noindent" >Deep networks perform better than other machine learning approaches on tasks with higher dimensionality.
+       Other approaches require preprocessing to reduce dimensionality and achieve performance comparable to
+       deep learning systems.
+       <!--l. 206--><p class="noindent" >However, deep learning models lack expressive power, and might produce unintuitive errors. They produce
+       input-output mappings that are discontinuous, so a small change in input might cause a large change in
+       the output. Such <span 
+class="ptmb7t-">adversarial examples </span>are easier to find in higher dimensions. They suggest
+       that deep learning models recognize objects in ways that are very different from the human
+       brain.
+       <!--l. 212--><p class="noindent" >There are no clear sets of guidelines to choose the best network architecture for a problem. It
+       is common to use <span 
+class="ptmb7t-">neural architecture search </span>to explore the space of possible architectures.
+       <span 
+class="ptmb7t-">Evolutionary algorithms </span>have been popular because it is sensible to do recombination and
+
+       mutation.
+       <!--l. 217--><p class="noindent" >Estimating the value of a candidate network is a major challenge. We can evaluate an architecture by
+       training it and evaluating its accuracy, but with large networks this is computationally expensive.
+       <!--l. 221--><p class="noindent" >We can speed up estimation by training on a smaller data set, or by using a reduced number of batches and
+       predicting the performance. We can also train a large network and search for subgraphs that
+       perform better. This can be fast because the subgraphs share parameters and don&#8217;t have to be
+       retrained.
+       <!--l. 226--><p class="noindent" >We can also learn a <span 
+class="ptmb7t-">heuristic evaluation function </span>by training and testing some networks. Then we
+       can generate a large number of candidate networks and quickly estimate their value using this
+       function.
+       <!--l. 230--><p class="noindent" >
+       <h4 class="subsectionHead"><span class="titlemark">4.2    </span> <a 
+ id="x1-90004.2"></a>Weight decay</h4>
+       <!--l. 232--><p class="noindent" ><span 
+class="ptmb7t-">Weight decay </span>is a regularization method in which a penalty <span 
+class="cmmi-10">&#x03BB;</span><span 
+class="cmex-10">&#x2211;</span>
+  <sub><span 
+class="cmmi-7">i,j</span></sub><span 
+class="cmmi-10">W</span><sub><span 
+class="cmmi-7">i,j</span></sub><sup><span 
+class="cmr-7">2</span></sup> is added to the loss function,
+       where <span 
+class="cmmi-10">&#x03BB; </span>is a hyperparameter controlling the strength of the penalty.
+       <!--l. 236--><p class="noindent" >In networks with sigmoid activation functions, it is hypothesized that the weight decay keeps activations
+       near the linear part of the sigmoid, avoiding vanishing gradients. In residual networks, it encourages he
+       network to have small differences between consecutive layers.
+       <!--l. 241--><p class="noindent" >One explanation for the beneficial effect of weight decay is that it implements a form of <span 
+class="ptmri7t-">maximum a</span>
+       <span 
+class="ptmri7t-">posteriori </span>(MAP) learning. The MAP hypothesis <span 
+class="cmmi-10">h</span><sub><span 
+class="cmmi-7">MAP</span></sub> satisfies:
+       <!--l. 245--><p class="noindent" >
+       <table 
+class="align-star">
+                                        <tr><td 
+class="align-odd"><span 
+class="cmmi-10">h</span><sub><span 
+class="cmmi-7">MAP</span></sub></td>                              <td 
+class="align-even"> <span 
+class="cmr-10">=</span> <span 
+class="cmr-10">argmax</span><sub><span 
+class="ptmb7t-">w</span></sub><span 
+class="cmmi-10">P</span><span 
+class="cmr-10">(</span><span 
+class="ptmb7t-">y</span><span 
+class="cmsy-10">|</span><span 
+class="ptmb7t-">X</span><span 
+class="cmmi-10">,</span> <span 
+class="ptmb7t-">W</span><span 
+class="cmr-10">)</span><span 
+class="cmmi-10">P</span><span 
+class="cmr-10">(</span><span 
+class="ptmb7t-">W</span><span 
+class="cmr-10">)</span></td>                                               <td 
+class="align-label"></td>                              <td 
+class="align-label">
+                              </td></tr><tr><td 
+class="align-odd"></td>                                      <td 
+class="align-even"> <span 
+class="cmr-10">=</span> <span 
+class="cmr-10">argmin</span><sub><span 
+class="ptmb7t-">w</span></sub><img 
+src="assignment137x.png" alt="[- log P(y|X,W ) - logP (W )]"  class="left" align="middle"></td>                              <td 
+class="align-label"></td>                              <td 
+class="align-label"></td></tr></table>
+       <!--l. 250--><p class="noindent" >The first term is the usual cross-entropy loss, and the second term prefers weights under a prior distribution.
+       We can make this align with a regularized loss function if we set
+       <!--l. 254--><p class="noindent" >
+
+       <div class="math-display" >
+       <img 
+src="assignment138x.png" alt="logP (W) = - &#x03BB; &#x2211; W 2
+             i,j   i,j
+       " class="math-display" ></div>
+       <!--l. 258--><p class="noindent" >
+       <h4 class="subsectionHead"><span class="titlemark">4.3    </span> <a 
+ id="x1-100004.3"></a>Dropout</h4>
+       <!--l. 260--><p class="noindent" ><span 
+class="ptmb7t-">Dropout </span>tries to reduce the test-set error of the network at the cost of making it harder to fit the training set.
+       At each step of training, dropout deactivates a randomly chosen subset of units and applies one step
+       of back-propagation. This is a rough approximation to training a large ensemble of different
+       networks.
+       <!--l. 265--><p class="noindent" >By introducing noise at training time, the model is forced to become robust to noise. Hidden
+       units trained with dropout must learn to be compatible with many other possible sets of hidden
+       units, which is similar to the selection processes that guide evolution. Dropout applied to later
+       layers in a network forces the final decision to be made by paying attention to all the abstract
+       features.
+       <!--l. 271--><p class="noindent" >By forcing the model to learn multiple robust explanations for each input, dropout makes the model
+       generalize well. However, to fit the training set, it is usually necessary to use a larger model and train it for
+       more iterations.
+        
+</body></html> 
+
+
+
