@@ -12,8 +12,8 @@ files and the output PDF files for each assignment.
 Alternatively, the content can be accessed in HTML
 format from https://shivrm.github.io/AI1001.
 
-# License
+Licensed CC BY-NC-SA 4.0
 
-Licensed [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-
-![](https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png)
+<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+    <img width="88" height="31" src="https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png">
+</a>
