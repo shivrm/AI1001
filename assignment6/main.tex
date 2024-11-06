@@ -9,15 +9,15 @@
 
 \section{Agents and Environments}
 
-An \textbf{agent}s a system that perceives its environment through sensors and acts
+An \textbf{agent} is a system that perceives its environment through sensors and acts
 upon the environment using actuators. What is perceived by the sensors is called
-\textbf{percept}and the complete history of percepts is called the agent's
-\textbf{percept sequence}An agent's behaviour is described by an \textbf{agent function}
-that maps percepts to actions. This is implemented by an \textbf{agent program}
+\textbf{percept} and the complete history of percepts is called the agent's
+\textbf{percept sequence} An agent's behaviour is described by an \textbf{agent function}.
+that maps percepts to actions. This is implemented by an \textbf{agent program}.
 
-A rational agent is one that does the \textbf{right thing}There are different notions
+A rational agent is one that does the \textbf{right thing}. There are different notions
 of what the ``right thing'', but AI generally uses the notion of \textbf{consequentialism} 
-each action sequence of the agent is assigned some \textbf{desirability}which is used
+each action sequence of the agent is assigned some \textbf{desirability} which is used
 as a performance measure.
 
 It can be quite hard to formulate a performance measure correctly. For a vacuum cleaner,
@@ -53,27 +53,27 @@ cameras, lidar and ultrasound sensors.
 Environments may be classified into several categories:
 
 \begin{itemize}
-    \item In a \textbf{fully observable}nvironment, the agent has access to the complete state of the environment,
-        but not in a \textbf{partially observable}nvironment. If an agent has no sensor, then the
+    \item In a \textbf{fully observable} environment, the agent has access to the complete state of the environment,
+        but not in a \textbf{partially observable} environment. If an agent has no sensor, then the
         environment is unobservable.
     \item If one agent maximizing its performance measure leads to another agent minimizing
-        its performance measure, then the environment is said to be \textbf{competitive}If
+        its performance measure, then the environment is said to be \textbf{competitive}. If
         some action collectively maximizes the performance measure then the environment
-        may be \textbf{co-operative}
+        may be \textbf{co-operative}.
     \item If the agent can determine the next state of the environment from the current
-        state and its action, then the environment is said to be \textbf{deterministic}
-        otherwise it is said to be \textbf{non-deterministic}A non-deterministic
-        environment is said to be \textbf{stochastic}f the probabilities for each
+        state and its action, then the environment is said to be \textbf{deterministic}.
+        otherwise it is said to be \textbf{non-deterministic}. A non-deterministic
+        environment is said to be \textbf{stochastic} if the probabilities for each
         outcome can be quantified. 
-    \item Environments with one agent are called \textbf{single-agent}nd those with
-        more than one agent are said called \textbf{multi-agent}nvironments.
+    \item Environments with one agent are called \textbf{single-agent} and those with
+        more than one agent are said called \textbf{multi-agent} environments.
     \item An environment which has a finite number of discrete states is \textbf{discrete}
         and an environment whose state sweeps over values smoothly over time is said
-        to be \textbf{continuous}
+        to be \textbf{continuous}.
     \item If the ``laws of physics'' of the environment are known, then it is said to
-        be \textbf{known}otherwise it is said to be \textbf{unknown}
+        be \textbf{known} otherwise it is said to be \textbf{unknown}.
     \item If the environment can change while the agent decides on an action, then it
-        said to be \textbf{dynamic}otherwise it is said to be \textbf{static}
+        said to be \textbf{dynamic} otherwise it is said to be \textbf{static}.
 \end{itemize}
 
 

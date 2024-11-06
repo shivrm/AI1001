@@ -1,86 +1,97 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
-  "http://www.w3.org/TR/html4/loose.dtd">  
-<html > 
-<head><title>AI1001 - Assignment 2</title> 
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
-<meta name="generator" content="TeX4ht (https://tug.org/tex4ht/)"> 
-<meta name="originator" content="TeX4ht (https://tug.org/tex4ht/)"> 
-<!-- html --> 
-<meta name="src" content="assignment2.tex"> 
-<link rel="stylesheet" type="text/css" href="style.css"> 
-</head><body 
->
-<div class="maketitle">_______________________________________________________________________________________________________________________________________________________________
-
-<h2 class="titleHead">AI1001 - Assignment 2</h2>_____________________________________________________
-          <div class="author" ><span 
-class="ptmb7t-">Shivram S</span><br /><span 
-class="cmtt-10">ai24btech11031@iith.ac.in</span></div>
-<br />
-
-       <hr class="float"><div class="float" 
->
-
-       <span 
-class="ptmr7t-x-x-90">Preprint. Under review.</span>
-
-       </div><hr class="endfloat" />
-       </div>
-       <!--l. 11--><p class="noindent" >Go is an ancient Chinese board game. There is only one type of piece, and only one type of move. Both
-       players place stones on a <span 
-class="cmr-10">19 </span><span 
-class="cmsy-10">&#x00D7; </span><span 
-class="cmr-10">19 </span>grid and try to capture territory by surrounding it with stones. The
-       player with more territory at the end wins. Go is an important part of South Korean culture. It
-       was one of the four virtues learnt by literati, along with music, poetry and painting. People
-       think that Go players are very smart and noble. The game has long been considered a difficult
-       challenge in the field of artificial intelligence and is considerably more difficult to solve than
-       chess.
-       <!--l. 20--><p class="noindent" >AlphaGo is an artificial intelligence program made by Google DeepMind to play Go. It was trained on over
-       100,000 games of Go downloaded from the internet. AlphaGo uses deep neural networks, which mimic the
-       human brain. Such networks were known for several decades, but only became viable recently due to
-       increases in computing power.
-       <!--l. 26--><p class="noindent" >Go is a game that requires a lot of intuition. Machine learning allows AlphaGo to &#8216;learn&#8217; the game and play
-       it in new ways that are not obvious to humans. For example, AlphaGo&#8217;s goal is to maximize
-       the probability of winning, not the margin by which it wins. So AlphaGo might play along
-       &#8216;slow&#8217; routes which do not provide any instantaneous advantage, but are helpful in the long
-       run.
-       <!--l. 32--><p class="noindent" >AlphaGo can be divided into three parts: the policy network which imitates games by top players,
-       the value network which evaluates a board position and predicts the probability of winning,
-       and the tree search, which looks through different possible moves and what they might lead
-       to in the future. First, the policy network scans the board and finds interesting spots to play.
-       Then, the value network tries to find the probability that the chosen tree of moves will lead to
-       victory.
-       <!--l. 39--><p class="noindent" >AlphaGo has two weaknesses. The first weakness is that the program always takes 60-90s to make a move,
-       and if it plays along a slow route which can take a large number of moves to win, it might run out of
-       time. The second weakness is the existence of rarely occurring positions where the model has
-       not been trained adequately. When the model enters such a space, it starts playing the wrong
-       moves.
-       <!--l. 45--><p class="noindent" >The documentary also raises concerns about the future of AI development. We see that people have a
-       tendency to anthropomorphize AI (such as by referring to it as &#8216;he&#8217; or &#8216;she&#8217;), which is a big obstacle in
-       trying to understand it. Another concern is the possibility that AI will attain sentience and turn against
-       humans. But AI is still a very nascent field, and we are nowhere near that level of sentience. There
-       are already representatives from large players such as IBM and Microsoft who hold meetings
-       about the impact of AI and what dangers it could pose, and ensure that AI is used ethically and
-       responsibly.
-       <!--l. 54--><p class="noindent" >The documentary covers AlphaGo&#8217;s 5-game match against 9 <span 
-class="ptmb7t-">dan </span>(professional) Go player Lee Sedol. Lee
-       had been playing Go since the age of 8 and had won 18 world championships. Lee was confident that he
-       would win at least 4 out of the 5 games. In the first three games, AlphaGo used creative strategies such as
-       <span 
-class="ptmb7t-">peeping </span>and <span 
-class="ptmb7t-">blocking</span>, forcing Lee into resigning each time. However, in the fourth game, Lee played a
-       very non-obvious move (called a <span 
-class="ptmb7t-">divine move </span>by experts), and forced AlphaGo into a space where it had
-       not been trained adequately. AlphaGo started playing wrong moves, leading to Lee winning the fourth
-       game. Unfortunately, the fifth game ended in AlphaGo winning, and Lee lost the tournament 1-4 to
-       AlphaGo.
-       <!--l. 65--><p class="noindent" >Lee Sedol&#8217;s tournament against AlphaGo was a major milestone in AI research. After the tournament, Lee
-       remarked that AlphaGo taught a new way of seeing the game and that he had found the reason why he plays
-       Go. The tournament led many new players to discover the game, and increased its popularity
-       worldwide.
-        
-</body></html> 
-
-
-
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Shivram S ai24btech11031@iith.ac.in" />
+  <title>AI1001 - Assignment 2</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="style.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">AI1001 - Assignment 2</h1>
+<p class="author">Shivram S<br />
+<code>ai24btech11031@iith.ac.in</code></p>
+</header>
+<p>Go is an ancient Chinese board game. There is only one type of piece,
+and only one type of move. Both players place stones on a
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>19</mn><mo>×</mo><mn>19</mn></mrow><annotation encoding="application/x-tex">19 \times 19</annotation></semantics></math>
+grid and try to capture territory by surrounding it with stones. The
+player with more territory at the end wins. Go is an important part of
+South Korean culture. It was one of the four virtues learnt by literati,
+along with music, poetry and painting. People think that Go players are
+very smart and noble. The game has long been considered a difficult
+challenge in the field of artificial intelligence and is considerably
+more difficult to solve than chess.</p>
+<p>AlphaGo is an artificial intelligence program made by Google DeepMind
+to play Go. It was trained on over 100,000 games of Go downloaded from
+the internet. AlphaGo uses deep neural networks, which mimic the human
+brain. Such networks were known for several decades, but only became
+viable recently due to increases in computing power.</p>
+<p>Go is a game that requires a lot of intuition. Machine learning
+allows AlphaGo to ‘learn’ the game and play it in new ways that are not
+obvious to humans. For example, AlphaGo’s goal is to maximize the
+probability of winning, not the margin by which it wins. So AlphaGo
+might play along ‘slow’ routes which do not provide any instantaneous
+advantage, but are helpful in the long run.</p>
+<p>AlphaGo can be divided into three parts: the policy network which
+imitates games by top players, the value network which evaluates a board
+position and predicts the probability of winning, and the tree search,
+which looks through different possible moves and what they might lead to
+in the future. First, the policy network scans the board and finds
+interesting spots to play. Then, the value network tries to find the
+probability that the chosen tree of moves will lead to victory.</p>
+<p>AlphaGo has two weaknesses. The first weakness is that the program
+always takes 60-90s to make a move, and if it plays along a slow route
+which can take a large number of moves to win, it might run out of time.
+The second weakness is the existence of rarely occurring positions where
+the model has not been trained adequately. When the model enters such a
+space, it starts playing the wrong moves.</p>
+<p>The documentary also raises concerns about the future of AI
+development. We see that people have a tendency to anthropomorphize AI
+(such as by referring to it as ‘he’ or ‘she’), which is a big obstacle
+in trying to understand it. Another concern is the possibility that AI
+will attain sentience and turn against humans. But AI is still a very
+nascent field, and we are nowhere near that level of sentience. There
+are already representatives from large players such as IBM and Microsoft
+who hold meetings about the impact of AI and what dangers it could pose,
+and ensure that AI is used ethically and responsibly.</p>
+<p>The documentary covers AlphaGo’s 5-game match against 9
+<strong>dan</strong> (professional) Go player Lee Sedol. Lee had been
+playing Go since the age of 8 and had won 18 world championships. Lee
+was confident that he would win at least 4 out of the 5 games. In the
+first three games, AlphaGo used creative strategies such as
+<strong>peeping</strong> and <strong>blocking</strong>, forcing Lee into
+resigning each time. However, in the fourth game, Lee played a very
+non-obvious move (called a <strong>divine move</strong> by experts), and
+forced AlphaGo into a space where it had not been trained adequately.
+AlphaGo started playing wrong moves, leading to Lee winning the fourth
+game. Unfortunately, the fifth game ended in AlphaGo winning, and Lee
+lost the tournament 1-4 to AlphaGo.</p>
+<p>Lee Sedol’s tournament against AlphaGo was a major milestone in AI
+research. After the tournament, Lee remarked that AlphaGo taught a new
+way of seeing the game and that he had found the reason why he plays Go.
+The tournament led many new players to discover the game, and increased
+its popularity worldwide.</p>
+</body>
+</html>

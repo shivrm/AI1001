@@ -1,149 +1,137 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
-  "http://www.w3.org/TR/html4/loose.dtd">  
-<html > 
-<head><title>AI1001 - Assignment 4</title> 
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
-<meta name="generator" content="TeX4ht (https://tug.org/tex4ht/)"> 
-<meta name="originator" content="TeX4ht (https://tug.org/tex4ht/)"> 
-<!-- html --> 
-<meta name="src" content="assignment4.tex"> 
-<link rel="stylesheet" type="text/css" href="style.css"> 
-</head><body 
->
-<div class="maketitle">_______________________________________________________________________________________________________________________________________________________________
-
-<h2 class="titleHead">AI1001 - Assignment 4</h2>_____________________________________________________
-          <div class="author" ><span 
-class="ptmb7t-">Shivram S</span><br /><span 
-class="cmtt-10">ai24btech11031@iith.ac.in</span></div>
-<br />
-
-       <hr class="float"><div class="float" 
->
-
-       <span 
-class="ptmr7t-x-x-90">Preprint. Under review.</span>
-
-       </div><hr class="endfloat" />
-       </div>
-       <h3 class="sectionHead"><span class="titlemark">1    </span> <a 
- id="x1-10001"></a>History of Artificial Intelligence</h3>
-       <!--l. 12--><p class="noindent" >The first work generally recognized as AI was a model of neurons made by McCulloch and Pitts
-       in 1943. Another influential model was Hebbian Learning - a simple rule that could be used
-       to &#8216;teach&#8217; networks. The first neural computer was built in 1950 at Harvard by Minsky and
-       Edmonds.
-       <!--l. 17--><p class="noindent" >The 1950s were a period when AI researchers worked on tasks such as games, puzzles, mathematics and IQ
-       tests. In 1955, McCarthy, along with Minsky, Shannon and Mathaniel Rochester, carried out a 2-month
-       study workshop on intelligence at Dartmouth. Some of the exploratory works of this period include Logic
-       Theorist, General Problem Solver, Geometry Theorem Prover, Arthur Samuel&#8217;s checkers playing programs,
-       and McCarthy&#8217;s Advice Taker.
-       <!--l. 24--><p class="noindent" >In the 1960s, Minsky developed the idea of microworlds - limited domains that required intelligence to
-       solve. The <span 
-class="ptmb7t-">blocks </span>microworld developed the ideas of computer vision and constraint propagation. There
-       was also some early interest in building neural networks, such as an enhancement of Hebbian Learning by
-       Widrow, and the creation of <span 
-class="ptmb7t-">perceptrons </span>by Frank Rosenblatt.
-       <!--l. 30--><p class="noindent" >Eventually, AI systems failed to meet predictions made by AI researchers. There were several reasons for
-       this failure, such as AI systems merely imitating humans rather than carefully analyzing the task,
-       microworld algorithms being unable to scale up to larger problems, and a lack of computing
-       power. Structures such as the perceptron were also fundamentally limited in what they could
-       represent.
-       <!--l. 37--><p class="noindent" >To approach the problem of scalability, <span 
-class="ptmb7t-">weak methods </span>were replaced by powerful, domain-specific
-       knowledge that allowed larger reasoning steps. Programs such as <span 
-class="ptmb7t-">Dendron</span>, <span 
-class="ptmb7t-">Mycin</span>, <span 
-class="ptmb7t-">R1 </span>and <span 
-class="ptmb7t-">SHRDLU</span>,
-       developed using this method, were called <span 
-class="ptmb7t-">expert systems</span>. The concepts of <span 
-class="ptmb7t-">certainty factors </span>and <span 
-class="ptmb7t-">frames</span>
-       were incorporated into these programs.
-       <!--l. 43--><p class="noindent" >Neural netowrks regained interest in the mid-1980s. Several groups applied back-propagation
-       to problems in computer science. This was followed by interest in probabilistic approaches
-       such as Hidden Markov Models for speech recognition and Bayesian networks for representing
-       uncertain knowledge. Markov decision processes gained popularity in robotics and process
-       control.
-       <!--l. 50--><p class="noindent" >Advances in computing power and the creation of the World Wide Web facilitated the creation of very large
-       data sets, known as <span 
-class="ptmb7t-">big data</span>. This led to the development of learning algorithms designed to take advantage
-       of these. <span 
-class="ptmb7t-">Deep learning</span>, which uses multiple layers of simple adjustable neurons, gained popularity and
-       was used in several programs such as <span 
-class="ptmb7t-">AlexNet </span>and <span 
-class="ptmb7t-">AlphaGo</span>.
-       <!--l. 57--><p class="noindent" >
-       <h3 class="sectionHead"><span class="titlemark">2    </span> <a 
- id="x1-20002"></a>Risks and Benefits of AI</h3>
-       <!--l. 59--><p class="noindent" >AI has both risks and benefits. Even though it has led to dramatic acceleration in manufacturing and
-       scientific research, its misuse can lead to risks such as:
-              <ol  class="enumerate1" >
-       <li 
-  class="enumerate" id="x1-2002x1">
-              <!--l. 63--><p class="noindent" >Usage of AI in <span 
-class="ptmb7t-">lethal autonomous weapons</span>. Absence of human supervision allows a small
-              group to deploy an arbitrarily large number of weapons against human targets.
-              </li>
-
-       <li 
-  class="enumerate" id="x1-2004x2">
-              <!--l. 66--><p class="noindent" >AI may be used for <span 
-class="ptmb7t-">mass surveillance </span>of individuals to detect activities of interest. Using
-              AI to tailor information flows can allows for <span 
-class="ptmb7t-">controlling behaviour </span>to some extent, which
-              is of great concern in politics.
-              </li>
-       <li 
-  class="enumerate" id="x1-2006x3">
-              <!--l. 70--><p class="noindent" >Improper use of AI and biases in training data can lead to <span 
-class="ptmb7t-">biased decision making</span>, putting
-              certain sections of society at a disadvantage.
-              </li>
-       <li 
-  class="enumerate" id="x1-2008x4">
-              <!--l. 73--><p class="noindent" >AI  might  have  an  <span 
-class="ptmb7t-">impact  on  employment</span>,  rendering  some  activities  economically
-              inviable.
-              </li>
-       <li 
-  class="enumerate" id="x1-2010x5">
-              <!--l. 75--><p class="noindent" >Use of AI in <span 
-class="ptmb7t-">safety-critical applications </span>is risky. Technical and ethical standards have to
-              be developed when human lives are at stake.
-              </li>
-       <li 
-  class="enumerate" id="x1-2012x6">
-              <!--l. 78--><p class="noindent" ><span 
-class="ptmb7t-">Cybersecurity</span>: AI may be misused to create highly effective tools for automated blackmail
-              and phishing attacks.</li></ol>
-       <!--l. 82--><p class="noindent" >Turing compares the development of artificial intelligence to to evolution of primates into gorillas and
-       humans. Just like gorillas have lost control of their futures, humans might lose control of their
-       futures to AI. In such a case, we would be incentivized to stop work on AI and give up on its
-       benefits.
-       <!--l. 88--><p class="noindent" >
-       <h3 class="sectionHead"><span class="titlemark">3    </span> <a 
- id="x1-30003"></a>AI Index Report 2024</h3>
-       <!--l. 90--><p class="noindent" >Generative AI investment is skyrocketing. The United States is the leading source of top AI. Frontier
-       models are getting more expensive, and industry continues to dominate frontier research. Despite increase
-       in research in open-source AI, closed models still outperform open ones.
-       <!--l. 95--><p class="noindent" >The number of AI parents have skyrocketed, with 61.1% originating from China. Interest in agentic systems
-       have increased. More students are opting for CS and AI degrees, but AI PhDs are migrating to industry at an
-       alarming rate.
-       <!--l. 99--><p class="noindent" >Researchers are trying to develop multimodal AI which is flexible and capable of multiple
-       types of tasks. Google&#8217;s Gemini and OpenAI&#8217;s GPT-4 achieve this to some extent. LLMs have
-       also increased the flexibility of robots. AI has begun to help accelerate progress in science and
-       medicine.
-       <!--l. 104--><p class="noindent" >AI beats humans on some tasks like image classification and visual reasoning but trails behind on tasks like
-       commonsense reasoning and planning. But standardized evaluation of models is still lacking. Harder
-       benchmarks are emerging, and human evaluation is gaining popularity.
-       <!--l. 109--><p class="noindent" >People have become more aware and more nervous about AI&#8217;s potential impact. AI has captured
-       policymakers&#8217; attention, and AI regulations in the US have increased sharply. Concerns such as
-       impersonation, bias, intellectual property rights, privacy, data security and reliability have been raised.
-       Several vulnerabilities have been discovered in LLMs and extreme AI risks have become difficult to
-       analyze.
-        
-</body></html> 
-
-
-
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Shivram S ai24btech11031@iith.ac.in" />
+  <title>AI1001 - Assignment 4</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="style.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">AI1001 - Assignment 4</h1>
+<p class="author">Shivram S<br />
+<code>ai24btech11031@iith.ac.in</code></p>
+</header>
+<h1 id="history-of-artificial-intelligence">History of Artificial
+Intelligence</h1>
+<p>The first work generally recognized as AI was a model of neurons made
+by McCulloch and Pitts in 1943. Another influential model was Hebbian
+Learning - a simple rule that could be used to ‘teach’ networks. The
+first neural computer was built in 1950 at Harvard by Minsky and
+Edmonds.</p>
+<p>The 1950s were a period when AI researchers worked on tasks such as
+games, puzzles, mathematics and IQ tests. In 1955, McCarthy, along with
+Minsky, Shannon and Mathaniel Rochester, carried out a 2-month study
+workshop on intelligence at Dartmouth. Some of the exploratory works of
+this period include Logic Theorist, General Problem Solver, Geometry
+Theorem Prover, Arthur Samuel’s checkers playing programs, and
+McCarthy’s Advice Taker.</p>
+<p>In the 1960s, Minsky developed the idea of microworlds - limited
+domains that required intelligence to solve. The <strong>blocks</strong>
+microworld developed the ideas of computer vision and constraint
+propagation. There was also some early interest in building neural
+networks, such as an enhancement of Hebbian Learning by Widrow, and the
+creation of <strong>perceptrons</strong> by Frank Rosenblatt.</p>
+<p>Eventually, AI systems failed to meet predictions made by AI
+researchers. There were several reasons for this failure, such as AI
+systems merely imitating humans rather than carefully analyzing the
+task, microworld algorithms being unable to scale up to larger problems,
+and a lack of computing power. Structures such as the perceptron were
+also fundamentally limited in what they could represent.</p>
+<p>To approach the problem of scalability, <strong>weak methods</strong>
+were replaced by powerful, domain-specific knowledge that allowed larger
+reasoning steps. Programs such as <strong>Dendron</strong>,
+<strong>Mycin</strong>, <strong>R1</strong> and <strong>SHRDLU</strong>,
+developed using this method, were called <strong>expert
+systems</strong>. The concepts of <strong>certainty factors</strong> and
+<strong>frames</strong> were incorporated into these programs.</p>
+<p>Neural netowrks regained interest in the mid-1980s. Several groups
+applied back-propagation to problems in computer science. This was
+followed by interest in probabilistic approaches such as Hidden Markov
+Models for speech recognition and Bayesian networks for representing
+uncertain knowledge. Markov decision processes gained popularity in
+robotics and process control.</p>
+<p>Advances in computing power and the creation of the World Wide Web
+facilitated the creation of very large data sets, known as <strong>big
+data</strong>. This led to the development of learning algorithms
+designed to take advantage of these. <strong>Deep learning</strong>,
+which uses multiple layers of simple adjustable neurons, gained
+popularity and was used in several programs such as
+<strong>AlexNet</strong> and <strong>AlphaGo</strong>.</p>
+<h1 id="risks-and-benefits-of-ai">Risks and Benefits of AI</h1>
+<p>AI has both risks and benefits. Even though it has led to dramatic
+acceleration in manufacturing and scientific research, its misuse can
+lead to risks such as:</p>
+<ol>
+<li><p>Usage of AI in <strong>lethal autonomous weapons</strong>.
+Absence of human supervision allows a small group to deploy an
+arbitrarily large number of weapons against human targets.</p></li>
+<li><p>AI may be used for <strong>mass surveillance</strong> of
+individuals to detect activities of interest. Using AI to tailor
+information flows can allows for <strong>controlling behaviour</strong>
+to some extent, which is of great concern in politics.</p></li>
+<li><p>Improper use of AI and biases in training data can lead to
+<strong>biased decision making</strong>, putting certain sections of
+society at a disadvantage.</p></li>
+<li><p>AI might have an <strong>impact on employment</strong>, rendering
+some activities economically inviable.</p></li>
+<li><p>Use of AI in <strong>safety-critical applications</strong> is
+risky. Technical and ethical standards have to be developed when human
+lives are at stake.</p></li>
+<li><p><strong>Cybersecurity</strong>: AI may be misused to create
+highly effective tools for automated blackmail and phishing
+attacks.</p></li>
+</ol>
+<p>Turing compares the development of artificial intelligence to to
+evolution of primates into gorillas and humans. Just like gorillas have
+lost control of their futures, humans might lose control of their
+futures to AI. In such a case, we would be incentivized to stop work on
+AI and give up on its benefits.</p>
+<h1 id="ai-index-report-2024">AI Index Report 2024</h1>
+<p>Generative AI investment is skyrocketing. The United States is the
+leading source of top AI. Frontier models are getting more expensive,
+and industry continues to dominate frontier research. Despite increase
+in research in open-source AI, closed models still outperform open
+ones.</p>
+<p>The number of AI parents have skyrocketed, with 61.1% originating
+from China. Interest in agentic systems have increased. More students
+are opting for CS and AI degrees, but AI PhDs are migrating to industry
+at an alarming rate.</p>
+<p>Researchers are trying to develop multimodal AI which is flexible and
+capable of multiple types of tasks. Google’s Gemini and OpenAI’s GPT-4
+achieve this to some extent. LLMs have also increased the flexibility of
+robots. AI has begun to help accelerate progress in science and
+medicine.</p>
+<p>AI beats humans on some tasks like image classification and visual
+reasoning but trails behind on tasks like commonsense reasoning and
+planning. But standardized evaluation of models is still lacking. Harder
+benchmarks are emerging, and human evaluation is gaining popularity.</p>
+<p>People have become more aware and more nervous about AI’s potential
+impact. AI has captured policymakers’ attention, and AI regulations in
+the US have increased sharply. Concerns such as impersonation, bias,
+intellectual property rights, privacy, data security and reliability
+have been raised. Several vulnerabilities have been discovered in LLMs
+and extreme AI risks have become difficult to analyze.</p>
+</body>
+</html>

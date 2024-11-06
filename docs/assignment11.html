@@ -1,243 +1,162 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
-  "http://www.w3.org/TR/html4/loose.dtd">  
-<html > 
-<head><title>AI1001 - Assignment 11</title> 
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
-<meta name="generator" content="TeX4ht (https://tug.org/tex4ht/)"> 
-<meta name="originator" content="TeX4ht (https://tug.org/tex4ht/)"> 
-<!-- html --> 
-<meta name="src" content="assignment11.tex"> 
-<link rel="stylesheet" type="text/css" href="style.css"> 
-</head><body 
->
-<div class="maketitle">_______________________________________________________________________________________________________________________________________________________________
-
-<h2 class="titleHead">AI1001 - Assignment 11</h2>___________________________________________________
-          <div class="author" ><span 
-class="ptmb7t-">Shivram S</span><br /><span 
-class="cmtt-10">ai24btech11031@iith.ac.in</span></div>
-<br />
-
-       <hr class="float"><div class="float" 
->
-
-       <span 
-class="ptmr7t-x-x-90">Preprint. Under review.</span>
-
-       </div><hr class="endfloat" />
-       </div>
-       <h3 class="sectionHead"><span class="titlemark">1    </span> <a 
- id="x1-10001"></a>Regularization in multivariate linear regression</h3>
-       <!--l. 15--><p class="noindent" >With univariate linear regression, we don&#8217;t have to worry about overfitting, but with multivariate linear
-       regression it is possible that some dimension that is irrelevant appears to be useful, leading to
-       overfitting.
-       <!--l. 19--><p class="noindent" >We can specify the complexity as a function of the weights:
-       <!--l. 21--><p class="noindent" >
-       <div class="math-display" >
-       <img 
-src="assignment110x.png" alt="                        &#x2211;
-Complexity(hw) = Lq (w ) =  |wi|q
-                         i
-       " class="math-display" ></div>
-       <!--l. 25--><p class="noindent" >With <span 
-class="cmmi-10">q </span><span 
-class="cmr-10">= 1</span>, we have <span 
-class="cmmi-10">L</span><sub><span 
-class="cmr-7">1</span></sub> regularization; with <span 
-class="cmmi-10">q </span><span 
-class="cmr-10">= 2 </span>we have <span 
-class="cmmi-10">L</span><sub><span 
-class="cmr-7">2</span></sub> regularization, and so on. The choice of
-       regularization function depends on the specific problem, but <span 
-class="cmmi-10">L</span><sub><span 
-class="cmr-7">1</span></sub> regularization has the advantage of
-       producing a <span 
-class="ptmb7t-">sparse model </span>where many weights are set to zero. This makes the model less likely to overfit,
-       and makes it easier for a human to understand.
-       <!--l. 31--><p class="noindent" >The cost function can be equivalent to minimizing <span 
-class="cmmi-10">Loss</span><span 
-class="cmr-10">(</span><span 
-class="ptmb7t-">w</span><span 
-class="cmr-10">) </span>subject to the constraint that <span 
-class="cmmi-10">Complexity</span><span 
-class="cmr-10">(</span><span 
-class="ptmb7t-">w</span><span 
-class="cmr-10">) </span><span 
-class="cmsy-10">&#x2264; </span><span 
-class="cmmi-10">c</span>
-       for some constant <span 
-class="cmmi-10">c</span>. The set of points that have <span 
-class="cmmi-10">L</span><sub><span 
-class="cmr-7">1</span></sub> complexity less than <span 
-class="cmmi-10">c </span>is diamond-shaped, and the
-       corners, where some values are zero, have a tendency to be closer to the minimum. This explains why the
-       <span 
-class="cmmi-10">L</span><sub><span 
-class="cmr-7">1</span></sub> complexity measure produces a spare model.
-       <!--l. 37--><p class="noindent" >The <span 
-class="cmmi-10">L</span><sub><span 
-class="cmr-7">2</span></sub> complexity measure is spherical, which makes it rotationally invariant. This is appropriate when the
-       choice of axes is arbitrary. The <span 
-class="cmmi-10">L</span><sub><span 
-class="cmr-7">1</span></sub> function is not rotationally invariant and is appropriate when the axes are
-       not interchangeable.
-       <!--l. 41--><p class="noindent" >
-       <h3 class="sectionHead"><span class="titlemark">2    </span> <a 
- id="x1-20002"></a>Linear classifiers with a hard threshold</h3>
-       <!--l. 43--><p class="noindent" >Linear functions can be used to do classification. The task of classification is to learn a hypothesis <span 
-class="cmmi-10">h </span>that
-       takes some input values and returns the class to which the input belongs. A <span 
-class="ptmb7t-">decision boundary </span>is a surface
-       that separate two classes. A linear decision boundary is called a <span 
-class="ptmb7t-">linear separator </span>and data that can be
-       separated by such a boundary are called <span 
-class="ptmb7t-">linearly separable</span>.
-       <!--l. 49--><p class="noindent" >We can define the vector of weights <span 
-class="ptmb7t-">w</span> <span 
-class="cmr-10">= </span><span 
-class="cmsy-10">&#x27E8;</span><span 
-class="cmmi-10">w</span><sub><span 
-class="cmr-7">1</span></sub><span 
-class="cmmi-10">,w</span><sub><span 
-class="cmr-7">2</span></sub><span 
-class="cmsy-10">&#x27E9; </span>and write the classification hypothesis, <span 
-class="cmmi-10">h</span><sub><span 
-class="ptmb7t-">w</span></sub>
-       as;
-       <!--l. 52--><p class="noindent" >
-
-       <div class="math-display" >
-       <img 
-src="assignment111x.png" alt="hw(x) = 1ifw&#x22C5;x &#x2265; 0and 0otherwise
-       " class="math-display" ></div>
-       <!--l. 56--><p class="noindent" >We can also think about it in terms of a threshold function
-       <!--l. 58--><p class="noindent" >
-       <div class="math-display" >
-       <img 
-src="assignment112x.png" alt="hw(x) = T hreshold(w &#x22C5;x)whereThreshold(z) = 1ifz &#x2265; 0 and 0otherw ise
-       " class="math-display" ></div>
-       <!--l. 62--><p class="noindent" >We now need to choose <span 
-class="ptmb7t-">w</span> to minimize the loss. Provided that the data is linearly separable, we can use the
-       <span 
-class="ptmb7t-">perceptron learning rule </span>to converge to a solution.
-       <!--l. 66--><p class="noindent" >
-       <div class="math-display" >
-       <img 
-src="assignment113x.png" alt="wi &#x2190; wi + &#x03B1;(y- hw(x))&#x00D7; xi
-       " class="math-display" ></div>
-       <!--l. 70--><p class="noindent" >The working of this rule can be explained as:
-              <ul class="itemize1">
-              <li class="itemize">
-              <!--l. 72--><p class="noindent" >If the output is correct (<span 
-class="cmmi-10">y </span><span 
-class="cmr-10">= </span><span 
-class="cmmi-10">h</span><sub><span 
-class="ptmb7t-">w</span></sub><span 
-class="cmr-10">(</span><span 
-class="ptmb7t-">x</span><span 
-class="cmr-10">)</span>), then the weights are not changed.
-              </li>
-              <li class="itemize">
-              <!--l. 73--><p class="noindent" >If <span 
-class="cmmi-10">y </span>is 1 but <span 
-class="cmmi-10">h</span><sub><span 
-class="ptmb7t-">w</span></sub><span 
-class="cmr-10">(</span><span 
-class="ptmb7t-">x</span><span 
-class="cmr-10">) </span>is 0, then we want to increase <span 
-class="cmmi-10">w</span><sub><span 
-class="cmmi-7">i</span></sub> so that <span 
-class="ptmb7t-">w</span><span 
-class="cmsy-10">&#x22C5;</span><span 
-class="ptmb7t-">x</span> becomes bigger and <span 
-class="cmmi-10">h</span><sub><span 
-class="ptmb7t-">w</span></sub><span 
-class="cmr-10">(</span><span 
-class="ptmb7t-">x</span><span 
-class="cmr-10">)</span>
-              outputs 1.
-              </li>
-              <li class="itemize">
-              <!--l. 75--><p class="noindent" >If <span 
-class="cmmi-10">y </span>is 0 but <span 
-class="cmmi-10">h</span><sub><span 
-class="ptmb7t-">w</span></sub><span 
-class="cmr-10">(</span><span 
-class="ptmb7t-">x</span><span 
-class="cmr-10">) </span>is 1, then we want to decrease <span 
-class="cmmi-10">w</span><sub><span 
-class="cmmi-7">i</span></sub> so that <span 
-class="ptmb7t-">w</span> <span 
-class="cmsy-10">&#x22C5;</span> <span 
-class="ptmb7t-">x</span> becomes smaller and
-              <span 
-class="cmmi-10">h</span><sub><span 
-class="ptmb7t-">w</span></sub><span 
-class="cmr-10">(</span><span 
-class="ptmb7t-">x</span><span 
-class="cmr-10">) </span>outputs 0.</li></ul>
-       <!--l. 79--><p class="noindent" >We can visualize we learning rule using a <span 
-class="ptmb7t-">learning curve </span>which plots the proportion of correct
-       classifications against the number of weight updates. If the data points are not linearly separable then the
-       perceptron rule fails to converge. We can reach a minimum error solution if the learning rate <span 
-class="cmmi-10">&#x03B1; </span>decays with
-       the iteration number as <span 
-class="cmsy-10"><img 
-src="cmsy10-4f.png" alt="O" class="10x-x-4f" /></span><span 
-class="cmr-10">(1</span><span 
-class="cmmi-10">&#x2215;t</span><span 
-class="cmr-10">)</span>, such as <span 
-class="cmmi-10">&#x03B1;</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">t</span><span 
-class="cmr-10">) = 1000</span><span 
-class="cmmi-10">&#x2215;</span><span 
-class="cmr-10">(1000 + </span><span 
-class="cmmi-10">t</span><span 
-class="cmr-10">)</span>.
-
-       <!--l. 85--><p class="noindent" >
-       <h3 class="sectionHead"><span class="titlemark">3    </span> <a 
- id="x1-30003"></a>Linear classification with logistic regression</h3>
-       <!--l. 87--><p class="noindent" >The hard nature of the threshold makes learning with the perceptron rule very unpredictable. It would be
-       better if we could classify some examples as unclear borderline cases. This can be done by softening the
-       threshold function. The logistic function is commonly used due to its convenient mathematical
-       properties
-       <!--l. 92--><p class="noindent" >
-       <div class="math-display" >
-       <img 
-src="assignment114x.png" alt="Logistic(z) =---1--z
-            1 + e
-       " class="math-display" ></div>
-       <!--l. 96--><p class="noindent" >The derivative <span 
-class="cmmi-10">g</span><sup><span 
-class="cmsy-7">&#x2032;</span></sup><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">x</span><span 
-class="cmr-10">) </span>satisfies <span 
-class="cmmi-10">g</span><span 
-class="cmsy-10">&#x2032;</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">z</span><span 
-class="cmr-10">) = </span><span 
-class="cmmi-10">g</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">z</span><span 
-class="cmr-10">)(1 </span><span 
-class="cmsy-10">- </span><span 
-class="cmmi-10">g</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">z</span><span 
-class="cmr-10">))</span>, so we can write our update rule as
-       <div class="math-display" >
-       <img 
-src="assignment115x.png" alt="wi = wi +&#x03B1; (y - hw(x))&#x00D7; hw (x)(1- hw(x))&#x00D7; xi
-       " class="math-display" ></div>
-       <!--l. 102--><p class="noindent" >Logistic regression is slower to converge, but behaves more predictably. When the data is non-separable,
-       logistic regression converges far more quickly. This has led to logistic regression becoming one of the most
-       popular classification techniques in medicine, marketing, survey analysis, etc.
-        
-</body></html> 
-
-
-
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Shivram S ai24btech11031@iith.ac.in" />
+  <title>AI1001 - Assignment 11</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="style.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">AI1001 - Assignment 11</h1>
+<p class="author">Shivram S<br />
+<code>ai24btech11031@iith.ac.in</code></p>
+</header>
+<h1 id="regularization-in-multivariate-linear-regression">Regularization
+in multivariate linear regression</h1>
+<p>With univariate linear regression, we don’t have to worry about
+overfitting, but with multivariate linear regression it is possible that
+some dimension that is irrelevant appears to be useful, leading to
+overfitting.</p>
+<p>We can specify the complexity as a function of the weights:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>o</mi><mi>m</mi><mi>p</mi><mi>l</mi><mi>e</mi><mi>x</mi><mi>i</mi><mi>t</mi><mi>y</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>h</mi><mtext mathvariant="bold">𝐰</mtext></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>L</mi><mi>q</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mtext mathvariant="bold">𝐰</mtext><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><munder><mo>∑</mo><mi>i</mi></munder><mo stretchy="false" form="prefix">|</mo><msub><mi>w</mi><mi>i</mi></msub><msup><mo stretchy="false" form="postfix">|</mo><mi>q</mi></msup></mrow><annotation encoding="application/x-tex">Complexity(h_{\textbf{w}}) = L_q(\textbf{w}) = \sum_i \lvert w_i \rvert^q</annotation></semantics></math></p>
+<p>With
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">q = 1</annotation></semantics></math>,
+we have
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mn>1</mn></msub><annotation encoding="application/x-tex">L_1</annotation></semantics></math>
+regularization; with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">q = 2</annotation></semantics></math>
+we have
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mn>2</mn></msub><annotation encoding="application/x-tex">L_2</annotation></semantics></math>
+regularization, and so on. The choice of regularization function depends
+on the specific problem, but
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mn>1</mn></msub><annotation encoding="application/x-tex">L_1</annotation></semantics></math>
+regularization has the advantage of producing a <strong>sparse
+model</strong> where many weights are set to zero. This makes the model
+less likely to overfit, and makes it easier for a human to
+understand.</p>
+<p>The cost function can be equivalent to minimizing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mi>o</mi><mi>s</mi><mi>s</mi><mrow><mo stretchy="true" form="prefix">(</mo><mtext mathvariant="bold">𝐰</mtext><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">Loss(\textbf{w})</annotation></semantics></math>
+subject to the constraint that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>o</mi><mi>m</mi><mi>p</mi><mi>l</mi><mi>e</mi><mi>x</mi><mi>i</mi><mi>t</mi><mi>y</mi><mrow><mo stretchy="true" form="prefix">(</mo><mtext mathvariant="bold">𝐰</mtext><mo stretchy="true" form="postfix">)</mo></mrow><mo>≤</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">Complexity(\textbf{w}) \le c</annotation></semantics></math>
+for some constant
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>.
+The set of points that have
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mn>1</mn></msub><annotation encoding="application/x-tex">L_1</annotation></semantics></math>
+complexity less than
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>
+is diamond-shaped, and the corners, where some values are zero, have a
+tendency to be closer to the minimum. This explains why the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mn>1</mn></msub><annotation encoding="application/x-tex">L_1</annotation></semantics></math>
+complexity measure produces a spare model.</p>
+<p>The
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mn>2</mn></msub><annotation encoding="application/x-tex">L_2</annotation></semantics></math>
+complexity measure is spherical, which makes it rotationally invariant.
+This is appropriate when the choice of axes is arbitrary. The
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mn>1</mn></msub><annotation encoding="application/x-tex">L_1</annotation></semantics></math>
+function is not rotationally invariant and is appropriate when the axes
+are not interchangeable.</p>
+<h1 id="linear-classifiers-with-a-hard-threshold">Linear classifiers
+with a hard threshold</h1>
+<p>Linear functions can be used to do classification. The task of
+classification is to learn a hypothesis
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
+that takes some input values and returns the class to which the input
+belongs. A <strong>decision boundary</strong> is a surface that separate
+two classes. A linear decision boundary is called a <strong>linear
+separator</strong> and data that can be separated by such a boundary are
+called <strong>linearly separable</strong>.</p>
+<p>We can define the vector of weights
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="bold">𝐰</mtext><mo>=</mo><mo stretchy="false" form="prefix">⟨</mo><msub><mi>w</mi><mn>1</mn></msub><mo>,</mo><msub><mi>w</mi><mn>2</mn></msub><mo stretchy="false" form="postfix">⟩</mo></mrow><annotation encoding="application/x-tex">\textbf{w} = \langle w_1, w_2 \rangle</annotation></semantics></math>
+and write the classification hypothesis,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>h</mi><mtext mathvariant="bold">𝐰</mtext></msub><annotation encoding="application/x-tex">h_{\textbf{w}}</annotation></semantics></math>
+as;</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mtext mathvariant="bold">𝐰</mtext></msub><mrow><mo stretchy="true" form="prefix">(</mo><mtext mathvariant="bold">𝐱</mtext><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mrow><mrow><mtext mathvariant="normal">1 if </mtext><mspace width="0.333em"></mspace></mrow><mrow><mtext mathvariant="bold">𝐰</mtext><mo>⋅</mo><mtext mathvariant="bold">𝐱</mtext><mo>≥</mo><mn>0</mn></mrow><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> and 0 otherwise</mtext></mrow></mrow></mrow><annotation encoding="application/x-tex">h_{\textbf{w}}(\textbf{x}) = \text{1 if $\textbf{w}\cdot\textbf{x} \ge 0$ and 0 otherwise}</annotation></semantics></math></p>
+<p>We can also think about it in terms of a threshold function</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mtext mathvariant="bold">𝐰</mtext></msub><mrow><mo stretchy="true" form="prefix">(</mo><mtext mathvariant="bold">𝐱</mtext><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>T</mi><mi>h</mi><mi>r</mi><mi>e</mi><mi>s</mi><mi>h</mi><mi>o</mi><mi>l</mi><mi>d</mi><mrow><mo stretchy="true" form="prefix">(</mo><mtext mathvariant="bold">𝐰</mtext><mo>⋅</mo><mtext mathvariant="bold">𝐱</mtext><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> where </mtext><mspace width="0.333em"></mspace></mrow><mrow><mi>T</mi><mi>h</mi><mi>r</mi><mi>e</mi><mi>s</mi><mi>h</mi><mi>o</mi><mi>l</mi><mi>d</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>z</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>1</mn></mrow><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> if </mtext><mspace width="0.333em"></mspace></mrow><mrow><mi>z</mi><mo>≥</mo><mn>0</mn></mrow><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> and 0 otherwise</mtext></mrow></mrow></mrow><annotation encoding="application/x-tex">h_{\textbf{w}}(\textbf{x}) = Threshold(\textbf{w}\cdot\textbf{x}) \text{ where $Threshold(z) = 1$ if $z \ge 0$ and 0 otherwise}</annotation></semantics></math></p>
+<p>We now need to choose
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtext mathvariant="bold">𝐰</mtext><annotation encoding="application/x-tex">\textbf{w}</annotation></semantics></math>
+to minimize the loss. Provided that the data is linearly separable, we
+can use the <strong>perceptron learning rule</strong> to converge to a
+solution.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>i</mi></msub><mo>←</mo><msub><mi>w</mi><mi>i</mi></msub><mo>+</mo><mi>α</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>−</mo><msub><mi>h</mi><mtext mathvariant="bold">𝐰</mtext></msub><mrow><mo stretchy="true" form="prefix">(</mo><mtext mathvariant="bold">𝐱</mtext><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>×</mo><msub><mi>x</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">w_i \gets w_i + \alpha(y - h_{\textbf{w}}(\textbf{x})) \times x_i</annotation></semantics></math></p>
+<p>The working of this rule can be explained as:</p>
+<ul>
+<li><p>If the output is correct
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><msub><mi>h</mi><mtext mathvariant="bold">𝐰</mtext></msub><mrow><mo stretchy="true" form="prefix">(</mo><mtext mathvariant="bold">𝐱</mtext><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">y = h_{\textbf{w}}(\textbf{x})</annotation></semantics></math>),
+then the weights are not changed.</p></li>
+<li><p>If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>
+is 1 but
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mtext mathvariant="bold">𝐰</mtext></msub><mrow><mo stretchy="true" form="prefix">(</mo><mtext mathvariant="bold">𝐱</mtext><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">h_{\textbf{w}}(\textbf{x})</annotation></semantics></math>
+is 0, then we want to increase
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>w</mi><mi>i</mi></msub><annotation encoding="application/x-tex">w_i</annotation></semantics></math>
+so that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="bold">𝐰</mtext><mo>⋅</mo><mtext mathvariant="bold">𝐱</mtext></mrow><annotation encoding="application/x-tex">\textbf{w} \cdot \textbf{x}</annotation></semantics></math>
+becomes bigger and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mtext mathvariant="bold">𝐰</mtext></msub><mrow><mo stretchy="true" form="prefix">(</mo><mtext mathvariant="bold">𝐱</mtext><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">h_{\textbf{w}}(\textbf{x})</annotation></semantics></math>
+outputs 1.</p></li>
+<li><p>If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>
+is 0 but
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mtext mathvariant="bold">𝐰</mtext></msub><mrow><mo stretchy="true" form="prefix">(</mo><mtext mathvariant="bold">𝐱</mtext><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">h_{\textbf{w}}(\textbf{x})</annotation></semantics></math>
+is 1, then we want to decrease
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>w</mi><mi>i</mi></msub><annotation encoding="application/x-tex">w_i</annotation></semantics></math>
+so that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="bold">𝐰</mtext><mo>⋅</mo><mtext mathvariant="bold">𝐱</mtext></mrow><annotation encoding="application/x-tex">\textbf{w} \cdot \textbf{x}</annotation></semantics></math>
+becomes smaller and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mtext mathvariant="bold">𝐰</mtext></msub><mrow><mo stretchy="true" form="prefix">(</mo><mtext mathvariant="bold">𝐱</mtext><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">h_{\textbf{w}}(\textbf{x})</annotation></semantics></math>
+outputs 0.</p></li>
+</ul>
+<p>We can visualize we learning rule using a <strong>learning
+curve</strong> which plots the proportion of correct classifications
+against the number of weight updates. If the data points are not
+linearly separable then the perceptron rule fails to converge. We can
+reach a minimum error solution if the learning rate
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
+decays with the iteration number as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝒪</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mi>/</mi><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal O(1/t)</annotation></semantics></math>,
+such as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>1000</mn><mi>/</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>1000</mn><mo>+</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\alpha(t) = 1000 / (1000 + t)</annotation></semantics></math>.</p>
+<h1 id="linear-classification-with-logistic-regression">Linear
+classification with logistic regression</h1>
+<p>The hard nature of the threshold makes learning with the perceptron
+rule very unpredictable. It would be better if we could classify some
+examples as unclear borderline cases. This can be done by softening the
+threshold function. The logistic function is commonly used due to its
+convenient mathematical properties</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mi>o</mi><mi>g</mi><mi>i</mi><mi>s</mi><mi>t</mi><mi>i</mi><mi>c</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>z</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mn>1</mn><mrow><mn>1</mn><mo>+</mo><msup><mi>e</mi><mrow><mo>−</mo><mi>z</mi></mrow></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">Logistic(z) = \frac{1}{1 + e^{-z}}</annotation></semantics></math></p>
+<p>The derivative
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>g</mi><mi>′</mi></msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">g^{\prime}(x)</annotation></semantics></math>
+satisfies
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mi>′</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>z</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>g</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>z</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>g</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>z</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">g&#39;(z) = g(z) (1 - g(z))</annotation></semantics></math>,
+so we can write our update rule as
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>i</mi></msub><mo>=</mo><msub><mi>w</mi><mi>i</mi></msub><mo>+</mo><mi>α</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>−</mo><msub><mi>h</mi><mtext mathvariant="bold">𝐰</mtext></msub><mrow><mo stretchy="true" form="prefix">(</mo><mtext mathvariant="bold">𝐱</mtext><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>×</mo><msub><mi>h</mi><mtext mathvariant="bold">𝐰</mtext></msub><mrow><mo stretchy="true" form="prefix">(</mo><mtext mathvariant="bold">𝐱</mtext><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>h</mi><mtext mathvariant="bold">𝐰</mtext></msub><mrow><mo stretchy="true" form="prefix">(</mo><mtext mathvariant="bold">𝐱</mtext><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>×</mo><msub><mi>x</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">w_i = w_i + \alpha(y - h_{\textbf{w}}(\textbf{x})) \times h_{\textbf{w}}(\textbf{x})(1 - h_{\textbf{w}}(\textbf{x})) \times x_i</annotation></semantics></math></p>
+<p>Logistic regression is slower to converge, but behaves more
+predictably. When the data is non-separable, logistic regression
+converges far more quickly. This has led to logistic regression becoming
+one of the most popular classification techniques in medicine,
+marketing, survey analysis, etc.</p>
+</body>
+</html>

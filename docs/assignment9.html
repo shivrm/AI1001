@@ -1,353 +1,230 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
-  "http://www.w3.org/TR/html4/loose.dtd">  
-<html > 
-<head><title>AI1001 - Assignment 9</title> 
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
-<meta name="generator" content="TeX4ht (https://tug.org/tex4ht/)"> 
-<meta name="originator" content="TeX4ht (https://tug.org/tex4ht/)"> 
-<!-- html --> 
-<meta name="src" content="assignment9.tex"> 
-<link rel="stylesheet" type="text/css" href="style.css"> 
-</head><body 
->
-<div class="maketitle">_______________________________________________________________________________________________________________________________________________________________
-
-<h2 class="titleHead">AI1001 - Assignment 9</h2>_____________________________________________________
-          <div class="author" ><span 
-class="ptmb7t-">Shivram S</span><br /><span 
-class="cmtt-10">ai24btech11031@iith.ac.in</span></div>
-<br />
-
-       <hr class="float"><div class="float" 
->
-
-       <span 
-class="ptmr7t-x-x-90">Preprint. Under review.</span>
-
-       </div><hr class="endfloat" />
-       </div>
-       <!--l. 13--><p class="noindent" >Our goal in machine learning is to select a hypothesis that will optimally fit future examples.
-       We make the assumption that our future examples will be like the past, and follow the same
-       probability distribution (<span 
-class="ptmb7t-">stationarity </span>assumption), and that every example is independent of previous
-       examples. Examples that satisfy these equations are independent and identically distributed
-       (i.i.d.).
-       <div class="eqnarray">
-       <div class="math-display" >
-       <img 
-src="assignment90x.png" alt="P(Ej) = E (Ej+1) = P (Ej+2 ) = ...
-  P (Ej) = P (Ej | Ej-1,Ej-2,...)
-       " class="math-display" ></div>
-       </div>
-       <!--l. 25--><p class="noindent" >We can say that the optimal hypothesis is the one that minimizes the <span 
-class="ptmb7t-">error rate</span>: the proportion of times that
-       <span 
-class="cmmi-10">h</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">x</span><span 
-class="cmr-10">)</span><span 
-class="cmmi-10">&#x2260;</span><span 
-class="cmmi-10">y </span>for an <span 
-class="cmr-10">(</span><span 
-class="cmmi-10">x,y</span><span 
-class="cmr-10">)</span>. This is done by measuring the model&#8217;s performance on a <span 
-class="ptmb7t-">test set </span>of examples. To
-       prevent the model from peeking at the test answers, we split the examples we have into a <span 
-class="ptmb7t-">training set </span>and a
-       <span 
-class="ptmb7t-">test set</span>.
-       <!--l. 32--><p class="noindent" >Our model class might have some parameters (called <span 
-class="ptmb7t-">hyperparameters</span>) and we might want to
-       find the optimal values for them. Tuning the hyperparameters by measuring error rates on the
-       test set is also considered as peeking. So, we can divide our data data into a <span 
-class="ptmb7t-">training set </span>to
-       train the model, a <span 
-class="ptmb7t-">validation set </span>to tune the hyperparameters, and a <span 
-class="ptmb7t-">test set </span>to do an unbiased
-       evaluation.
-       <!--l. 39--><p class="noindent" >If we don&#8217;t have enough data, we can use <span 
-class="ptmb7t-">k-fold cross validation</span>. We split the data into <span 
-class="cmmi-10">k </span>equal subsets. We
-       perform <span 
-class="cmmi-10">k </span>rounds of learning. On each round, we use <span 
-class="cmr-10">1</span><span 
-class="cmmi-10">&#x2215;k </span>of the data as a validation set and the rest as the
-       training set. The average test score of the <span 
-class="cmmi-10">k </span>rounds is used. Popular values of <span 
-class="cmmi-10">k </span>are 5 and 10, enough to give
-       a better estimate at a cost of 5 to 10 times longer computation time. When <span 
-class="cmmi-10">k </span><span 
-class="cmr-10">= </span><span 
-class="cmmi-10">n </span>we call it <span 
-class="ptmb7t-">leave-one-out</span>
-       <span 
-class="ptmb7t-">cross validation </span>(LOOCV).
-       <h3 class="sectionHead"><span class="titlemark">1    </span> <a 
- id="x1-10001"></a>Model Selection</h3>
-       <!--l. 49--><p class="noindent" >Part of model selection is qualitative and subjective. Based on what we know about the problem, we might
-       prefer some model classes over others. Then we can qualitatively select the best model class based on
-       performance on the validation data set.
-       <!--l. 54--><p class="noindent" >We can measure the complexity of a model based on attributes such as the number of nodes in a
-       decision tree or the number of neural network parameters. The training set error approaches zero
-       as the complexity increases, but the validation error starts to increase after some point due to
-       overfitting. Some model classes, such as decision trees, never recover from overfitting. Others
-       classes such as deep neural networks, kernel machines, etc. can use the larger capacity fit a larger
-       number of suitable representations, hence the validation error tends to decrease as the capacity
-       increases.
-       <!--l. 64--><p class="noindent" >Model classes start to overfit as the capacity approaches the point of interpolation, which is when the model
-       exactly fits all the training data. This is because the model&#8217;s capacity is concentrated on the training
-       examples and the remaining capacity is allocated in a way that is not representative of the training
-
-       data.
-       <!--l. 70--><p class="noindent" >
-       <h3 class="sectionHead"><span class="titlemark">2    </span> <a 
- id="x1-20002"></a>Loss Functions</h3>
-       <!--l. 72--><p class="noindent" >In machine learning, it is traditional to express the model&#8217;s performance in terms of a <span 
-class="ptmb7t-">loss function </span>that
-       needs to be minimized. The loss function <span 
-class="cmmi-10">L</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">x,y,</span><span 
-class="cmmi-10">&#x0177;</span><span 
-class="cmr-10">) </span>is the amount of utility lost by predicting <span 
-class="cmmi-10">h</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">x</span><span 
-class="cmr-10">) =</span> <span 
-class="cmmi-10">&#x0177;</span>
-       when the correct answer is <span 
-class="cmmi-10">f</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">x</span><span 
-class="cmr-10">) = </span><span 
-class="cmmi-10">y</span>. We can often use a simplified version <span 
-class="cmmi-10">L</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">y,</span><span 
-class="cmmi-10">&#x0177;</span><span 
-class="cmr-10">) </span>that is independent of
-       <span 
-class="cmmi-10">x</span>.
-       <!--l. 79--><p class="noindent" >
-       <div class="math-display" >
-       <img 
-src="assignment91x.png" alt="L (x,y,&#x02C6;y) = U tility(resultofusingy given x)- Utility(resultofusing &#x02C6;y given x)
-       " class="math-display" ></div>
-       <!--l. 84--><p class="noindent" >One misclassification might be worse than another. For example, if a spam-detection algorithm classifies a
-       spam email as non-spam, then it&#8217;s just a minor annoyance, but if a non-spam email is classified as spam,
-       then the user might miss an important message. Hence, we might want to give a larger value to
-       <span 
-class="cmmi-10">L</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">nospam,spam</span><span 
-class="cmr-10">) </span>than to <span 
-class="cmmi-10">L</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">spam,nospam</span><span 
-class="cmr-10">)</span>.
-       <!--l. 91--><p class="noindent" >We consider smaller errors to be better than larger ones. We can quantititatively implement this using loss
-       functions such as <span 
-class="cmmi-10">L</span><sub><span 
-class="cmr-7">1</span></sub> loss and <span 
-class="cmmi-10">L</span><sub><span 
-class="cmr-7">2</span></sub> loss. For discrete-valued inputs, we can use the <span 
-class="cmmi-10">L</span><sub><span 
-class="cmr-7">0</span><span 
-class="cmmi-7">&#x2215;</span><span 
-class="cmr-7">1</span></sub> loss
-       function.
-       <!--l. 96--><p class="noindent" >
-       <table 
-class="align-star">
-                                                       <tr><td 
-class="align-odd"><span 
-class="cmmi-10">L</span><sub><span 
-class="cmr-7">1</span></sub><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">y,</span><span 
-class="cmmi-10">&#x0177;</span><span 
-class="cmr-10">)</span></td>                                            <td 
-class="align-even"> <span 
-class="cmr-10">= </span><span 
-class="cmsy-10">|</span><span 
-class="cmmi-10">y </span><span 
-class="cmsy-10">-</span><span 
-class="cmmi-10">&#x0177;</span><span 
-class="cmsy-10">|</span></td>                       <td 
-class="align-label"></td>                  <td 
-class="align-label">
-                  </td></tr><tr><td 
-class="align-odd"><span 
-class="cmmi-10">L</span><sub><span 
-class="cmr-7">2</span></sub><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">y,</span><span 
-class="cmmi-10">&#x0177;</span><span 
-class="cmr-10">)</span></td>                                            <td 
-class="align-even"> <span 
-class="cmr-10">= (</span><span 
-class="cmmi-10">y </span><span 
-class="cmsy-10">-</span><span 
-class="cmmi-10">&#x0177;</span><span 
-class="cmr-10">)</span><sup><span 
-class="cmr-7">2</span></sup></td>                                                               <td 
-class="align-label"></td>                                                   <td 
-class="align-label">
-                                                   </td></tr><tr><td 
-class="align-odd"><span 
-class="cmmi-10">L</span><sub><span 
-class="cmr-7">0</span><span 
-class="cmmi-7">&#x2215;</span><span 
-class="cmr-7">1</span></sub><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">y,</span><span 
-class="cmmi-10">&#x0177;</span><span 
-class="cmr-10">)</span></td>                                         <td 
-class="align-even"> <span 
-class="cmr-10">=</span> 0 if <span 
-class="cmmi-10">y </span><span 
-class="cmr-10">=</span> <span 
-class="cmmi-10">&#x0177;</span> else 1</td>                                                       <td 
-class="align-label"></td>                                                       <td 
-class="align-label"></td></tr></table>
-       <!--l. 102--><p class="noindent" >To compute the expected loss over all input-output pairs, we define a probability distribution <span 
-class="cmmi-10">P</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">X,Y </span><span 
-class="cmr-10">) </span>over
-
-       the examples. Then we can define the expected <span 
-class="ptmb7t-">generalization loss </span>over the set of examples <span 
-class="cmsy-10"><img 
-src="cmsy10-45.png" alt="E" class="10x-x-45" /> </span>for a
-       hypothesis <span 
-class="cmmi-10">h </span>as:
-       <!--l. 107--><p class="noindent" >
-       <div class="math-display" >
-       <img 
-src="assignment92x.png" alt="               &#x2211;
-GenLossL (h) =      L (y,h(x))&#x22C5;P (x,y)
-              (x,y)&#x2208;E
-       " class="math-display" ></div>
-       <!--l. 111--><p class="noindent" >The best hypothesis <span 
-class="cmmi-10">h</span><sup><span 
-class="cmsy-7">*</span></sup> is the one that minimizes expected generalization loss:
-       <div class="math-display" >
-       <img 
-src="assignment93x.png" alt="h* = argminGenLossL (h)
-     h&#x2208;H
-       " class="math-display" ></div>
-       <!--l. 117--><p class="noindent" >Since <span 
-class="cmmi-10">P</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">x,y</span><span 
-class="cmr-10">) </span>is not known in most cases, the learning agent can only estimate generalization loss with
-       <span 
-class="ptmb7t-">empirical loss </span>on a set of examples <span 
-class="cmmi-10">E </span>of size <span 
-class="cmmi-10">N</span>.
-       <!--l. 121--><p class="noindent" >
-       <div class="math-display" >
-       <img 
-src="assignment94x.png" alt="                  &#x2211;            1-
-EmpLossL,E (h) =      L(y,h(x))N
-                (x,y)&#x2208;E
-       " class="math-display" ></div>
-       <!--l. 125--><p class="noindent" >The estimated best hypothesis <span 
-class="cmmi-10">&#x0125;</span><sup><span 
-class="cmsy-7">*</span></sup> is the one with the minimum empirical loss:
-       <div class="math-display" >
-       <img 
-src="assignment95x.png" alt=" *
-&#x02C6;h  = arghm&#x2208;iHn EmpLossL,E (h ).
-       " class="math-display" ></div>
-       <!--l. 131--><p class="noindent" ><span 
-class="cmmi-10">&#x0125;</span><sup><span 
-class="cmsy-7">*</span></sup> may differ from the true function <span 
-class="cmmi-10">f </span>due to unrealizability, variance, noise and computational complexity.
-       A problem is realiizable if the hypothesis space <span 
-class="cmsy-10"><img 
-src="cmsy10-48.png" alt="H" class="10x-x-48" /> </span>actually contains the true function <span 
-class="cmmi-10">f</span>. <span 
-class="cmmi-10">f </span>may
-       be non-deterministic or noisy - it may return different values of <span 
-class="cmmi-10">f</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">x</span><span 
-class="cmr-10">) </span>for the same value of
-       <span 
-class="cmmi-10">x</span>.
-       <!--l. 137--><p class="noindent" >The early years of machine learning concentrated on <span 
-class="ptmb7t-">small-scale learning </span>where the number of training
-       example ranges from dozens to the low thousands, and generalization loss usually came from
-       approximation error of not having <span 
-class="cmmi-10">f </span>in the hypothesis space. Recently there has been a shift towards
-       <span 
-class="ptmb7t-">large-scale learning </span>with millions of examples, where the generalization loss is dominated by limits of
-       computation.
-       <!--l. 144--><p class="noindent" >
-       <h3 class="sectionHead"><span class="titlemark">3    </span> <a 
- id="x1-30003"></a>Regularization</h3>
-       <!--l. 146--><p class="noindent" >Complicated hypotheses have a tendency to overfit. <span 
-class="ptmb7t-">Regularization </span>is the practice of penalizing complex
-       hypotheses. This is done using a <span 
-class="ptmb7t-">regularization function </span>which depends on the hypothesis space. For
-       example, for polynomials, a choice of regularization function may be the sum of squares of coefficients.
-       Taking regularization into account, we can define the total cost as:
-       <!--l. 152--><p class="noindent" >
-       <div class="math-display" >
-       <img 
-src="assignment96x.png" alt="Cost(h) = EmpLoss (h) + &#x03BB;&#x00D7; Complexity(h)
-       " class="math-display" ></div>
-       <!--l. 156--><p class="noindent" ><span 
-class="cmmi-10">&#x03BB; </span>is a hyperparameter that serves as a conversion rate between loss and complexity. However, it is possible
-       to avoid the conversion factor by encoding the hypothesis as a Turing machine program and counting the
-       number of bits required to encode the data. The <span 
-class="ptmb7t-">minimum description length </span>hypothesis minimizes the
-       total number of bits required.
-       <!--l. 162--><p class="noindent" >Models can also be simplified by reducing the dimensions that they work with. <span 
-class="ptmb7t-">Feature selection </span>can be
-       performed to discard irrelevant attributes.
-       <!--l. 165--><p class="noindent" >
-       <h3 class="sectionHead"><span class="titlemark">4    </span> <a 
- id="x1-40004"></a>Hyperparameter Tuning</h3>
-       <!--l. 167--><p class="noindent" >We also want to select the best values for hyperparameters. The simplest approach is <span 
-class="ptmb7t-">hand-tuning</span>, where
-       we guess parameter values based on past experience or intuition. If there are only a small number of
-       possible values, <span 
-class="ptmb7t-">grid-search </span>can be used, which tries all combinations and sees which performs best on the
-       validation data. If there are too many combinations, then we might use <span 
-class="ptmb7t-">random search </span>by
-       sampling some values randomly and repating as long as we are willing to spend the time and
-       resources.
-
-       <!--l. 175--><p class="noindent" ><span 
-class="ptmb7t-">Bayesian Optimization </span>treats hyperparameter tuning as a machine learning problem in itself. We think of
-       the vector of hyperparameters, <span 
-class="ptmb7t-">x</span> as an input, and try to find the function <span 
-class="cmmi-10">y </span><span 
-class="cmr-10">= </span><span 
-class="cmmi-10">f</span><span 
-class="cmr-10">(</span><span 
-class="ptmb7t-">x</span><span 
-class="cmr-10">) </span>which minimizes the loss
-       <span 
-class="cmmi-10">y</span>. Each pair of <span 
-class="cmr-10">(</span><span 
-class="cmmi-10">y,f</span><span 
-class="cmr-10">(</span><span 
-class="ptmb7t-">x</span><span 
-class="cmr-10">)) </span>can be used to update our belief about the shape of the function <span 
-class="cmmi-10">f</span>. We want to
-       trade off exploitation (choosing parameter values near a previous good result) with exploration (trying novel
-       values).
-       <!--l. 182--><p class="noindent" >An alternative to Bayesian optimization is <span 
-class="ptmb7t-">population-based-training </span>(PBT). PBT first uses random search
-       to train a population of models, each with different hyperparameter values, then training a second
-       generation whose hyperparameter values are determined by the best-performing values of the previous
-       generation, plus random mutation.
-        
-</body></html> 
-
-
-
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Shivram S ai24btech11031@iith.ac.in" />
+  <title>AI1001 - Assignment 9</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="style.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">AI1001 - Assignment 9</h1>
+<p class="author">Shivram S<br />
+<code>ai24btech11031@iith.ac.in</code></p>
+</header>
+<p>Our goal in machine learning is to select a hypothesis that will
+optimally fit future examples. We make the assumption that our future
+examples will be like the past, and follow the same probability
+distribution <strong>stationarity assumption</strong>, and that every
+example is independent of previous examples. Examples that satisfy these
+equations are independent and identically distributed (i.i.d.).</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>P</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>E</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>E</mi><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>P</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>E</mi><mrow><mi>j</mi><mo>+</mo><mn>2</mn></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>…</mi></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mi>P</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>E</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>P</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>E</mi><mi>j</mi></msub><mo>∣</mo><msub><mi>E</mi><mrow><mi>j</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>,</mo><msub><mi>E</mi><mrow><mi>j</mi><mo>−</mo><mn>2</mn></mrow></msub><mo>,</mo><mi>…</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+P(E_j) = E(E_{j+1}) = P(E_{j+2}) = \dots \\
+P(E_j) = P(E_j \mid E_{j-1}, E_{j-2}, \dots)
+\end{aligned}</annotation></semantics></math></p>
+<p>We can say that the optimal hypothesis is the one that minimizes the
+<strong>error rate</strong>: the proportion of times that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>≠</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">h(x) \ne y</annotation></semantics></math>
+for an
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x,y)</annotation></semantics></math>.
+This is done by measuring the model’s performance on a <strong>test
+set</strong> of examples. To prevent the model from peeking at the test
+answers, we split the examples we have into a <strong>training
+set</strong> and a <strong>test set</strong>.</p>
+<p>Our model class might have some parameters (called
+<strong>hyperparameters</strong>) and we might want to find the optimal
+values for them. Tuning the hyperparameters by measuring error rates on
+the test set is also considered as peeking. So, we can divide our data
+data into a <strong>training set</strong> to train the model, a
+<strong>validation set</strong> to tune the hyperparameters, and a
+<strong>test set</strong> to do an unbiased evaluation.</p>
+<p>If we don’t have enough data, we can use <strong>k-fold cross
+validation</strong>. We split the data into
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+equal subsets. We perform
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+rounds of learning. On each round, we use
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>k</mi></mrow><annotation encoding="application/x-tex">1/k</annotation></semantics></math>
+of the data as a validation set and the rest as the training set. The
+average test score of the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+rounds is used. Popular values of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+are 5 and 10, enough to give a better estimate at a cost of 5 to 10
+times longer computation time. When
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">k=n</annotation></semantics></math>
+we call it <strong>leave-one-out cross validation</strong> (LOOCV).</p>
+<h1 id="model-selection">Model Selection</h1>
+<p>Part of model selection is qualitative and subjective. Based on what
+we know about the problem, we might prefer some model classes over
+others. Then we can qualitatively select the best model class based on
+performance on the validation data set.</p>
+<p>We can measure the complexity of a model based on attributes such as
+the number of nodes in a decision tree or the number of neural network
+parameters. The training set error approaches zero as the complexity
+increases, but the validation error starts to increase after some point
+due to overfitting. Some model classes, such as decision trees, never
+recover from overfitting. Others classes such as deep neural networks,
+kernel machines, etc. can use the larger capacity fit a larger number of
+suitable representations, hence the validation error tends to decrease
+as the capacity increases.</p>
+<p>Model classes start to overfit as the capacity approaches the point
+of interpolation, which is when the model exactly fits all the training
+data. This is because the model’s capacity is concentrated on the
+training examples and the remaining capacity is allocated in a way that
+is not representative of the training data.</p>
+<h1 id="loss-functions">Loss Functions</h1>
+<p>In machine learning, it is traditional to express the model’s
+performance in terms of a <strong>loss function</strong> that needs to
+be minimized. The loss function
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>,</mo><mover><mi>y</mi><mo accent="true">̂</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">L(x, y, \hat y)</annotation></semantics></math>
+is the amount of utility lost by predicting
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mover><mi>y</mi><mo accent="true">̂</mo></mover></mrow><annotation encoding="application/x-tex">h(x) = \hat y</annotation></semantics></math>
+when the correct answer is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">f(x) = y</annotation></semantics></math>.
+We can often use a simplified version
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>,</mo><mover><mi>y</mi><mo accent="true">̂</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">L(y, \hat y)</annotation></semantics></math>
+that is independent of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>,</mo><mover><mi>y</mi><mo accent="true">̂</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>U</mi><mi>t</mi><mi>i</mi><mi>l</mi><mi>i</mi><mi>t</mi><mi>y</mi><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mtext mathvariant="normal">result of using </mtext><mspace width="0.333em"></mspace></mrow><mi>y</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> given </mtext><mspace width="0.333em"></mspace></mrow><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>U</mi><mi>t</mi><mi>i</mi><mi>l</mi><mi>i</mi><mi>t</mi><mi>y</mi><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mtext mathvariant="normal">result of using </mtext><mspace width="0.333em"></mspace></mrow><mover><mi>y</mi><mo accent="true">̂</mo></mover><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> given </mtext><mspace width="0.333em"></mspace></mrow><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">L(x, y, \hat y) = Utility(\text{result of using $y$ given $x$})
+- Utility(\text{result of using $\hat y$ given $x$})</annotation></semantics></math></p>
+<p>One misclassification might be worse than another. For example, if a
+spam-detection algorithm classifies a spam email as non-spam, then it’s
+just a minor annoyance, but if a non-spam email is classified as spam,
+then the user might miss an important message. Hence, we might want to
+give a larger value to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>n</mi><mi>o</mi><mi>s</mi><mi>p</mi><mi>a</mi><mi>m</mi><mo>,</mo><mi>s</mi><mi>p</mi><mi>a</mi><mi>m</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">L(nospam,spam)</annotation></semantics></math>
+than to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>s</mi><mi>p</mi><mi>a</mi><mi>m</mi><mo>,</mo><mi>n</mi><mi>o</mi><mi>s</mi><mi>p</mi><mi>a</mi><mi>m</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">L(spam, nospam)</annotation></semantics></math>.</p>
+<p>We consider smaller errors to be better than larger ones. We can
+quantititatively implement this using loss functions such as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mn>1</mn></msub><annotation encoding="application/x-tex">L_1</annotation></semantics></math>
+loss and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mn>2</mn></msub><annotation encoding="application/x-tex">L_2</annotation></semantics></math>
+loss. For discrete-valued inputs, we can use the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mrow><mn>0</mn><mi>/</mi><mn>1</mn></mrow></msub><annotation encoding="application/x-tex">L_{0/1}</annotation></semantics></math>
+loss function.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>L</mi><mn>1</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>,</mo><mover><mi>y</mi><mo accent="true">̂</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mo stretchy="false" form="prefix">|</mo><mi>y</mi><mo>−</mo><mover><mi>y</mi><mo accent="true">̂</mo></mover><mo stretchy="false" form="postfix">|</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>L</mi><mn>2</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>,</mo><mover><mi>y</mi><mo accent="true">̂</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>−</mo><mover><mi>y</mi><mo accent="true">̂</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>L</mi><mrow><mn>0</mn><mi>/</mi><mn>1</mn></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>,</mo><mover><mi>y</mi><mo accent="true">̂</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mrow><mrow><mtext mathvariant="normal">0 if </mtext><mspace width="0.333em"></mspace></mrow><mrow><mi>y</mi><mo>=</mo><mover><mi>y</mi><mo accent="true">̂</mo></mover></mrow><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> else 1</mtext></mrow></mrow></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+    L_1(y, \hat y) &amp;= \lvert y - \hat y \rvert \\
+    L_2(y, \hat y) &amp;= (y - \hat y)^2 \\
+    L_{0/1}(y, \hat y) &amp;= \text{0 if $y = \hat y$ else 1}
+\end{aligned}</annotation></semantics></math></p>
+<p>To compute the expected loss over all input-output pairs, we define a
+probability distribution
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo>,</mo><mi>Y</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">P(X, Y)</annotation></semantics></math>
+over the examples. Then we can define the expected
+<strong>generalization loss</strong> over the set of examples
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℰ</mi><annotation encoding="application/x-tex">\mathcal E</annotation></semantics></math>
+for a hypothesis
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
+as:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mi>e</mi><mi>n</mi><mi>L</mi><mi>o</mi><mi>s</mi><msub><mi>s</mi><mi>L</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>h</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><munder><mo>∑</mo><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><mi>ℰ</mi></mrow></munder><mi>L</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>,</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>⋅</mo><mi>P</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">GenLoss_L(h) = \sum_{(x, y) \in \mathcal E} L(y, h(x)) \cdot P(x, y)</annotation></semantics></math></p>
+<p>The best hypothesis
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>h</mi><mo>*</mo></msup><annotation encoding="application/x-tex">h^*</annotation></semantics></math>
+is the one that minimizes expected generalization loss:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>h</mi><mo>*</mo></msup><mo>=</mo><msub><mo>argmin</mo><mrow><mi>h</mi><mo>∈</mo><mi>ℋ</mi></mrow></msub><mi>G</mi><mi>e</mi><mi>n</mi><mi>L</mi><mi>o</mi><mi>s</mi><msub><mi>s</mi><mi>L</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>h</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">h^* = \mathop{\mathrm{argmin}}_{h \in \mathcal H} GenLoss_L(h)</annotation></semantics></math></p>
+<p>Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">P(x, y)</annotation></semantics></math>
+is not known in most cases, the learning agent can only estimate
+generalization loss with <strong>empirical loss</strong> on a set of
+examples
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>
+of size
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mi>m</mi><mi>p</mi><mi>L</mi><mi>o</mi><mi>s</mi><msub><mi>s</mi><mrow><mi>L</mi><mo>,</mo><mi>E</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>h</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><munder><mo>∑</mo><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><mi>E</mi></mrow></munder><mi>L</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>,</mo><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mfrac><mn>1</mn><mi>N</mi></mfrac></mrow><annotation encoding="application/x-tex">EmpLoss_{L,E} (h) = \sum_{(x, y) \in E} L(y, h(x)) \frac{1}{N}</annotation></semantics></math></p>
+<p>The estimated best hypothesis
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mover><mi>h</mi><mo accent="true">̂</mo></mover><mo>*</mo></msup><annotation encoding="application/x-tex">\hat h^*</annotation></semantics></math>
+is the one with the minimum empirical loss:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mover><mi>h</mi><mo accent="true">̂</mo></mover><mo>*</mo></msup><mo>=</mo><msub><mo>argmin</mo><mrow><mi>h</mi><mo>∈</mo><mi>ℋ</mi></mrow></msub><mi>E</mi><mi>m</mi><mi>p</mi><mi>L</mi><mi>o</mi><mi>s</mi><msub><mi>s</mi><mrow><mi>L</mi><mo>,</mo><mi>E</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>h</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\hat h^* = \mathop{\mathrm{argmin}}_{h \in \mathcal H} EmpLoss_{L,E}(h).</annotation></semantics></math></p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mover><mi>h</mi><mo accent="true">̂</mo></mover><mo>*</mo></msup><annotation encoding="application/x-tex">\hat h^*</annotation></semantics></math>
+may differ from the true function
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
+due to unrealizability, variance, noise and computational complexity. A
+problem is realiizable if the hypothesis space
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℋ</mi><annotation encoding="application/x-tex">\mathcal H</annotation></semantics></math>
+actually contains the true function
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
+may be non-deterministic or noisy - it may return different values of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">f(x)</annotation></semantics></math>
+for the same value of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>.</p>
+<p>The early years of machine learning concentrated on
+<strong>small-scale learning</strong> where the number of training
+example ranges from dozens to the low thousands, and generalization loss
+usually came from approximation error of not having
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
+in the hypothesis space. Recently there has been a shift towards
+<strong>large-scale learning</strong> with millions of examples, where
+the generalization loss is dominated by limits of computation.</p>
+<h1 id="regularization">Regularization</h1>
+<p>Complicated hypotheses have a tendency to overfit.
+<strong>Regularization</strong> is the practice of penalizing complex
+hypotheses. This is done using a <strong>regularization
+function</strong> which depends on the hypothesis space. For example,
+for polynomials, a choice of regularization function may be the sum of
+squares of coefficients. Taking regularization into account, we can
+define the total cost as:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>o</mi><mi>s</mi><mi>t</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>h</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>E</mi><mi>m</mi><mi>p</mi><mi>L</mi><mi>o</mi><mi>s</mi><mi>s</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>h</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>λ</mi><mo>×</mo><mi>C</mi><mi>o</mi><mi>m</mi><mi>p</mi><mi>l</mi><mi>e</mi><mi>x</mi><mi>i</mi><mi>t</mi><mi>y</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>h</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">Cost(h) = EmpLoss(h) + \lambda \times Complexity(h)</annotation></semantics></math></p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>λ</mi><annotation encoding="application/x-tex">\lambda</annotation></semantics></math>
+is a hyperparameter that serves as a conversion rate between loss and
+complexity. However, it is possible to avoid the conversion factor by
+encoding the hypothesis as a Turing machine program and counting the
+number of bits required to encode the data. The <strong>minimum
+description length</strong> hypothesis minimizes the total number of
+bits required.</p>
+<p>Models can also be simplified by reducing the dimensions that they
+work with. <strong>Feature selection</strong> can be performed to
+discard irrelevant attributes.</p>
+<h1 id="hyperparameter-tuning">Hyperparameter Tuning</h1>
+<p>We also want to select the best values for hyperparameters. The
+simplest approach is <strong>hand-tuning</strong>, where we guess
+parameter values based on past experience or intuition. If there are
+only a small number of possible values, <strong>grid-search</strong> can
+be used, which tries all combinations and sees which performs best on
+the validation data. If there are too many combinations, then we might
+use <strong>random search</strong> by sampling some values randomly and
+repating as long as we are willing to spend the time and resources.</p>
+<p><strong>Bayesian Optimization</strong> treats hyperparameter tuning
+as a machine learning problem in itself. We think of the vector of
+hyperparameters,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtext mathvariant="bold">𝐱</mtext><annotation encoding="application/x-tex">\textbf{x}</annotation></semantics></math>
+as an input, and try to find the function
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mtext mathvariant="bold">𝐱</mtext><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">y = f(\textbf{x})</annotation></semantics></math>
+which minimizes the loss
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>.
+Each pair of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>,</mo><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mtext mathvariant="bold">𝐱</mtext><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(y, f(\textbf{x}))</annotation></semantics></math>
+can be used to update our belief about the shape of the function
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>.
+We want to trade off exploitation (choosing parameter values near a
+previous good result) with exploration (trying novel values).</p>
+<p>An alternative to Bayesian optimization is
+<strong>population-based-training</strong> (PBT). PBT first uses random
+search to train a population of models, each with different
+hyperparameter values, then training a second generation whose
+hyperparameter values are determined by the best-performing values of
+the previous generation, plus random mutation.</p>
+</body>
+</html>

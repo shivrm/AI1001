@@ -1,585 +1,224 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
-  "http://www.w3.org/TR/html4/loose.dtd">  
-<html > 
-<head><title>AI1001 - Assignment 12</title> 
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
-<meta name="generator" content="TeX4ht (https://tug.org/tex4ht/)"> 
-<meta name="originator" content="TeX4ht (https://tug.org/tex4ht/)"> 
-<!-- html --> 
-<meta name="src" content="assignment12.tex"> 
-<link rel="stylesheet" type="text/css" href="style.css"> 
-</head><body 
->
-<div class="maketitle">_______________________________________________________________________________________________________________________________________________________________
-
-<h2 class="titleHead">AI1001 - Assignment 12</h2>___________________________________________________
-          <div class="author" ><span 
-class="ptmb7t-">Shivram S</span><br /><span 
-class="cmtt-10">ai24btech11031@iith.ac.in</span></div>
-<br />
-
-       <hr class="float"><div class="float" 
->
-
-       <span 
-class="ptmr7t-x-x-90">Preprint. Under review.</span>
-
-       </div><hr class="endfloat" />
-       </div>
-       <!--l. 16--><p class="noindent" ><span 
-class="ptmb7t-">Deep learning </span>is a family of machine learning techniques in which the hypotheses take the form of
-       algebraic circuits with tunable connection strengths. Deep learning is currently the most widely used
-       technique for applications such as visual object recognition, machine translation, speech recognition, etc.
-       Networks trained by deep learning methods are often called <span 
-class="ptmb7t-">neural networks</span>. They are typically organized
-       into <span 
-class="ptmb7t-">layers</span>.
-       <h3 class="sectionHead"><span class="titlemark">1    </span> <a 
- id="x1-10001"></a>Simple Feedforward Networks</h3>
-       <!--l. 25--><p class="noindent" >A <span 
-class="ptmb7t-">feedforward network </span>has connections only in one direction. Each node computes a function of its inputs
-       and passes the result to its successors. In neural networks, input values are typically continuous, and nodes
-       take continuous inputs and produce continuous outputs. Some of the inputs are <span 
-class="ptmb7t-">parameters </span>of the network,
-       and the network learns by adjusting these parameters.
-       <!--l. 31--><p class="noindent" >Each node within a network is called a <span 
-class="ptmb7t-">unit</span>. Each unit calculates the weighted sum of its inputs, and applies
-       a nonlinear <span 
-class="ptmb7t-">activation function </span>to produce its output.
-       <!--l. 35--><p class="noindent" >
-       <div class="math-display" >
-       <img 
-src="assignment120x.png" alt="       &#x2211;
-aj = gj(  wi,jai)
-        i
-       " class="math-display" ></div>
-       <!--l. 39--><p class="noindent" >We can write this in vector form if we add an extra dummy input <span 
-class="cmmi-10">a</span><sub><span 
-class="cmr-7">0</span></sub> <span 
-class="cmr-10">= 1</span>, and a weight <span 
-class="cmmi-10">w</span><sub><span 
-class="cmr-7">0</span><span 
-class="cmmi-7">,j</span></sub> for that
-       input.
-       <!--l. 42--><p class="noindent" >
-       <div class="math-display" >
-       <img 
-src="assignment121x.png" alt="aj = gj(w&#x22A4;x)
-       " class="math-display" ></div>
-       <!--l. 46--><p class="noindent" >A variety of different activation functions are used, such as
-              <ul class="itemize1">
-              <li class="itemize">
-              <!--l. 49--><p class="noindent" >The logistic/<span 
-class="ptmb7t-">sigmoid </span>function: <span 
-class="cmmi-10">&#x03C3;</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">x</span><span 
-class="cmr-10">) = 1</span><span 
-class="cmmi-10">&#x2215;</span><span 
-class="cmr-10">(1 + </span><span 
-class="cmmi-10">e</span><sup><span 
-class="cmsy-7">-</span><span 
-class="cmmi-7">x</span></sup><span 
-class="cmr-10">)</span>
-              </li>
-              <li class="itemize">
-              <!--l. 50--><p class="noindent" >The <span 
-class="ptmb7t-">rectified linear unit </span>(ReLU): <span 
-class="cmr-10">ReLU</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">x</span><span 
-class="cmr-10">) =</span> <span 
-class="cmr-10">max</span><span 
-class="cmr-10">(0</span><span 
-class="cmmi-10">,x</span><span 
-class="cmr-10">)</span>
-
-              </li>
-              <li class="itemize">
-              <!--l. 51--><p class="noindent" >The <span 
-class="ptmb7t-">softplus </span>function: <span 
-class="cmr-10">softplus</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">x</span><span 
-class="cmr-10">) =</span> <span 
-class="cmr-10">log</span><span 
-class="cmr-10">(1 + </span><span 
-class="cmmi-10">e</span><sup><span 
-class="cmmi-7">x</span></sup><span 
-class="cmr-10">)</span>
-              </li>
-              <li class="itemize">
-              <!--l. 52--><p class="noindent" >The <span 
-class="ptmb7t-">tanh </span>function: <span 
-class="cmr-10">tanh</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">x</span><span 
-class="cmr-10">) = (</span><span 
-class="cmmi-10">e</span><sup><span 
-class="cmr-7">2</span><span 
-class="cmmi-7">x</span></sup> <span 
-class="cmsy-10">- </span><span 
-class="cmr-10">1)</span><span 
-class="cmmi-10">&#x2215;</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">e</span><sup><span 
-class="cmr-7">2</span><span 
-class="cmmi-7">x</span></sup> <span 
-class="cmr-10">+ 1)</span></li></ul>
-       <!--l. 55--><p class="noindent" >According to the <span 
-class="ptmb7t-">universal approximation </span>theorem, a network with just two layers can approximate any
-       continuous function to an arbitrary degree of accuracy.
-       <!--l. 58--><p class="noindent" >Combining multiple units together into a network creates a complex function that is a composition of
-       algebraic expressions represented by individual units. A more general way to think about a network is as a
-       <span 
-class="ptmb7t-">computation graph </span>or <span 
-class="ptmb7t-">dataflow graph</span>. For a two-layer network, the hypothesis can be represented
-       as:
-       <!--l. 63--><p class="noindent" >
-       <div class="math-display" >
-       <img 
-src="assignment122x.png" alt="        (2)   (2) (1)  (1)
-hw(x) = g (W   g  (W   x))
-       " class="math-display" ></div>
-       <!--l. 67--><p class="noindent" >Where <span 
-class="ptmb7t-">W</span><sup><span 
-class="cmr-7">(</span><span 
-class="cmmi-7">n</span><span 
-class="cmr-7">)</span></sup> is the weight matrix and <span 
-class="ptmb7t-">g</span><sup><span 
-class="cmr-7">(</span><span 
-class="cmmi-7">n</span><span 
-class="cmr-7">)</span></sup> is the activation function of the <span 
-class="cmmi-10">n</span><sup><span 
-class="cmmi-7">th</span></sup> layer, This expression
-       corresponds to a computational graph which is <span 
-class="ptmb7t-">fully connected</span>. Choosing the connectivity of the network
-       is also important in achieving effective learning.
-       <!--l. 72--><p class="noindent" >
-       <h3 class="sectionHead"><span class="titlemark">2    </span> <a 
- id="x1-20002"></a>Gradients and Learning</h3>
-       <!--l. 74--><p class="noindent" >We can apply gradient descent to learning the weights in computational graphs. We can calculate the
-       gradient for the network using the <span 
-class="ptmb7t-">chain rule</span>.
-       <!--l. 77--><p class="noindent" >
-       <div class="math-display" >
-       <img 
-src="assignment123x.png" alt="&#x2202;g(f-(x))-   &#x2032;     &#x2202;f(x)
-  &#x2202;x    = g(f(x)) &#x2202;x
-       " class="math-display" ></div>
-       <!--l. 81--><p class="noindent" >For a weight, say <span 
-class="cmmi-10">w</span><sub><span 
-class="cmr-7">3</span><span 
-class="cmmi-7">,</span><span 
-class="cmr-7">5</span></sub> connected to an output unit, we can calculate the gradient with respect to it
-       as
-       <!--l. 84--><p class="noindent" >
-
-       <table 
-class="align-star">
-                      <tr><td 
-class="align-odd"><img 
-src="assignment124x.png" alt="  &#x2202;
-&#x2202;w3,5"  class="frac" align="middle"><span 
-class="cmmi-10">Loss</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">h</span><sub><span 
-class="cmmi-7">w</span></sub><span 
-class="cmr-10">)</span></td>                 <td 
-class="align-even"> <span 
-class="cmr-10">=</span> <img 
-src="assignment125x.png" alt=" &#x2202;
-&#x2202;w3,5-"  class="frac" align="middle"><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">y </span><span 
-class="cmsy-10">-</span><span 
-class="cmmi-10">&#x0177;</span><span 
-class="cmr-10">)</span><sup><span 
-class="cmr-7">2</span></sup></td>                                                                            <td 
-class="align-label"></td>                     <td 
-class="align-label">
-                     </td></tr><tr><td 
-class="align-odd"></td>                                             <td 
-class="align-even"> <span 
-class="cmr-10">= </span><span 
-class="cmsy-10">-</span><span 
-class="cmr-10">2(</span><span 
-class="cmmi-10">y </span><span 
-class="cmsy-10">-</span><span 
-class="cmmi-10">&#x0177;</span><span 
-class="cmr-10">)</span><img 
-src="assignment126x.png" alt="--&#x2202;--
-&#x2202;w3,5"  class="frac" align="middle"><span 
-class="cmmi-10">g</span><sub><span 
-class="cmr-7">5</span></sub><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">in</span><sub><span 
-class="cmr-7">5</span></sub><span 
-class="cmr-10">)</span></td>                                                 <td 
-class="align-label"></td>                 <td 
-class="align-label">
-                 </td></tr><tr><td 
-class="align-odd"></td>                                     <td 
-class="align-even"> <span 
-class="cmr-10">= </span><span 
-class="cmsy-10">-</span><span 
-class="cmr-10">2(</span><span 
-class="cmmi-10">y </span><span 
-class="cmsy-10">-</span><span 
-class="cmmi-10">&#x0177;</span><span 
-class="cmr-10">)</span><span 
-class="cmmi-10">g</span><sub><span 
-class="cmr-7">5</span></sub><span 
-class="cmsy-10">&#x2032;</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">in</span><sub><span 
-class="cmr-7">5</span></sub><span 
-class="cmr-10">)</span><img 
-src="assignment127x.png" alt="-&#x2202;---
-&#x2202;w3,5"  class="frac" align="middle"><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">w</span><sub><span 
-class="cmr-7">0</span><span 
-class="cmmi-7">,</span><span 
-class="cmr-7">5</span></sub> <span 
-class="cmr-10">+ </span><span 
-class="cmmi-10">w</span><sub><span 
-class="cmr-7">3</span><span 
-class="cmmi-7">,</span><span 
-class="cmr-7">5</span></sub><span 
-class="cmmi-10">a</span><sub><span 
-class="cmr-7">3</span></sub> <span 
-class="cmr-10">+ </span><span 
-class="cmmi-10">w</span><sub><span 
-class="cmr-7">4</span><span 
-class="cmmi-7">,</span><span 
-class="cmr-7">5</span></sub><span 
-class="cmmi-10">a</span><sub><span 
-class="cmr-7">4</span></sub><span 
-class="cmr-10">)</span></td>                 <td 
-class="align-label"></td>                 <td 
-class="align-label">
-                 </td></tr><tr><td 
-class="align-odd"></td>                                     <td 
-class="align-even"> <span 
-class="cmr-10">= </span><span 
-class="cmsy-10">-</span><span 
-class="cmr-10">2(</span><span 
-class="cmmi-10">y </span><span 
-class="cmsy-10">-</span><span 
-class="cmmi-10">&#x0177;</span><span 
-class="cmr-10">)</span><span 
-class="cmmi-10">g</span><sub><span 
-class="cmr-7">5</span></sub><span 
-class="cmsy-10">&#x2032;</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">in</span><sub><span 
-class="cmr-7">5</span></sub><span 
-class="cmr-10">)</span><span 
-class="cmmi-10">a</span><sub><span 
-class="cmr-7">3</span></sub></td>                                                                  <td 
-class="align-label"></td>                     <td 
-class="align-label"></td></tr></table>
-       <!--l. 91--><p class="noindent" >For a weight connected to a hidden layer, say <span 
-class="cmmi-10">w</span><sub><span 
-class="cmr-7">1</span><span 
-class="cmmi-7">,</span><span 
-class="cmr-7">3</span></sub>, we can calculate the gradient with respect to it
-       as
-       <!--l. 94--><p class="noindent" >
-       <table 
-class="align-star">
-                                  <tr><td 
-class="align-odd"><img 
-src="assignment128x.png" alt="--&#x2202;--
-&#x2202;w1,3"  class="frac" align="middle"><span 
-class="cmmi-10">Loss</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">h</span><sub><span 
-class="cmmi-7">w</span></sub><span 
-class="cmr-10">)</span></td>                         <td 
-class="align-even"> <span 
-class="cmr-10">= </span><span 
-class="cmsy-10">-</span><span 
-class="cmr-10">2(</span><span 
-class="cmmi-10">y </span><span 
-class="cmsy-10">-</span><span 
-class="cmmi-10">&#x0177;</span><span 
-class="cmr-10">)</span><span 
-class="cmmi-10">g</span><span 
-class="cmsy-10">&#x2032;</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">in</span><sub><span 
-class="cmr-7">5</span></sub><span 
-class="cmr-10">)</span><span 
-class="cmmi-10">w</span><sub><span 
-class="cmr-7">3</span><span 
-class="cmmi-7">,</span><span 
-class="cmr-7">5</span></sub><img 
-src="assignment129x.png" alt="--&#x2202;--
-&#x2202;w1,3"  class="frac" align="middle"><span 
-class="cmmi-10">g</span><sub><span 
-class="cmr-7">3</span></sub><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">in</span><sub><span 
-class="cmr-7">3</span></sub><span 
-class="cmr-10">)</span></td>                         <td 
-class="align-label"></td>                         <td 
-class="align-label">
-                         </td></tr><tr><td 
-class="align-odd"></td>                                             <td 
-class="align-even"> <span 
-class="cmr-10">= </span><span 
-class="cmsy-10">-</span><span 
-class="cmr-10">2(</span><span 
-class="cmmi-10">y </span><span 
-class="cmsy-10">-</span><span 
-class="cmmi-10">&#x0177;</span><span 
-class="cmr-10">)</span><span 
-class="cmmi-10">g</span><span 
-class="cmsy-10">&#x2032;</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">in</span><sub><span 
-class="cmr-7">5</span></sub><span 
-class="cmr-10">)</span><span 
-class="cmmi-10">w</span><sub><span 
-class="cmr-7">3</span><span 
-class="cmmi-7">,</span><span 
-class="cmr-7">5</span></sub><span 
-class="cmmi-10">g</span><sub><span 
-class="cmr-7">3</span></sub><span 
-class="cmsy-10">&#x2032;</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">in</span><sub><span 
-class="cmr-7">3</span></sub><span 
-class="cmr-10">)</span><span 
-class="cmmi-10">x</span><sub><span 
-class="cmr-7">1</span></sub></td>                                    <td 
-class="align-label"></td>                               <td 
-class="align-label"></td></tr></table>
-       <!--l. 99--><p class="noindent" >We can define <span 
-class="cmr-10">&#x0394;</span><sub><span 
-class="cmr-7">5</span></sub> <span 
-class="cmr-10">= 2(</span><span 
-class="cmmi-10">&#x0177;</span> <span 
-class="cmsy-10">- </span><span 
-class="cmmi-10">y</span><span 
-class="cmr-10">)</span><span 
-class="cmmi-10">g</span><sub><span 
-class="cmr-7">5</span></sub><span 
-class="cmsy-10">&#x2032;</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">in</span><sub><span 
-class="cmr-7">5</span></sub><span 
-class="cmr-10">) </span>as a sort of &#8221;perceived error&#8221; at the point where
-       unit 5 represents its input, so that the gradient for <span 
-class="cmmi-10">w</span><sub><span 
-class="cmr-7">3</span><span 
-class="cmmi-7">,</span><span 
-class="cmr-7">5</span></sub> as <span 
-class="cmr-10">&#x0394;</span><sub><span 
-class="cmr-7">5</span></sub><span 
-class="cmmi-10">a</span><sub><span 
-class="cmr-7">3</span></sub>. Similarly, we can define
-       <span 
-class="cmr-10">&#x0394;</span><sub><span 
-class="cmr-7">3</span></sub> <span 
-class="cmr-10">= 2(</span><span 
-class="cmmi-10">&#x0177;</span> <span 
-class="cmsy-10">- </span><span 
-class="cmmi-10">y</span><span 
-class="cmr-10">)</span><span 
-class="cmmi-10">g</span><sub><span 
-class="cmr-7">5</span></sub><span 
-class="cmsy-10">&#x2032;</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">in</span><sub><span 
-class="cmr-7">5</span></sub><span 
-class="cmr-10">)</span><span 
-class="cmmi-10">w</span><sub><span 
-class="cmr-7">3</span><span 
-class="cmmi-7">,</span><span 
-class="cmr-7">5</span></sub><span 
-class="cmmi-10">g</span><sub><span 
-class="cmr-7">3</span></sub><span 
-class="cmsy-10">&#x2032;</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">in</span><sub><span 
-class="cmr-7">3</span></sub><span 
-class="cmr-10">) = &#x0394;</span><sub><span 
-class="cmr-7">5</span></sub><span 
-class="cmmi-10">w</span><sub><span 
-class="cmr-7">3</span><span 
-class="cmmi-7">,</span><span 
-class="cmr-7">5</span></sub><span 
-class="cmmi-10">g</span><sub><span 
-class="cmr-7">3</span></sub><span 
-class="cmsy-10">&#x2032;</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">in</span><sub><span 
-class="cmr-7">3</span></sub><span 
-class="cmr-10">)</span>, so that the gradient for <span 
-class="cmmi-10">w</span><sub><span 
-class="cmr-7">1</span><span 
-class="cmmi-7">,</span><span 
-class="cmr-7">3</span></sub> is <span 
-class="cmr-10">&#x0394;</span><sub><span 
-class="cmr-7">3</span></sub><span 
-class="cmmi-10">a</span><sub><span 
-class="cmr-7">1</span></sub>.
-       This phenomenon, where the error at the output is passed back through the network, is called
-       <span 
-class="ptmb7t-">back-propagation</span>.
-       <!--l. 105--><p class="noindent" >Gradient expressions have factors of the local derivatives <span 
-class="cmmi-10">g</span><sub><span 
-class="cmmi-7">j</span></sub><span 
-class="cmsy-10">&#x2032;</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">in</span><sub><span 
-class="cmmi-7">j</span></sub><span 
-class="cmr-10">)</span>, which are always nonnegative, but can
-       be very close to zero. As a result, deep networks with many layers may suffer from a <span 
-class="ptmb7t-">vanishing gradient</span>,
-       where error signals are extinguished as they are propagated back.
-
-       <!--l. 110--><p class="noindent" >Gradients can be calculated through <span 
-class="ptmb7t-">automatic differentiation</span>. For example, backpropagation uses
-       <span 
-class="ptmb7t-">reverse-mode </span>differentiation, where the chain rule is applied from the outside-in. This has encouraged an
-       approach called <span 
-class="ptmb7t-">end-to-end learning</span>, in which a complex computational system can be composed from
-       several trainable subsystems. The entire system is trained in an end-to-end fashion from input-output
-       pairs.
-       <!--l. 117--><p class="noindent" >
-       <h3 class="sectionHead"><span class="titlemark">3    </span> <a 
- id="x1-30003"></a>Computation Graphs for Deep Learning</h3>
-       <!--l. 119--><p class="noindent" >The input and output nodes of a computational graph connect directly to the input data <span 
-class="ptmb7t-">x </span>and output <span 
-class="cmbx-10">&#x0177;</span>. The
-       encoding of factored data is usually straightforward. Categorical attributes with more than two
-       values are usually encoded using <span 
-class="ptmb7t-">one-hot encoding</span>. An attribute with <span 
-class="cmmi-10">d </span>possible values is
-       represented by <span 
-class="cmmi-10">d </span>separate input bits. This ensures that all the possible values of the attribute are
-       equidistant.
-       <!--l. 126--><p class="noindent" >On the output side, ideally the prediction <span 
-class="cmmi-10">&#x0177;</span> would match the desired value <span 
-class="ptmb7t-">y</span>, and the loss would be zero. In
-       practice, there is some error. It is common to interpret output values as probabilities and use <span 
-class="ptmb7t-">negative log</span>
-       <span 
-class="ptmb7t-">likelihood </span>as the loss function. We look for the <span 
-class="ptmb7t-">w</span><sup><span 
-class="cmsy-7">*</span></sup> that minimizes sum of negative log probabilities of the
-       <span 
-class="cmmi-10">N </span>examples:
-       <!--l. 132--><p class="noindent" >
-       <div class="math-display" >
-       <img 
-src="assignment1210x.png" alt="            &#x2211;N
-w* = argmin -    logP w(yj | xj)
-       w     j=i
-       " class="math-display" ></div>
-       <!--l. 136--><p class="noindent" >It is also common to talk about minimizing the <span 
-class="ptmb7t-">cross-entropy </span>loss, which is a measure of dissimilarity
-       between two distributions <span 
-class="cmmi-10">P </span>and <span 
-class="cmmi-10">Q</span>.
-       <!--l. 139--><p class="noindent" >
-       <div class="math-display" >
-       <img 
-src="assignment1211x.png" alt="                          &#x222B;
-H (P,Q) = Ez~P (z)[logQ (z)] =  P (z)logQ (z)dz
-       " class="math-display" ></div>
-       <!--l. 143--><p class="noindent" >We typically use this definition with <span 
-class="cmmi-10">P </span>being the true distribution over training examples <span 
-class="cmmi-10">P</span><sup><span 
-class="cmsy-7">*</span></sup><span 
-class="cmr-10">(</span><span 
-class="ptmb7t-">x</span><span 
-class="cmmi-10">,</span> <span 
-class="ptmb7t-">y</span><span 
-class="cmr-10">)</span>, and <span 
-class="cmmi-10">Q</span>
-       being the predictive hypothesis <span 
-class="cmmi-10">P</span><sub><span 
-class="ptmb7t-">w</span></sub><span 
-class="cmr-10">(</span><span 
-class="ptmb7t-">y</span><span 
-class="cmsy-10">|</span><span 
-class="ptmb7t-">x</span><span 
-class="cmr-10">)</span>. Minimizing the cross-entropy <span 
-class="cmmi-10">H</span><span 
-class="cmr-10">(</span><span 
-class="cmmi-10">P</span><sup><span 
-class="cmsy-7">*</span></sup><span 
-class="cmr-10">(</span><span 
-class="ptmb7t-">x</span><span 
-class="cmmi-10">,</span> <span 
-class="ptmb7t-">y</span><span 
-class="cmr-10">)</span><span 
-class="cmmi-10">,P</span><sub><span 
-class="ptmb7t-">w</span></sub><span 
-class="cmr-10">(</span><span 
-class="ptmb7t-">y</span><span 
-class="cmsy-10">|</span><span 
-class="ptmb7t-">x</span><span 
-class="cmr-10">)) </span>by
-       adjusting <span 
-class="ptmb7t-">w</span> makes the hypothesis agree with the true distribution. Even though we don&#8217;t have the true
-       distribution <span 
-class="cmmi-10">P</span><sup><span 
-class="cmsy-7">*</span></sup><span 
-class="cmr-10">(</span><span 
-class="ptmb7t-">x</span><span 
-class="cmmi-10">,</span> <span 
-class="ptmb7t-">y</span><span 
-class="cmr-10">)</span>, we have access to some samples from it, so we can approximate it to some
-       degree.
-
-       <!--l. 151--><p class="noindent" >In multiclass classification problems, we need the network to output a categorical distribution - if there are <span 
-class="cmmi-10">d</span>
-       possible answers, we need <span 
-class="cmmi-10">d </span>output nodes that represent probabilities summing to 1. To achieve this, we use
-       a <span 
-class="ptmb7t-">softmax </span>layer. The softmax function is smooth and differentiable, and the exponentials accentuate
-       differences in the inputs.
-       <!--l. 157--><p class="noindent" >
-       <div class="math-display" >
-       <img 
-src="assignment1212x.png" alt="softmax(in) = &#x2211;--eink---
-          k    dk&#x2032;=1eink&#x2032;
-       " class="math-display" ></div>
-       <!--l. 161--><p class="noindent" >Many other output layers are possible. For example, a regression problem might use a linear
-       output layer <span 
-class="cmmi-10">&#x0177;</span><sub><span 
-class="cmmi-7">j</span></sub> <span 
-class="cmr-10">= </span><span 
-class="cmmi-10">in</span><sub><span 
-class="cmmi-7">j</span></sub> without any activation function <span 
-class="cmmi-10">g</span>, and interpret this as the mean of a
-       Gaussian prediction with fixed variance. A <span 
-class="ptmb7t-">mixture density </span>layer represents the output using a
-       mixture of Gaussian distributions, and thus predicts the relative frequency of each mixture
-       component.
-       <!--l. 167--><p class="noindent" >
-       <h3 class="sectionHead"><span class="titlemark">4    </span> <a 
- id="x1-40004"></a>Hidden layers</h3>
-       <!--l. 169--><p class="noindent" >While processing an input vector <span 
-class="ptmb7t-">x</span>, the neural network performs several intermediate computations
-       before producing the output <span 
-class="cmmi-10">y</span>. We can think of the values computed at each layer as a different
-       <span 
-class="ptmri7t-">representation </span>for the input <span 
-class="ptmb7t-">x</span>. Deep networks may form internal layers whose meaning is opaque to
-       humans.
-       <!--l. 174--><p class="noindent" >The hidden layers are typically less diverse than output layers. Internal nodes used sigmoid and tanh
-       exclusively until around 2010, when ReLU and softplus became popular. Experimentation with
-       increasingly deep networks suggest that better learning is obtained with deep and relatively narrow
-       networks.
-        
-</body></html> 
-
-
-
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Shivram S ai24btech11031@iith.ac.in" />
+  <title>AI1001 - Assignment 12</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="style.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">AI1001 - Assignment 12</h1>
+<p class="author">Shivram S<br />
+<code>ai24btech11031@iith.ac.in</code></p>
+</header>
+<p><strong>Deep learning</strong> is a family of machine learning
+techniques in which the hypotheses take the form of algebraic circuits
+with tunable connection strengths. Deep learning is currently the most
+widely used technique for applications such as visual object
+recognition, machine translation, speech recognition, etc. Networks
+trained by deep learning methods are often called <strong>neural
+networks</strong>. They are typically organized into
+<strong>layers</strong>.</p>
+<h1 id="simple-feedforward-networks">Simple Feedforward Networks</h1>
+<p>A <strong>feedforward network</strong> has connections only in one
+direction. Each node computes a function of its inputs and passes the
+result to its successors. In neural networks, input values are typically
+continuous, and nodes take continuous inputs and produce continuous
+outputs. Some of the inputs are <strong>parameters</strong> of the
+network, and the network learns by adjusting these parameters.</p>
+<p>Each node within a network is called a <strong>unit</strong>. Each
+unit calculates the weighted sum of its inputs, and applies a nonlinear
+<strong>activation function</strong> to produce its output.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>j</mi></msub><mo>=</mo><msub><mi>g</mi><mi>j</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><munder><mo>∑</mo><mi>i</mi></munder><msub><mi>w</mi><mrow><mi>i</mi><mo>,</mo><mi>j</mi></mrow></msub><msub><mi>a</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">a_j = g_j (\sum_i w_{i,j} a_i)</annotation></semantics></math></p>
+<p>We can write this in vector form if we add an extra dummy input
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>0</mn></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a_0 = 1</annotation></semantics></math>,
+and a weight
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>w</mi><mrow><mn>0</mn><mo>,</mo><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">w_{0,j}</annotation></semantics></math>
+for that input.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>j</mi></msub><mo>=</mo><msub><mi>g</mi><mi>j</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><msup><mtext mathvariant="bold">𝐰</mtext><mi>⊤</mi></msup><mtext mathvariant="bold">𝐱</mtext><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">a_j = g_j (\textbf{w}^\top \textbf{x})</annotation></semantics></math></p>
+<p>A variety of different activation functions are used, such as</p>
+<ul>
+<li><p>The logistic/<strong>sigmoid</strong> function:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>1</mn><mi>/</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>+</mo><msup><mi>e</mi><mrow><mo>−</mo><mi>x</mi></mrow></msup><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\sigma(x) = 1 / (1 + e^{-x})</annotation></semantics></math></p></li>
+<li><p>The <strong>rectified linear unit</strong> (ReLU):
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>ReLU</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo>max</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathop{\mathrm{ReLU}}(x) = \max(0, x)</annotation></semantics></math></p></li>
+<li><p>The <strong>softplus</strong> function:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>softplus</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>+</mo><msup><mi>e</mi><mi>x</mi></msup><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathop{\mathrm{softplus}}(x) = \log(1 + e^x)</annotation></semantics></math></p></li>
+<li><p>The <strong>tanh</strong> function:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>tanh</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>e</mi><mrow><mn>2</mn><mi>x</mi></mrow></msup><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mi>/</mi><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>e</mi><mrow><mn>2</mn><mi>x</mi></mrow></msup><mo>+</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\tanh(x) = (e^{2x} - 1) / (e^{2x} + 1)</annotation></semantics></math></p></li>
+</ul>
+<p>According to the <strong>universal approximation</strong> theorem, a
+network with just two layers can approximate any continuous function to
+an arbitrary degree of accuracy.</p>
+<p>Combining multiple units together into a network creates a complex
+function that is a composition of algebraic expressions represented by
+individual units. A more general way to think about a network is as a
+<strong>computation graph</strong> or <strong>dataflow graph</strong>.
+For a two-layer network, the hypothesis can be represented as:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mtext mathvariant="bold">𝐰</mtext></msub><mrow><mo stretchy="true" form="prefix">(</mo><mtext mathvariant="bold">𝐱</mtext><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msup><mtext mathvariant="bold">𝐠</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mn>2</mn><mo stretchy="true" form="postfix">)</mo></mrow></msup><mrow><mo stretchy="true" form="prefix">(</mo><msup><mtext mathvariant="bold">𝐖</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mn>2</mn><mo stretchy="true" form="postfix">)</mo></mrow></msup><msup><mtext mathvariant="bold">𝐠</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow></msup><mrow><mo stretchy="true" form="prefix">(</mo><msup><mtext mathvariant="bold">𝐖</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow></msup><mtext mathvariant="bold">𝐱</mtext><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">h_{\textbf{w}}(\textbf{x}) = \textbf{g}^{(2)} (\textbf{W}^{(2)}\textbf{g}^{(1)}(\textbf{W}^{(1)}\textbf{x}))</annotation></semantics></math></p>
+<p>Where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mtext mathvariant="bold">𝐖</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mi>n</mi><mo stretchy="true" form="postfix">)</mo></mrow></msup><annotation encoding="application/x-tex">\textbf{W}^{(n)}</annotation></semantics></math>
+is the weight matrix and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mtext mathvariant="bold">𝐠</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mi>n</mi><mo stretchy="true" form="postfix">)</mo></mrow></msup><annotation encoding="application/x-tex">\textbf{g}^{(n)}</annotation></semantics></math>
+is the activation function of the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>n</mi><mrow><mi>t</mi><mi>h</mi></mrow></msup><annotation encoding="application/x-tex">n^{th}</annotation></semantics></math>
+layer, This expression corresponds to a computational graph which is
+<strong>fully connected</strong>. Choosing the connectivity of the
+network is also important in achieving effective learning.</p>
+<h1 id="gradients-and-learning">Gradients and Learning</h1>
+<p>We can apply gradient descent to learning the weights in
+computational graphs. We can calculate the gradient for the network
+using the <strong>chain rule</strong>.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>∂</mi><mi>g</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mrow><mi>∂</mi><mi>x</mi></mrow></mfrac><mo>=</mo><mi>g</mi><mi>′</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mfrac><mrow><mi>∂</mi><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mrow><mi>∂</mi><mi>x</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{\partial g(f(x))}{\partial x} = g&#39;(f(x)) \frac{\partial f(x)}{\partial x}</annotation></semantics></math></p>
+<p>For a weight, say
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>w</mi><mrow><mn>3</mn><mo>,</mo><mn>5</mn></mrow></msub><annotation encoding="application/x-tex">w_{3,5}</annotation></semantics></math>
+connected to an output unit, we can calculate the gradient with respect
+to it as</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mfrac><mi>∂</mi><mrow><mi>∂</mi><msub><mi>w</mi><mrow><mn>3</mn><mo>,</mo><mn>5</mn></mrow></msub></mrow></mfrac><mi>L</mi><mi>o</mi><mi>s</mi><mi>s</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>h</mi><mi>w</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mfrac><mi>∂</mi><mrow><mi>∂</mi><msub><mi>w</mi><mrow><mn>3</mn><mo>,</mo><mn>5</mn></mrow></msub></mrow></mfrac><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>−</mo><mover><mi>y</mi><mo accent="true">̂</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mo>−</mo><mn>2</mn><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>−</mo><mover><mi>y</mi><mo accent="true">̂</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow><mfrac><mi>∂</mi><mrow><mi>∂</mi><msub><mi>w</mi><mrow><mn>3</mn><mo>,</mo><mn>5</mn></mrow></msub></mrow></mfrac><msub><mi>g</mi><mn>5</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><msub><mi>n</mi><mn>5</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mo>−</mo><mn>2</mn><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>−</mo><mover><mi>y</mi><mo accent="true">̂</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>g</mi><mn>5</mn></msub><mi>′</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><msub><mi>n</mi><mn>5</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mfrac><mi>∂</mi><mrow><mi>∂</mi><msub><mi>w</mi><mrow><mn>3</mn><mo>,</mo><mn>5</mn></mrow></msub></mrow></mfrac><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>w</mi><mrow><mn>0</mn><mo>,</mo><mn>5</mn></mrow></msub><mo>+</mo><msub><mi>w</mi><mrow><mn>3</mn><mo>,</mo><mn>5</mn></mrow></msub><msub><mi>a</mi><mn>3</mn></msub><mo>+</mo><msub><mi>w</mi><mrow><mn>4</mn><mo>,</mo><mn>5</mn></mrow></msub><msub><mi>a</mi><mn>4</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mo>−</mo><mn>2</mn><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>−</mo><mover><mi>y</mi><mo accent="true">̂</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>g</mi><mn>5</mn></msub><mi>′</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><msub><mi>n</mi><mn>5</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>a</mi><mn>3</mn></msub></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+\frac{\partial}{\partial w_{3,5}} Loss(h_w) &amp;= \frac{\partial}{\partial w_{3,5}}(y - \hat y)^2 \\
+&amp;= -2(y - \hat y) \frac{\partial}{\partial w_{3,5}} g_5(in_5) \\
+&amp;= -2(y - \hat y) g_5&#39;(in_5) \frac{\partial}{\partial w_{3,5}} (w_{0,5} + w_{3,5}a_3 + w_{4,5}a_4) \\
+&amp;= -2(y - \hat y)g_5&#39;(in_5)a_3
+\end{aligned}</annotation></semantics></math></p>
+<p>For a weight connected to a hidden layer, say
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>w</mi><mrow><mn>1</mn><mo>,</mo><mn>3</mn></mrow></msub><annotation encoding="application/x-tex">w_{1,3}</annotation></semantics></math>,
+we can calculate the gradient with respect to it as</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mfrac><mi>∂</mi><mrow><mi>∂</mi><msub><mi>w</mi><mrow><mn>1</mn><mo>,</mo><mn>3</mn></mrow></msub></mrow></mfrac><mi>L</mi><mi>o</mi><mi>s</mi><mi>s</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>h</mi><mi>w</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mo>−</mo><mn>2</mn><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>−</mo><mover><mi>y</mi><mo accent="true">̂</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow><mi>g</mi><mi>′</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><msub><mi>n</mi><mn>5</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>w</mi><mrow><mn>3</mn><mo>,</mo><mn>5</mn></mrow></msub><mfrac><mi>∂</mi><mrow><mi>∂</mi><msub><mi>w</mi><mrow><mn>1</mn><mo>,</mo><mn>3</mn></mrow></msub></mrow></mfrac><msub><mi>g</mi><mn>3</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><msub><mi>n</mi><mn>3</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mo>−</mo><mn>2</mn><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>−</mo><mover><mi>y</mi><mo accent="true">̂</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow><mi>g</mi><mi>′</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><msub><mi>n</mi><mn>5</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>w</mi><mrow><mn>3</mn><mo>,</mo><mn>5</mn></mrow></msub><msub><mi>g</mi><mn>3</mn></msub><mi>′</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><msub><mi>n</mi><mn>3</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>x</mi><mn>1</mn></msub></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+\frac{\partial}{\partial w_{1,3}} Loss(h_w) &amp;= -2(y - \hat y)g&#39;(in_5) w_{3,5} \frac{\partial}{\partial w_{1,3}} g_3(in_3) \\
+&amp;= -2(y - \hat y)g&#39;(in_5) w_{3,5} g_3&#39;(in_3) x_1
+\end{aligned}</annotation></semantics></math></p>
+<p>We can define
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Δ</mi><mn>5</mn></msub><mo>=</mo><mn>2</mn><mrow><mo stretchy="true" form="prefix">(</mo><mover><mi>y</mi><mo accent="true">̂</mo></mover><mo>−</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>g</mi><mn>5</mn></msub><mi>′</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><msub><mi>n</mi><mn>5</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\Delta_5 = 2(\hat y - y) g_5&#39;(in_5)</annotation></semantics></math>
+as a sort of "perceived error" at the point where unit 5 represents its
+input, so that the gradient for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>w</mi><mrow><mn>3</mn><mo>,</mo><mn>5</mn></mrow></msub><annotation encoding="application/x-tex">w_{3,5}</annotation></semantics></math>
+as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Δ</mi><mn>5</mn></msub><msub><mi>a</mi><mn>3</mn></msub></mrow><annotation encoding="application/x-tex">\Delta_5 a_3</annotation></semantics></math>.
+Similarly, we can define
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Δ</mi><mn>3</mn></msub><mo>=</mo><mn>2</mn><mrow><mo stretchy="true" form="prefix">(</mo><mover><mi>y</mi><mo accent="true">̂</mo></mover><mo>−</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>g</mi><mn>5</mn></msub><mi>′</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><msub><mi>n</mi><mn>5</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>w</mi><mrow><mn>3</mn><mo>,</mo><mn>5</mn></mrow></msub><msub><mi>g</mi><mn>3</mn></msub><mi>′</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><msub><mi>n</mi><mn>3</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>Δ</mi><mn>5</mn></msub><msub><mi>w</mi><mrow><mn>3</mn><mo>,</mo><mn>5</mn></mrow></msub><msub><mi>g</mi><mn>3</mn></msub><mi>′</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><msub><mi>n</mi><mn>3</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\Delta_3 = 2(\hat y - y) g_5&#39;(in_5) w_{3,5} g_3&#39;(in_3) = \Delta_5 w_{3,5} g_3&#39;(in_3)</annotation></semantics></math>,
+so that the gradient for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>w</mi><mrow><mn>1</mn><mo>,</mo><mn>3</mn></mrow></msub><annotation encoding="application/x-tex">w_{1,3}</annotation></semantics></math>
+is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Δ</mi><mn>3</mn></msub><msub><mi>a</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">\Delta_3 a_1</annotation></semantics></math>.
+This phenomenon, where the error at the output is passed back through
+the network, is called <strong>back-propagation</strong>.</p>
+<p>Gradient expressions have factors of the local derivatives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>g</mi><mi>j</mi></msub><mi>′</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><msub><mi>n</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">g_j&#39;(in_j)</annotation></semantics></math>,
+which are always nonnegative, but can be very close to zero. As a
+result, deep networks with many layers may suffer from a
+<strong>vanishing gradient</strong>, where error signals are
+extinguished as they are propagated back.</p>
+<p>Gradients can be calculated through <strong>automatic
+differentiation</strong>. For example, backpropagation uses
+<strong>reverse-mode</strong> differentiation, where the chain rule is
+applied from the outside-in. This has encouraged an approach called
+<strong>end-to-end learning</strong>, in which a complex computational
+system can be composed from several trainable subsystems. The entire
+system is trained in an end-to-end fashion from input-output pairs.</p>
+<h1 id="computation-graphs-for-deep-learning">Computation Graphs for
+Deep Learning</h1>
+<p>The input and output nodes of a computational graph connect directly
+to the input data <strong>x</strong> and output
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>𝐲</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\mathbf{\hat y}</annotation></semantics></math>.
+The encoding of factored data is usually straightforward. Categorical
+attributes with more than two values are usually encoded using
+<strong>one-hot encoding</strong>. An attribute with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
+possible values is represented by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
+separate input bits. This ensures that all the possible values of the
+attribute are equidistant.</p>
+<p>On the output side, ideally the prediction
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>y</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat y</annotation></semantics></math>
+would match the desired value
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtext mathvariant="bold">𝐲</mtext><annotation encoding="application/x-tex">\textbf{y}</annotation></semantics></math>,
+and the loss would be zero. In practice, there is some error. It is
+common to interpret output values as probabilities and use
+<strong>negative log likelihood</strong> as the loss function. We look
+for the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mtext mathvariant="bold">𝐰</mtext><mo>*</mo></msup><annotation encoding="application/x-tex">\textbf{w}^*</annotation></semantics></math>
+that minimizes sum of negative log probabilities of the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
+examples:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mtext mathvariant="bold">𝐰</mtext><mo>*</mo></msup><mo>=</mo><msub><mo>argmin</mo><mtext mathvariant="bold">𝐰</mtext></msub><mo>−</mo><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mi>i</mi></mrow><mi>N</mi></munderover><mo>log</mo><msub><mi>P</mi><mtext mathvariant="bold">𝐰</mtext></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mtext mathvariant="bold">𝐲</mtext><mi>j</mi></msub><mo>∣</mo><msub><mtext mathvariant="bold">𝐱</mtext><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\textbf{w}^* = \mathop{\mathrm{argmin}}_{\textbf{w}} -\sum_{j=i}^N \log P_{\textbf{w}}(\textbf{y}_j \mid \textbf{x}_j)</annotation></semantics></math></p>
+<p>It is also common to talk about minimizing the
+<strong>cross-entropy</strong> loss, which is a measure of dissimilarity
+between two distributions
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>P</mi><mo>,</mo><mi>Q</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mtext mathvariant="bold">𝐄</mtext><mrow><mtext mathvariant="bold">𝐳</mtext><mo>∼</mo><mi>P</mi><mrow><mo stretchy="true" form="prefix">(</mo><mtext mathvariant="bold">𝐳</mtext><mo stretchy="true" form="postfix">)</mo></mrow></mrow></msub><mrow><mo stretchy="true" form="prefix">[</mo><mo>log</mo><mi>Q</mi><mrow><mo stretchy="true" form="prefix">(</mo><mtext mathvariant="bold">𝐳</mtext><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">]</mo></mrow><mo>=</mo><mo>∫</mo><mi>P</mi><mrow><mo stretchy="true" form="prefix">(</mo><mtext mathvariant="bold">𝐳</mtext><mo stretchy="true" form="postfix">)</mo></mrow><mo>log</mo><mi>Q</mi><mrow><mo stretchy="true" form="prefix">(</mo><mtext mathvariant="bold">𝐳</mtext><mo stretchy="true" form="postfix">)</mo></mrow><mi>d</mi><mtext mathvariant="bold">𝐳</mtext></mrow><annotation encoding="application/x-tex">H(P, Q) = \textbf{E}_{\textbf{z} \sim P(\textbf{z})} [\log Q(\textbf{z})] = \int P(\textbf{z}) \log Q(\textbf{z}) d\textbf{z}</annotation></semantics></math></p>
+<p>We typically use this definition with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+being the true distribution over training examples
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>P</mi><mo>*</mo></msup><mrow><mo stretchy="true" form="prefix">(</mo><mtext mathvariant="bold">𝐱</mtext><mo>,</mo><mtext mathvariant="bold">𝐲</mtext><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">P^*(\textbf{x}, \textbf{y})</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>
+being the predictive hypothesis
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mtext mathvariant="bold">𝐰</mtext></msub><mrow><mo stretchy="true" form="prefix">(</mo><mtext mathvariant="bold">𝐲</mtext><mo stretchy="false" form="prefix">|</mo><mtext mathvariant="bold">𝐱</mtext><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">P_{\textbf{w}}(\textbf{y} | \textbf{x})</annotation></semantics></math>.
+Minimizing the cross-entropy
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>P</mi><mo>*</mo></msup><mrow><mo stretchy="true" form="prefix">(</mo><mtext mathvariant="bold">𝐱</mtext><mo>,</mo><mtext mathvariant="bold">𝐲</mtext><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><msub><mi>P</mi><mtext mathvariant="bold">𝐰</mtext></msub><mrow><mo stretchy="true" form="prefix">(</mo><mtext mathvariant="bold">𝐲</mtext><mo stretchy="false" form="prefix">|</mo><mtext mathvariant="bold">𝐱</mtext><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">H(P^*(\textbf{x}, \textbf{y}), P_{\textbf{w}}(\textbf{y} | \textbf{x}))</annotation></semantics></math>
+by adjusting
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtext mathvariant="bold">𝐰</mtext><annotation encoding="application/x-tex">\textbf{w}</annotation></semantics></math>
+makes the hypothesis agree with the true distribution. Even though we
+don’t have the true distribution
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>P</mi><mo>*</mo></msup><mrow><mo stretchy="true" form="prefix">(</mo><mtext mathvariant="bold">𝐱</mtext><mo>,</mo><mtext mathvariant="bold">𝐲</mtext><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">P^*(\textbf{x}, \textbf{y})</annotation></semantics></math>,
+we have access to some samples from it, so we can approximate it to some
+degree.</p>
+<p>In multiclass classification problems, we need the network to output
+a categorical distribution - if there are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
+possible answers, we need
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
+output nodes that represent probabilities summing to 1. To achieve this,
+we use a <strong>softmax</strong> layer. The softmax function is smooth
+and differentiable, and the exponentials accentuate differences in the
+inputs.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>softmax</mo><msub><mrow><mo stretchy="true" form="prefix">(</mo><mtext mathvariant="bold">𝐢𝐧</mtext><mo stretchy="true" form="postfix">)</mo></mrow><mi>k</mi></msub><mo>=</mo><mfrac><msup><mi>e</mi><mrow><mi>i</mi><msub><mi>n</mi><mi>k</mi></msub></mrow></msup><mrow><munderover><mo>∑</mo><mrow><mi>k</mi><mi>′</mi><mo>=</mo><mn>1</mn></mrow><mi>d</mi></munderover><msup><mi>e</mi><mrow><mi>i</mi><msub><mi>n</mi><mrow><mi>k</mi><mi>′</mi></mrow></msub></mrow></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">\mathop{\mathrm{softmax}}(\textbf{in})_k = \frac{e^{in_k}}{\sum_{k&#39;=1}^d e^{in_{k&#39;}}}</annotation></semantics></math></p>
+<p>Many other output layers are possible. For example, a regression
+problem might use a linear output layer
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover><mi>y</mi><mo accent="true">̂</mo></mover><mi>j</mi></msub><mo>=</mo><mi>i</mi><msub><mi>n</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">\hat y_j = in_j</annotation></semantics></math>
+without any activation function
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math>,
+and interpret this as the mean of a Gaussian prediction with fixed
+variance. A <strong>mixture density</strong> layer represents the output
+using a mixture of Gaussian distributions, and thus predicts the
+relative frequency of each mixture component.</p>
+<h1 id="hidden-layers">Hidden layers</h1>
+<p>While processing an input vector <strong>x</strong>, the neural
+network performs several intermediate computations before producing the
+output
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>.
+We can think of the values computed at each layer as a different
+<span><em>representation</em></span> for the input <strong>x</strong>.
+Deep networks may form internal layers whose meaning is opaque to
+humans.</p>
+<p>The hidden layers are typically less diverse than output layers.
+Internal nodes used sigmoid and tanh exclusively until around 2010, when
+ReLU and softplus became popular. Experimentation with increasingly deep
+networks suggest that better learning is obtained with deep and
+relatively narrow networks.</p>
+</body>
+</html>

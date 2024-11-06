@@ -1,77 +1,85 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
-  "http://www.w3.org/TR/html4/loose.dtd">  
-<html > 
-<head><title>AI1001 - Assignment 5</title> 
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
-<meta name="generator" content="TeX4ht (https://tug.org/tex4ht/)"> 
-<meta name="originator" content="TeX4ht (https://tug.org/tex4ht/)"> 
-<!-- html --> 
-<meta name="src" content="assignment5.tex"> 
-<link rel="stylesheet" type="text/css" href="style.css"> 
-</head><body 
->
-<div class="maketitle">_______________________________________________________________________________________________________________________________________________________________
-
-<h2 class="titleHead">AI1001 - Assignment 5</h2>_____________________________________________________
-          <div class="author" ><span 
-class="ptmb7t-">Shivram S</span><br /><span 
-class="cmtt-10">ai24btech11031@iith.ac.in</span></div>
-<br />
-
-       <hr class="float"><div class="float" 
->
-
-       <span 
-class="ptmr7t-x-x-90">Preprint. Under review.</span>
-
-       </div><hr class="endfloat" />
-       </div>
-       <!--l. 10--><p class="noindent" >The sharp rise in computing power over the years has given us several new tools for scientific computation.
-       Systems such as Magma and Mathematica are used for symbolic computation. SAT (satisfiability)
-       and SMT (satisfiability modulo theory) solvers are used for making logical deductions from
-       hypotheses.
-       <!--l. 16--><p class="noindent" >Many promising uses of computers are also emerging, such as machine learning, proof assistants, and large
-       language models (LLMs).
-       <h3 class="sectionHead"><span class="titlemark">1    </span> <a 
- id="x1-10001"></a>Proof Assistants in Mathematics</h3>
-       <!--l. 21--><p class="noindent" >The first machine-generated proof was a proof of the <span 
-class="ptmb7t-">four-color theorem</span>. This proof involved reducing a
-       graph to one of a few thousand cases, and showing that each of these cases was four-colorable.
-       Showing the colourability of each of these cases was tedious, and a computer greatly simplified the
-       process.
-       <!--l. 28--><p class="noindent" >Proof assistants are programs that verify the correctness of a proof using logical deduction based on
-       predefined rules. <span 
-class="ptmb7t-">Lean </span>and <span 
-class="ptmb7t-">Coq </span>are two widely used proof assistants. They include a library of pre-proved
-       lemmas which simplify the creation of new proofs
-       <!--l. 34--><p class="noindent" >Proof assistants can be used to explore proofs that are beyond human intuition, existing literature, and
-       connections to other ways of thinking. They can be used in tandem with AI to find new proof strategies and
-       to automatically generate simple proofs.
-       <!--l. 40--><p class="noindent" >
-       <h3 class="sectionHead"><span class="titlemark">2    </span> <a 
- id="x1-20002"></a>Machine Learning in Mathematics</h3>
-       <!--l. 42--><p class="noindent" >Machine learning has been used to discover unintuitive mathematical relations. For example, it was used in
-       knot theory to discover the relation between the hyperbolic invariants and the signature of a
-       knot.
-       <!--l. 46--><p class="noindent" >The authors trained a neural network on a database of two million knots to predict the signature of a knot
-       based on its hyperbolic invariants. Then, based on a <span 
-class="ptmb7t-">saliency analysis </span>(checking the sensitivity of the
-       network to perturbations of a parameter), they determined that the signature depends mostly on three out
-       of the three dozen parameters. This allowed them to propose a conjecture that explained the
-       relation.
-       <!--l. 54--><p class="noindent" >
-       <h3 class="sectionHead"><span class="titlemark">3    </span> <a 
- id="x1-30003"></a>LLMs in Mathematics</h3>
-       <!--l. 56--><p class="noindent" >LLMs show promise in suggesting proof strategies and generating simple proofs. An LLM can be
-       connected to traditional tools like WolframAlpha to boost its power to do mathematics. By making an
-       LLM produce output in a proof assistant language, we can ensure some level of correctness.
-       Conversing with the model can also stimulate mathematical thought indirectly by suggesting proof
-       approaches.
-       <!--l. 63--><p class="noindent" >Tools such as GitHub Copilot have shown moderate productivity increase when writing code. More
-       advanced tools such as Lean Copilot are in development to suggest proofs for short mathematical
-       statements, using proof assistants to filter out hallucinations and provide feedback to the AI.
-        
-</body></html> 
-
-
-
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Shivram S ai24btech11031@iith.ac.in" />
+  <title>AI1001 - Assignment 5</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="style.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">AI1001 - Assignment 5</h1>
+<p class="author">Shivram S<br />
+<code>ai24btech11031@iith.ac.in</code></p>
+</header>
+<p>The sharp rise in computing power over the years has given us several
+new tools for scientific computation. Systems such as Magma and
+Mathematica are used for symbolic computation. SAT (satisfiability) and
+SMT (satisfiability modulo theory) solvers are used for making logical
+deductions from hypotheses.</p>
+<p>Many promising uses of computers are also emerging, such as machine
+learning, proof assistants, and large language models (LLMs).</p>
+<h1 id="proof-assistants-in-mathematics">Proof Assistants in
+Mathematics</h1>
+<p>The first machine-generated proof was a proof of the
+<strong>four-color theorem</strong>. This proof involved reducing a
+graph to one of a few thousand cases, and showing that each of these
+cases was four-colorable. Showing the colourability of each of these
+cases was tedious, and a computer greatly simplified the process.</p>
+<p>Proof assistants are programs that verify the correctness of a proof
+using logical deduction based on predefined rules. <strong>Lean</strong>
+and <strong>Coq</strong> are two widely used proof assistants. They
+include a library of pre-proved lemmas which simplify the creation of
+new proofs</p>
+<p>Proof assistants can be used to explore proofs that are beyond human
+intuition, existing literature, and connections to other ways of
+thinking. They can be used in tandem with AI to find new proof
+strategies and to automatically generate simple proofs.</p>
+<h1 id="machine-learning-in-mathematics">Machine Learning in
+Mathematics</h1>
+<p>Machine learning has been used to discover unintuitive mathematical
+relations. For example, it was used in knot theory to discover the
+relation between the hyperbolic invariants and the signature of a
+knot.</p>
+<p>The authors trained a neural network on a database of two million
+knots to predict the signature of a knot based on its hyperbolic
+invariants. Then, based on a <strong>saliency analysis</strong>
+(checking the sensitivity of the network to perturbations of a
+parameter), they determined that the signature depends mostly on three
+out of the three dozen parameters. This allowed them to propose a
+conjecture that explained the relation.</p>
+<h1 id="llms-in-mathematics">LLMs in Mathematics</h1>
+<p>LLMs show promise in suggesting proof strategies and generating
+simple proofs. An LLM can be connected to traditional tools like
+WolframAlpha to boost its power to do mathematics. By making an LLM
+produce output in a proof assistant language, we can ensure some level
+of correctness. Conversing with the model can also stimulate
+mathematical thought indirectly by suggesting proof approaches.</p>
+<p>Tools such as GitHub Copilot have shown moderate productivity
+increase when writing code. More advanced tools such as Lean Copilot are
+in development to suggest proofs for short mathematical statements,
+using proof assistants to filter out hallucinations and provide feedback
+to the AI.</p>
+</body>
+</html>
